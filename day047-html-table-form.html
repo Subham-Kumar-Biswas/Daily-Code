@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Day 47 - HTML Table and Form</title>
+</head>
+<body>
+  <h2>User Info Collection</h2>
+  
+  <table border="1" cellpadding="8">
+    <tr>
+      <th colspan="2">Registration Details</th>
+    </tr>
+    <tr>
+      <td><label for="name">Full Name:</label></td>
+      <td><input type="text" id="name" name="fullname" required></td>
+    </tr>
+    <tr>
+      <td><label for="email">Email:</label></td>
+      <td><input type="email" id="email" name="email" required></td>
+    </tr>
+    <tr>
+      <td><label for="age">Age:</label></td>
+      <td><input type="number" id="age" name="age" min="1" max="100"></td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center">
+        <input type="submit" value="Submit">
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
