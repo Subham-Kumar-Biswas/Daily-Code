@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Day 53 - FAQ Accordion</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    details {
+      background: #fff;
+      border-radius: 6px;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    summary {
+      font-weight: bold;
+      cursor: pointer;
+      outline: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::before {
+      content: '▶ ';
+      color: #007bff;
+    }
+
+    details[open] summary::before {
+      content: '▼ ';
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Frequently Asked Questions</h1>
+
+  <details>
+    <summary>What is HTML?</summary>
+    <p>HTML stands for HyperText Markup Language. It is used to structure content on the web.</p>
+  </details>
+
+  <details>
+    <summary>Is HTML a programming language?</summary>
+    <p>No, HTML is a markup language. It defines the structure of web pages using tags.</p>
+  </details>
+
+  <details>
+    <summary>Can I use HTML without CSS?</summary>
+    <p>Yes, but CSS is used to style HTML content and make it look better.</p>
+  </details>
+
+</body>
+</html>
