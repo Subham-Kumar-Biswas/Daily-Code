@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Day 60 - Pricing Table</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .pricing-table {
+      display: flex;
+      gap: 20px;
+    }
+
+    .plan {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      width: 250px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .plan h2 {
+      margin: 0;
+      font-size: 24px;
+      color: #333;
+    }
+
+    .price {
+      font-size: 32px;
+      color: #007bff;
+      margin: 15px 0;
+    }
+
+    .features {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .features li {
+      margin: 10px 0;
+      color: #555;
+    }
+
+    .plan button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .plan button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pricing-table">
+    <div class="plan">
+      <h2>Basic</h2>
+      <p class="price">₹499/mo</p>
+      <ul class="features">
+        <li>1 Website</li>
+        <li>1 GB Storage</li>
+        <li>Email Support</li>
+      </ul>
+      <button>Choose Plan</button>
+    </div>
+
+    <div class="plan">
+      <h2>Pro</h2>
+      <p class="price">₹999/mo</p>
+      <ul class="features">
+        <li>5 Websites</li>
+        <li>5 GB Storage</li>
+        <li>Priority Support</li>
+      </ul>
+      <button>Choose Plan</button>
+    </div>
+
+    <div class="plan">
+      <h2>Ultimate</h2>
+      <p class="price">₹1999/mo</p>
+      <ul class="features">
+        <li>Unlimited Sites</li>
+        <li>50 GB Storage</li>
+        <li>24/7 Support</li>
+      </ul>
+      <button>Choose Plan</button>
+    </div>
+  </div>
+
+</body>
+</html>
