@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 68 - Pricing Table</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .pricing-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .pricing-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      width: 280px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-5px);
+    }
+
+    h2 {
+      margin: 0 0 10px;
+    }
+
+    .price {
+      font-size: 28px;
+      color: #0077b6;
+      margin: 10px 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    ul li {
+      margin: 8px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #0077b6;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #023e8a;
+    }
+  </style>
+</head>
+<body>
+  <div class="pricing-container">
+    <div class="pricing-card">
+      <h2>Basic</h2>
+      <div class="price">$9/mo</div>
+      <ul>
+        <li>1 Website</li>
+        <li>5GB Storage</li>
+        <li>Email Support</li>
+      </ul>
+      <a href="#" class="btn">Choose Plan</a>
+    </div>
+
+    <div class="pricing-card">
+      <h2>Pro</h2>
+      <div class="price">$29/mo</div>
+      <ul>
+        <li>10 Websites</li>
+        <li>50GB Storage</li>
+        <li>Priority Support</li>
+      </ul>
+      <a href="#" class="btn">Choose Plan</a>
+    </div>
+
+    <div class="pricing-card">
+      <h2>Enterprise</h2>
+      <div class="price">$99/mo</div>
+      <ul>
+        <li>Unlimited Websites</li>
+        <li>200GB Storage</li>
+        <li>Dedicated Support</li>
+      </ul>
+      <a href="#" class="btn">Choose Plan</a>
+    </div>
+  </div>
+</body>
+</html>
