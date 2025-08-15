@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 69 - Product Card</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      width: 300px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .card-content h3 {
+      margin: 10px 0;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .price {
+      font-size: 18px;
+      color: #0077b6;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #0077b6;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #023e8a;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="https://via.placeholder.com/300x200" alt="Product Image">
+    <div class="card-content">
+      <h3>Wireless Headphones</h3>
+      <p class="price">$59.99</p>
+      <a href="#" class="btn">Buy Now</a>
+    </div>
+  </div>
+</body>
+</html>
