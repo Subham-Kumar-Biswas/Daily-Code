@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 72 - Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #1e293b;
+      color: #fff;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 20px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+      margin: 12px 0;
+      padding: 8px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+      background: #334155;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      background: #f1f5f9;
+    }
+
+    .main-content h1 {
+      margin-bottom: 20px;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Dashboard</h2>
+    <a href="#">🏠 Home</a>
+    <a href="#">📊 Analytics</a>
+    <a href="#">👤 Profile</a>
+    <a href="#">⚙️ Settings</a>
+  </div>
+
+  <div class="main-content">
+    <h1>Welcome Back!</h1>
+    <div class="card-container">
+      <div class="card">
+        <h3>Users</h3>
+        <p>1,245</p>
+      </div>
+      <div class="card">
+        <h3>Revenue</h3>
+        <p>$12,340</p>
+      </div>
+      <div class="card">
+        <h3>Tasks</h3>
+        <p>23 Pending</p>
+      </div>
+      <div class="card">
+        <h3>Messages</h3>
+        <p>7 New</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+                
