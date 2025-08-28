@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 82 - Pricing Cards</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .pricing-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      width: 280px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .card h2 {
+      margin: 0;
+      color: #333;
+    }
+
+    .price {
+      font-size: 2rem;
+      margin: 15px 0;
+      color: #3498db;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    ul li {
+      margin: 10px 0;
+      color: #555;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      background: #3498db;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <div class="pricing-container">
+    <div class="card">
+      <h2>Basic</h2>
+      <p class="price">$9/mo</p>
+      <ul>
+        <li>✔ 5 Projects</li>
+        <li>✔ 10 GB Storage</li>
+        <li>✔ Email Support</li>
+      </ul>
+      <button>Choose Plan</button>
+    </div>
+
+    <div class="card">
+      <h2>Standard</h2>
+      <p class="price">$19/mo</p>
+      <ul>
+        <li>✔ 15 Projects</li>
+        <li>✔ 50 GB Storage</li>
+        <li>✔ Priority Support</li>
+      </ul>
+      <button>Choose Plan</button>
+    </div>
+
+    <div class="card">
+      <h2>Premium</h2>
+      <p class="price">$29/mo</p>
+      <ul>
+        <li>✔ Unlimited Projects</li>
+        <li>✔ 200 GB Storage</li>
+        <li>✔ 24/7 Support</li>
+      </ul>
+      <button>Choose Plan</button>
+    </div>
+  </div>
+</body>
+</html>
