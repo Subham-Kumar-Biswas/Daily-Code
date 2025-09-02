@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Project - Digital Clock</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1d3557, #457b9d);
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .clock {
+      background: #f1faee;
+      padding: 30px 60px;
+      border-radius: 15px;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+      font-size: 3rem;
+      color: #1d3557;
+      text-align: center;
+      letter-spacing: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="clock">
+    12:45:30
+  </div>
+</body>
+</html>
