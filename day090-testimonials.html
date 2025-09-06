@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 90 - Testimonials</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .testimonials {
+      max-width: 1000px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .testimonials h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+
+    .card p {
+      font-style: italic;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .card h4 {
+      margin: 0;
+      color: #0077b6;
+    }
+  </style>
+</head>
+<body>
+  <section class="testimonials">
+    <h2>What Our Clients Say</h2>
+    <div class="cards">
+      <div class="card">
+        <p>"This service was amazing! They delivered exactly what I needed."</p>
+        <h4>- Alex Johnson</h4>
+      </div>
+      <div class="card">
+        <p>"Highly professional and creative. I’ll definitely come back again."</p>
+        <h4>- Maria Smith</h4>
+      </div>
+      <div class="card">
+        <p>"Excellent communication and top-notch quality work. Recommended!"</p>
+        <h4>- Rahul Verma</h4>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
