@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 104 - Testimonial Section</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f6fa;
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .testimonial-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .testimonial-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .user-info h3 {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .user-info p {
+      margin: 0;
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <h1>What Our Clients Say</h1>
+  <div class="testimonial-container">
+    <div class="testimonial-card">
+      <p class="testimonial-text">"This service is absolutely amazing. It helped me save time and achieve better results in my projects!"</p>
+      <div class="user">
+        <img src="https://via.placeholder.com/50" alt="User">
+        <div class="user-info">
+          <h3>Sarah Johnson</h3>
+          <p>Web Designer</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <p class="testimonial-text">"I love the simplicity and ease of use. The team is super supportive and always ready to help."</p>
+      <div class="user">
+        <img src="https://via.placeholder.com/50" alt="User">
+        <div class="user-info">
+          <h3>Michael Smith</h3>
+          <p>Developer</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <p class="testimonial-text">"A great experience overall! The design looks fantastic and the functionality is flawless."</p>
+      <div class="user">
+        <img src="https://via.placeholder.com/50" alt="User">
+        <div class="user-info">
+          <h3>Emily Davis</h3>
+          <p>Entrepreneur</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
