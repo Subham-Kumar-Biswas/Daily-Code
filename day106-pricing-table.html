@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 106 - Pricing Table</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fa;
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 40px;
+    }
+
+    .pricing-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .pricing-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 25px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .pricing-card h2 {
+      margin-bottom: 10px;
+      color: #007BFF;
+    }
+
+    .price {
+      font-size: 28px;
+      margin: 15px 0;
+      color: #333;
+      font-weight: bold;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+      color: #555;
+    }
+
+    ul li {
+      margin: 8px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #007BFF;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Our Pricing Plans</h1>
+  <div class="pricing-container">
+    <div class="pricing-card">
+      <h2>Basic</h2>
+      <p class="price">$9/mo</p>
+      <ul>
+        <li>5 Projects</li>
+        <li>5GB Storage</li>
+        <li>Email Support</li>
+      </ul>
+      <a href="#" class="btn">Choose Plan</a>
+    </div>
+    <div class="pricing-card">
+      <h2>Standard</h2>
+      <p class="price">$19/mo</p>
+      <ul>
+        <li>15 Projects</li>
+        <li>15GB Storage</li>
+        <li>Priority Support</li>
+      </ul>
+      <a href="#" class="btn">Choose Plan</a>
+    </div>
+    <div class="pricing-card">
+      <h2>Premium</h2>
+      <p class="price">$29/mo</p>
+      <ul>
+        <li>Unlimited Projects</li>
+        <li>50GB Storage</li>
+        <li>24/7 Support</li>
+      </ul>
+      <a href="#" class="btn">Choose Plan</a>
+    </div>
+  </div>
+</body>
+</html>
