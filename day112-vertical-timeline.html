@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 113 - Vertical Timeline</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 700px;
+      margin: 20px auto;
+      padding-left: 40px;
+      border-left: 3px solid #6c63ff;
+    }
+
+    .timeline-item {
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -12px;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #6c63ff;
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px #6c63ff;
+    }
+
+    .timeline-item h3 {
+      margin: 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .timeline-item span {
+      font-size: 14px;
+      color: #777;
+    }
+
+    .timeline-item p {
+      margin: 10px 0 0;
+      font-size: 15px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 600px) {
+      .timeline {
+        padding-left: 20px;
+      }
+      .timeline-item::before {
+        left: -9px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="timeline">
+    <div class="timeline-item">
+      <h3>Started Learning HTML & CSS</h3>
+      <span>January 2025</span>
+      <p>Began the journey into web development by mastering the building blocks of the web.</p>
+    </div>
+    <div class="timeline-item">
+      <h3>JavaScript Basics</h3>
+      <span>March 2025</span>
+      <p>Learned JavaScript fundamentals to add interactivity and logic to web pages.</p>
+    </div>
+    <div class="timeline-item">
+      <h3>First Mini Project</h3>
+      <span>June 2025</span>
+      <p>Created my first project combining HTML, CSS, and JavaScript to solidify concepts.</p>
+    </div>
+    <div class="timeline-item">
+      <h3>React Development</h3>
+      <span>September 2025</span>
+      <p>Dived into React to build modern, dynamic, and scalable user interfaces.</p>
+    </div>
+  </div>
+</body>
+</html>
