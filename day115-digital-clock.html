@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glowing Digital Clock UI</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0a0a0a;
+      font-family: 'Courier New', monospace;
+    }
+
+    .clock {
+      display: flex;
+      gap: 20px;
+      font-size: 5rem;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px 50px;
+      border-radius: 20px;
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4), inset 0 0 10px rgba(0, 255, 255, 0.2);
+    }
+
+    .digit {
+      letter-spacing: 5px;
+    }
+
+    .colon {
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50%, 100% {
+        opacity: 1;
+      }
+      25%, 75% {
+        opacity: 0.2;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="clock">
+    <div class="digit">12</div>
+    <div class="colon">:</div>
+    <div class="digit">45</div>
+    <div class="colon">:</div>
+    <div class="digit">59</div>
+  </div>
+</body>
+</html>
