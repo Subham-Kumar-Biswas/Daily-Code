@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 117 - Gradient Info Cards</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      width: 90%;
+      max-width: 1000px;
+    }
+
+    .card {
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card h2 {
+      margin: 10px 0;
+      font-size: 1.5rem;
+    }
+
+    .card p {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    .card1 {
+      background: linear-gradient(135deg, #ff512f, #dd2476);
+    }
+
+    .card2 {
+      background: linear-gradient(135deg, #24c6dc, #514a9d);
+    }
+
+    .card3 {
+      background: linear-gradient(135deg, #f7971e, #ffd200);
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="card-container">
+    <div class="card card1">
+      <h2>Fast Performance</h2>
+      <p>Optimized design for speed and efficiency.</p>
+    </div>
+    <div class="card card2">
+      <h2>Secure</h2>
+      <p>Built with best security practices in mind.</p>
+    </div>
+    <div class="card card3">
+      <h2>Modern Design</h2>
+      <p>Clean, colorful, and responsive layouts.</p>
+    </div>
+  </div>
+</body>
+</html>
