@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neon Loading Ring</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #050505;
+      font-family: Arial, sans-serif;
+    }
+
+    .loader {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #00ffff, #ff00ff);
+      animation: rotate 1.5s linear infinite;
+      box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff;
+    }
+
+    .loader::before {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      background: #050505;
+      border-radius: 50%;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    h2 {
+      position: absolute;
+      color: #fff;
+      font-size: 18px;
+      margin-top: 160px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: blink 1.2s infinite alternate;
+    }
+
+    @keyframes blink {
+      from { opacity: 1; }
+      to { opacity: 0.4; }
+    }
+  </style>
+</head>
+<body>
+  <div class="loader"></div>
+  <h2>Loading...</h2>
+</body>
+</html>
