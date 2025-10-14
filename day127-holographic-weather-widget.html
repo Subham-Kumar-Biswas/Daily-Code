@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 127 - Holographic Weather Widget</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #020024, #090979, #00d4ff);
+      overflow: hidden;
+    }
+
+    .widget {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 40px;
+      width: 280px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4), 0 0 40px rgba(0, 255, 255, 0.2);
+      position: relative;
+      color: #fff;
+    }
+
+    .widget::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 20px;
+      background: linear-gradient(45deg, #00ffff, #007bff, #ff00ff);
+      z-index: -1;
+      filter: blur(20px);
+      opacity: 0.6;
+    }
+
+    .city {
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      color: #00eaff;
+    }
+
+    .temp {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px #00ffff;
+    }
+
+    .condition {
+      font-size: 1rem;
+      color: #b5f6ff;
+      margin-bottom: 20px;
+    }
+
+    .icon {
+      font-size: 4rem;
+      margin-bottom: 10px;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff; }
+      to { text-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff; }
+    }
+
+    .footer {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <div class="icon">☀️</div>
+    <div class="city">Los Angeles</div>
+    <div class="temp">27°C</div>
+    <div class="condition">Sunny & Bright</div>
+    <div class="footer">Updated 5 mins ago</div>
+  </div>
+</body>
+</html>
