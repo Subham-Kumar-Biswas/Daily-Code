@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 128 - Rotating Glass Cube</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #01010a, #050533, #0c0c5b);
+      overflow: hidden;
+      perspective: 1000px;
+    }
+
+    .cube {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      transform-style: preserve-3d;
+      animation: rotate 8s linear infinite;
+    }
+
+    .cube div {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(0, 255, 255, 0.7);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+      backdrop-filter: blur(8px);
+    }
+
+    .front  { transform: translateZ(75px); }
+    .back   { transform: rotateY(180deg) translateZ(75px); }
+    .right  { transform: rotateY(90deg) translateZ(75px); }
+    .left   { transform: rotateY(-90deg) translateZ(75px); }
+    .top    { transform: rotateX(90deg) translateZ(75px); }
+    .bottom { transform: rotateX(-90deg) translateZ(75px); }
+
+    @keyframes rotate {
+      0%   { transform: rotateX(0deg) rotateY(0deg); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+    h2 {
+      position: absolute;
+      bottom: -70px;
+      color: #00ffff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      text-shadow: 0 0 15px #00ffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="cube">
+    <div class="front"></div>
+    <div class="back"></div>
+    <div class="right"></div>
+    <div class="left"></div>
+    <div class="top"></div>
+    <div class="bottom"></div>
+  </div>
+  <h2>3D Rotating Glass Cube</h2>
+</body>
+</html>
