@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 134 - Neon Infinity Loop</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      background: radial-gradient(circle at center, #020202, #000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .infinity {
+      position: relative;
+      width: 250px;
+      height: 120px;
+      transform: rotate(45deg);
+    }
+
+    .loop {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border: 6px solid transparent;
+      border-top-color: #00eaff;
+      border-right-color: #ff00ff;
+      border-radius: 50%;
+      animation: spin 2.5s linear infinite;
+      filter: drop-shadow(0 0 20px #00eaff) drop-shadow(0 0 40px #ff00ff);
+    }
+
+    .loop:nth-child(2) {
+      right: 0;
+      border-top-color: #ff00ff;
+      border-left-color: #00eaff;
+      animation-delay: -1.25s;
+    }
+
+    .glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(255, 0, 255, 0.25), rgba(0, 234, 255, 0.05));
+      border-radius: 50%;
+      filter: blur(20px);
+      opacity: 0.8;
+      mix-blend-mode: screen;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    h2 {
+      position: absolute;
+      bottom: -80px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-45deg);
+      font-family: 'Segoe UI', sans-serif;
+      color: #00eaff;
+      text-shadow: 0 0 10px #00eaff, 0 0 20px #ff00ff;
+      letter-spacing: 1px;
+      font-size: 1rem;
+      animation: glowText 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowText {
+      from { opacity: 0.6; text-shadow: 0 0 5px #00eaff; }
+      to { opacity: 1; text-shadow: 0 0 15px #00eaff, 0 0 30px #ff00ff; }
+    }
+
+    @media (max-width: 500px) {
+      .infinity { width: 180px; height: 90px; }
+      .loop { width: 90px; height: 90px; }
+      h2 { font-size: 0.85rem; bottom: -60px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="infinity">
+    <div class="loop"><div class="glow"></div></div>
+    <div class="loop"><div class="glow"></div></div>
+    <h2>INFINITY FLOW</h2>
+  </div>
+</body>
+</html>
