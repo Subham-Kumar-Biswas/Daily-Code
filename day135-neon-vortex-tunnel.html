@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 135 - Neon Vortex Tunnel</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #020202, #000);
+      overflow: hidden;
+    }
+
+    .vortex {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      perspective: 800px;
+    }
+
+    .ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-style: preserve-3d;
+      transform: translate(-50%, -50%) rotateX(75deg);
+      animation: spin 5s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: translate(-50%, -50%) rotateX(75deg) rotateZ(0deg); }
+      to { transform: translate(-50%, -50%) rotateX(75deg) rotateZ(360deg); }
+    }
+
+    .circle {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border: 3px solid;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+
+    .circle:nth-child(1) { border-color: #00eaff; transform: translateZ(-100px); }
+    .circle:nth-child(2) { border-color: #ff00ff; transform: translateZ(-200px); }
+    .circle:nth-child(3) { border-color: #00eaff; transform: translateZ(-300px); }
+    .circle:nth-child(4) { border-color: #ff00ff; transform: translateZ(-400px); }
+    .circle:nth-child(5) { border-color: #00eaff; transform: translateZ(-500px); }
+    .circle:nth-child(6) { border-color: #ff00ff; transform: translateZ(-600px); }
+    .circle:nth-child(7) { border-color: #00eaff; transform: translateZ(-700px); }
+    .circle:nth-child(8) { border-color: #ff00ff; transform: translateZ(-800px); }
+
+    h2 {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #00eaff;
+      font-family: 'Segoe UI', sans-serif;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #00eaff, 0 0 25px #ff00ff;
+      animation: glowText 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowText {
+      from { opacity: 0.6; text-shadow: 0 0 10px #00eaff; }
+      to { opacity: 1; text-shadow: 0 0 20px #00eaff, 0 0 40px #ff00ff; }
+    }
+
+    @media (max-width: 500px) {
+      .vortex { width: 260px; height: 260px; }
+      .circle { width: 200px; height: 200px; }
+      h2 { font-size: 0.9rem; bottom: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="vortex">
+    <div class="ring">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
+    <h2>NEON VORTEX</h2>
+  </div>
+</body>
+</html>
