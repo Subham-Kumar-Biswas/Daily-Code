@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 136 - Holographic Rotating Prism</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: radial-gradient(circle at center, #01010f, #000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      perspective: 800px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .scene {
+      width: 200px;
+      height: 200px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotate 6s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotateX(0deg) rotateY(0deg); }
+      to { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+    .face {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border: 2px solid rgba(0, 255, 255, 0.6);
+      background: linear-gradient(135deg, rgba(0,255,255,0.1), rgba(255,0,255,0.05));
+      box-shadow: 0 0 30px rgba(0,255,255,0.3);
+      backdrop-filter: blur(4px);
+    }
+
+    .front  { transform: translateZ(100px); }
+    .back   { transform: rotateY(180deg) translateZ(100px); }
+    .right  { transform: rotateY(90deg) translateZ(100px); }
+    .left   { transform: rotateY(-90deg) translateZ(100px); }
+    .top    { transform: rotateX(90deg) translateZ(100px); }
+    .bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+    .glow {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(0,255,255,0.15), transparent 70%);
+      border-radius: 50%;
+      filter: blur(30px);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    h2 {
+      position: absolute;
+      bottom: 40px;
+      color: #00eaff;
+      text-shadow: 0 0 15px #00eaff, 0 0 30px #ff00ff;
+      letter-spacing: 2px;
+      animation: glowText 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowText {
+      from { opacity: 0.7; }
+      to { opacity: 1; text-shadow: 0 0 20px #00eaff, 0 0 40px #ff00ff; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="face front"></div>
+    <div class="face back"></div>
+    <div class="face left"></div>
+    <div class="face right"></div>
+    <div class="face top"></div>
+    <div class="face bottom"></div>
+    <div class="glow"></div>
+  </div>
+  <h2>HOLOGRAPHIC PRISM</h2>
+</body>
+</html>
