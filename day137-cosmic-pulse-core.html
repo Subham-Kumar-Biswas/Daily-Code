@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 137 - Glowing Earth Pulse Animation</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: radial-gradient(circle at center, #03030a 0%, #000 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      color: #00eaff;
+    }
+
+    .earth-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 234, 255, 0.8), rgba(0, 0, 30, 0.9));
+      box-shadow: 0 0 30px #00eaff, inset 0 0 20px rgba(0, 255, 255, 0.4);
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 20px #00eaff, inset 0 0 10px rgba(0, 255, 255, 0.3); }
+      to { box-shadow: 0 0 60px #00eaff, inset 0 0 25px rgba(0, 255, 255, 0.6); }
+    }
+
+    .pulse {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      animation: pulseRing 3s linear infinite;
+    }
+
+    .pulse:nth-child(2) { animation-delay: 0.5s; }
+    .pulse:nth-child(3) { animation-delay: 1s; }
+
+    @keyframes pulseRing {
+      0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(2.5);
+        opacity: 0;
+      }
+    }
+
+    .text {
+      position: absolute;
+      bottom: 40px;
+      color: #00eaff;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px #00eaff, 0 0 40px #0088ff;
+      animation: fadeIn 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0.6; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="earth-container"></div>
+  <div class="pulse"></div>
+  <div class="pulse"></div>
+  <div class="pulse"></div>
+  <div class="text">THE EARTH BEATS WITH ENERGY</div>
+</body>
+</html>
