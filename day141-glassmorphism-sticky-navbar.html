@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glassmorphism Sticky Navbar</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      height: 200vh; /* for scroll effect */
+      color: #fff;
+    }
+
+    /* Navbar Styling */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      z-index: 1000;
+      transition: 0.3s ease;
+    }
+
+    nav:hover {
+      background: rgba(227, 165, 165, 0.2);
+      cursor: pointer;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #fff;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: 0.3s;
+      padding: 8px 15px;
+      border-radius: 10px;
+    }
+
+    ul li a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fdbb2d;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      ul {
+        display: none;
+      }
+    }
+
+    .content {
+      margin-top: 120px;
+      text-align: center;
+    }
+
+    .content h1 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+
+    .content p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: auto;
+      line-height: 1.6;
+      color: #eee;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">DevNsecure</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Projects</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="content">
+    <h1>Welcome to DevNsecure</h1>
+    <p>
+      This modern glassmorphism navbar stays fixed at the top while scrolling.  
+      It uses backdrop blur and transparency to achieve a frosted glass look,  
+      making it perfect for websites that follow a clean and elegant design aesthetic.
+    </p>
+  </section>
+
+</body>
+</html>
