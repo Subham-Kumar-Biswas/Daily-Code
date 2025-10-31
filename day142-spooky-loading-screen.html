@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 142 - Spooky Loading Screen</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0d0d0d;
+      color: white;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: "Poppins", sans-serif;
+    }
+
+    #loader {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #0d0d0d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      transition: opacity 1s ease, visibility 1s ease;
+      z-index: 9999;
+    }
+
+    #loader.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .ghost {
+      position: absolute;
+      width: 60px;
+      height: 80px;
+      background: white;
+      border-radius: 50% 50% 15% 15%;
+      animation: float 4s ease-in-out infinite;
+      opacity: 0.8;
+    }
+
+    .ghost::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: black;
+      border-radius: 50%;
+      top: 25px;
+      left: 15px;
+      box-shadow: 25px 0 black;
+    }
+
+    .ghost::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 15px;
+      background: repeating-linear-gradient(
+        to right,
+        white 0,
+        white 10px,
+        transparent 10px,
+        transparent 20px
+      );
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    .text {
+      font-size: 2rem;
+      color: orange;
+      margin-top: 120px;
+      text-shadow: 0 0 20px orange;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px orange; }
+      to { text-shadow: 0 0 30px orangered; }
+    }
+
+    main {
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    main.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="loader">
+    <div class="ghost" style="left: 40%; animation-delay: 0s;"></div>
+    <div class="ghost" style="left: 60%; animation-delay: 1s;"></div>
+    <div class="text">👻 Loading... Happy Halloween 🎃</div>
+  </div>
+
+  <main>
+    <h1>Welcome to the Spooky Site 👀</h1>
+    <p>Here’s where your real website content goes.</p>
+  </main>
+
+  <script>
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      const main = document.querySelector("main");
+      setTimeout(() => {
+        loader.classList.add("fade-out");
+        main.classList.add("visible");
+      }, 2500);
+    });
+  </script>
+</body>
+</html>
