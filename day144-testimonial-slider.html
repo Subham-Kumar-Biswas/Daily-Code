@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 144 - Testimonial Slider (Fixed)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html,body { height: 100%; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg,#1e1e2f,#2c5364);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      padding: 40px 20px;
+    }
+
+    .slider-container {
+      width: 100%;
+      max-width: 900px;
+      overflow: hidden;
+      border-radius: 16px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    /* Slider track */
+    .slider {
+      display: flex;
+      /* no explicit width — each slide will be 100% of container */
+      animation: slide 12s infinite;
+      will-change: transform;
+    }
+
+    /* Each testimonial should exactly fill the container */
+    .testimonial {
+      min-width: 100%;
+      flex-shrink: 0;
+      padding: 36px;
+      text-align: center;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(8px);
+      border-radius: 0; /* rounded corners handled by container */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .testimonial-inner {
+      width: 100%;
+      max-width: 640px;
+    }
+
+    .testimonial img {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto;
+      border: 3px solid rgba(0,198,255,0.9);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+      display: block;
+    }
+
+    .testimonial p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 12px 0;
+      color: #e6eef6;
+    }
+
+    .testimonial h3 {
+      margin-top: 6px;
+      font-weight: 700;
+      color: #00c6ff;
+      font-size: 1.05rem;
+    }
+
+    /* precise keyframe timing for 3 slides (no jumps) */
+    @keyframes slide {
+      /* Slide 1 visible */
+      0%     { transform: translateX(0%); }
+      30%    { transform: translateX(0%); }
+
+      /* Move to Slide 2 */
+      33.333% { transform: translateX(-100%); }
+      63.333% { transform: translateX(-100%); }
+
+      /* Move to Slide 3 */
+      66.666% { transform: translateX(-200%); }
+      96.666% { transform: translateX(-200%); }
+
+      /* wrap to start */
+      100%   { transform: translateX(0%); }
+    }
+
+    /* Pause animation while hovering container */
+    .slider-container:hover .slider {
+      animation-play-state: paused;
+    }
+
+    /* small responsive tweaks */
+    @media (max-width: 700px) {
+      .testimonial { padding: 26px; }
+      .testimonial img { width: 72px; height: 72px; }
+    }
+
+    /* Accessibility: respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .slider { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="slider-container" aria-label="Testimonials slider">
+    <div class="slider">
+      <div class="testimonial" role="group" aria-roledescription="slide" aria-label="Testimonial 1">
+        <div class="testimonial-inner">
+          <img src="https://i.pravatar.cc/100?img=12" alt="Emily Carter">
+          <p>"This service completely transformed our business. The design was sleek, modern, and user-friendly. Highly recommended!"</p>
+          <h3>— Emily Carter</h3>
+        </div>
+      </div>
+
+      <div class="testimonial" role="group" aria-roledescription="slide" aria-label="Testimonial 2">
+        <div class="testimonial-inner">
+          <img src="https://i.pravatar.cc/100?img=25" alt="James Anderson">
+          <p>"Professional work and timely delivery! The attention to detail is just amazing. Definitely working again with this team."</p>
+          <h3>— James Anderson</h3>
+        </div>
+      </div>
+
+      <div class="testimonial" role="group" aria-roledescription="slide" aria-label="Testimonial 3">
+        <div class="testimonial-inner">
+          <img src="https://i.pravatar.cc/100?img=36" alt="Sophia Martinez">
+          <p>"A beautiful blend of creativity and technology. The final output exceeded all my expectations!"</p>
+          <h3>— Sophia Martinez</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
