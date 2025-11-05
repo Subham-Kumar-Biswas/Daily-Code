@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 147 - Neon Glow Navigation Bar</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: #0a0a0a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    nav {
+      background: #111;
+      padding: 15px 40px;
+      border-radius: 50px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    ul li a {
+      text-decoration: none;
+      color: #00fff0;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: 0.3s ease;
+      position: relative;
+    }
+
+    ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #00fff0;
+      box-shadow: 0 0 10px #00fff0;
+      transition: 0.3s ease;
+    }
+
+    ul li a:hover::after {
+      width: 100%;
+    }
+
+    ul li a:hover {
+      color: #fff;
+      text-shadow: 0 0 8px #00fff0, 0 0 15px #00fff0;
+    }
+
+    @media (max-width: 600px) {
+      ul {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+      }
+
+      nav {
+        border-radius: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Projects</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+</body>
+</html>
