@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 151 - Floating Avatar Glow</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0a0f1f;
+      color: #fff;
+    }
+
+    .card {
+      width: 280px;
+      background: #131b2e;
+      border-radius: 16px;
+      padding: 35px 20px 25px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+    }
+
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      background: url('https://i.ibb.co/r2QF3YK/default-avatar.png') center/cover;
+      box-shadow: 0 0 15px #00eaff, 0 0 25px #00eaff;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .card h2 {
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .btn {
+      margin-top: 18px;
+      display: inline-block;
+      padding: 8px 18px;
+      border-radius: 20px;
+      background: linear-gradient(90deg, #00eaff, #8b5cf6);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 12px #00eaff;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="card">
+    <div class="avatar"></div>
+    <h2>John Doe</h2>
+    <p>Frontend Developer • UI/UX Enthusiast</p>
+    <a href="#" class="btn">View Profile</a>
+  </div>
+
+</body>
+</html>
