@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 152 - Glassmorphic Stats Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(2, 180px);
+      gap: 20px;
+    }
+
+    .card {
+      padding: 20px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+    }
+
+    .value {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .label {
+      font-size: 0.9rem;
+      opacity: 0.75;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+    <div class="card">
+      <div class="value">1.2K</div>
+      <div class="label">Followers</div>
+    </div>
+
+    <div class="card">
+      <div class="value">320</div>
+      <div class="label">Likes</div>
+    </div>
+
+    <div class="card">
+      <div class="value">56</div>
+      <div class="label">Projects</div>
+    </div>
+
+    <div class="card">
+      <div class="value">98%</div>
+      <div class="label">Task Success</div>
+    </div>
+  </div>
+
+</body>
+</html>
