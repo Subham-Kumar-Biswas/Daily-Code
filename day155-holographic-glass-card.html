@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Day 155 - Holographic Glass Card</title>
+  <style>
+    :root{
+      --bg-1: #05020a;
+      --bg-2: #0b0a16;
+      --glass-bg: rgba(255,255,255,0.06);
+      --accent-a: #00eaff;
+      --accent-b: #ff3ec7;
+      --accent-c: #7a00ff;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(0,38,77,0.25), transparent 10%),
+                  radial-gradient(1000px 500px at 90% 90%, rgba(122,0,255,0.14), transparent 8%),
+                  linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+      color: #e8faff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .stage {
+      width: min(920px, 96%);
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 28px;
+      align-items: center;
+    }
+
+    /* Card */
+    .glass-card {
+      position: relative;
+      border-radius: 18px;
+      padding: 28px;
+      min-height: 320px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 8px 30px rgba(2,10,30,0.6),
+        inset 0 1px 0 rgba(255,255,255,0.02);
+      backdrop-filter: blur(10px) saturate(120%);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    /* decorative holographic gradient layer */
+    .glass-card::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:
+        conic-gradient(from 120deg at 30% 30%, rgba(0,234,255,0.25), rgba(255,62,199,0.20), rgba(122,0,255,0.18), rgba(0,234,255,0.18));
+      transform: rotate(15deg);
+      filter: blur(36px) saturate(140%);
+      opacity:0.9;
+      z-index:0;
+      pointer-events:none;
+      mix-blend-mode: screen;
+      animation: slow-rotate 12s linear infinite;
+    }
+
+    @keyframes slow-rotate{
+      from{transform: rotate(15deg) translateZ(0)}
+      to{transform: rotate(375deg) translateZ(0)}
+    }
+
+    /* subtle rim light */
+    .glass-card::after{
+      content:"";
+      position:absolute;
+      inset:2px;
+      border-radius:16px;
+      padding:1px;
+      background: linear-gradient(90deg, rgba(0,234,255,0.14), rgba(122,0,255,0.12));
+      mask: linear-gradient(#000, #000);
+      z-index:1;
+      pointer-events:none;
+    }
+
+    .content {
+      position:relative;
+      z-index:2;
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
+    }
+
+    .avatar {
+      width:96px;
+      height:96px;
+      border-radius:14px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 2px solid rgba(255,255,255,0.06);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45), 0 0 20px rgba(0,234,255,0.06);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      color:#fff;
+      font-size:1.1rem;
+      overflow:hidden;
+      flex-shrink:0;
+      backdrop-filter: blur(6px);
+    }
+
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .meta {
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .meta h3{
+      font-size:1.15rem;
+      letter-spacing:0.2px;
+      margin-bottom:2px;
+      background: linear-gradient(90deg,var(--accent-a), var(--accent-b));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      text-shadow: 0 0 6px rgba(0,234,255,0.08);
+    }
+
+    .meta p{
+      font-size:0.95rem;
+      color: rgba(232,250,255,0.9);
+      opacity:0.95;
+      line-height:1.35;
+    }
+
+    .tags {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+
+    .tag{
+      padding:6px 10px;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(0,234,255,0.08), rgba(122,0,255,0.06));
+      color: #cfefff;
+      font-size:0.82rem;
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    }
+
+    /* Side panel — stats or actions */
+    .side {
+      position:relative;
+      border-radius:18px;
+      padding:18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.06);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      z-index:2;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .metric {
+      width:100%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:8px 12px;
+      border-radius:12px;
+      background: linear-gradient(90deg, rgba(0,234,255,0.03), rgba(122,0,255,0.02));
+      border: 1px solid rgba(255,255,255,0.02);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+      font-size:0.95rem;
+      color:#dff9ff;
+    }
+
+    .btn {
+      margin-top:8px;
+      padding:10px 16px;
+      border-radius:12px;
+      background: linear-gradient(90deg,var(--accent-a), var(--accent-b));
+      border: none;
+      color: #041022;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow: 0 8px 30px rgba(0,234,255,0.12);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .btn:hover{ transform: translateY(-3px); box-shadow: 0 18px 40px rgba(0,234,255,0.18); }
+
+    /* small screens */
+    @media (max-width:880px){
+      .stage{ grid-template-columns: 1fr; }
+      .side{ order: -1; width:100%}
+    }
+
+    @media (max-width:420px){
+      .avatar{ width:72px;height:72px;border-radius:12px }
+      .glass-card{ padding:18px }
+      .meta h3{ font-size:1rem }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <article class="glass-card" aria-label="Holographic profile card">
+      <div class="content">
+        <div class="avatar" aria-hidden="true">
+          <!-- replace with <img src="..." alt="..."> if you want -->
+          <img src="https://i.pravatar.cc/300?img=12" alt="Profile">
+        </div>
+
+        <div class="meta">
+          <h3>Subham Kumar</h3>
+          <p>Frontend Developer • UI enthusiast • Daily builder. I design clean interfaces with a focus on motion and detail. This holographic card demonstrates layered gradients, blur and glow for a premium look.</p>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">React</span>
+            <span class="tag">Design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- optional footer area -->
+      <div style="position:relative;z-index:2;margin-top:auto;display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-size:.9rem;color:rgba(223,250,255,0.9)">Member since 2024</div>
+        <button class="btn" aria-label="Follow">Follow</button>
+      </div>
+    </article>
+
+    <aside class="side" aria-hidden="true">
+      <div style="font-weight:700;color:#e6fbff;margin-bottom:4px">Profile Stats</div>
+      <div class="metric"><span>Projects</span><strong>24</strong></div>
+      <div class="metric"><span>Followers</span><strong>1.2k</strong></div>
+      <div class="metric"><span>Contributions</span><strong>3.4k</strong></div>
+      <button class="btn">View Profile</button>
+    </aside>
+  </div>
+</body>
+</html>
