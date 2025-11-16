@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 158 - Floating Neon Tabs</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #050510;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 20px;
+    }
+
+    .tab {
+      padding: 14px 28px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #fff;
+      font-size: 1.05rem;
+      position: relative;
+      cursor: pointer;
+      transition: 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow:
+        0 0 8px rgba(0, 255, 255, 0.4),
+        0 0 15px rgba(0, 255, 255, 0.2) inset;
+    }
+
+    .tab::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(
+        135deg,
+        #00eaff,
+        #ff00e0,
+        #7000ff,
+        #00c6ff
+      );
+      opacity: 0;
+      transition: 0.3s ease;
+      filter: blur(16px);
+    }
+
+    .tab:hover::before {
+      opacity: 1;
+    }
+
+    .tab:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 0 20px rgba(0, 255, 255, 0.7),
+        0 0 25px rgba(0, 255, 255, 0.4) inset;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="tabs">
+    <div class="tab">Home</div>
+    <div class="tab">Projects</div>
+    <div class="tab">About</div>
+    <div class="tab">Contact</div>
+  </div>
+
+</body>
+</html>
