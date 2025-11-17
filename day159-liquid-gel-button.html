@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 159 - Liquid Gel Button</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0a0f1f;
+    }
+
+    .gel-btn {
+      position: relative;
+      padding: 18px 40px;
+      font-size: 1.2rem;
+      color: #ffffff;
+      background: linear-gradient(135deg, #4fc3ff, #0076ff);
+      border-radius: 50px;
+      overflow: hidden;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 15px rgba(0, 150, 255, 0.4),
+                  inset 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Liquid highlight layer */
+    .gel-btn::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.35) 0%,
+        rgba(255, 255, 255, 0) 60%
+      );
+      transform: translate(-20%, -20%);
+      transition: transform 0.5s ease;
+    }
+
+    /* Glass shine layer */
+    .gel-btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.25),
+        rgba(255, 255, 255, 0)
+      );
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .gel-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(79, 195, 255, 0.7),
+                  inset 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+
+    .gel-btn:hover::before {
+      transform: translate(20%, 20%);
+    }
+  </style>
+</head>
+
+<body>
+  <button class="gel-btn">Liquid Gel Button</button>
+</body>
+</html>
