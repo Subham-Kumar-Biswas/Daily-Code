@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 160 - Magnetic Button Hover Effect</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0e0e0e;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .wrapper {
+      position: relative;
+    }
+
+    .magnet-btn {
+      position: relative;
+      padding: 18px 40px;
+      background: #1a1a1a;
+      border: 2px solid #444;
+      border-radius: 50px;
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.2s ease-out;
+      overflow: hidden;
+    }
+
+    .magnet-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.05);
+      border-radius: inherit;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .wrapper:hover .magnet-btn::before {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <button class="magnet-btn">Hover Me</button>
+  </div>
+
+  <script>
+    const wrapper = document.querySelector(".wrapper");
+    const button = document.querySelector(".magnet-btn");
+
+    wrapper.addEventListener("mousemove", (e) => {
+      const rect = wrapper.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      button.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.05)`;
+    });
+
+    wrapper.addEventListener("mouseleave", () => {
+      button.style.transform = "translate(0, 0) scale(1)";
+    });
+  </script>
+</body>
+</html>
