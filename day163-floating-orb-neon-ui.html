@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 163 - Floating Neon Orb UI</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0a0f1f;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .orb-container {
+      width: 260px;
+      height: 260px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .orb {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #6af7ff, #007cf0, #001a3f 80%);
+      filter: drop-shadow(0 0 25px #00baff) drop-shadow(0 0 45px #0066ff);
+      transition: transform 0.6s ease, filter 0.6s ease;
+    }
+
+    .orb::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 170, 255, 0.25), transparent 70%);
+      filter: blur(40px);
+      z-index: -1;
+      transition: filter 0.6s ease;
+    }
+
+    .orb-container:hover .orb {
+      transform: scale(1.15);
+      filter: drop-shadow(0 0 30px #00e4ff) drop-shadow(0 0 60px #007cff);
+    }
+
+    .orb-container:hover .orb::before {
+      filter: blur(55px);
+    }
+
+    .label {
+      position: absolute;
+      bottom: -50px;
+      width: 100%;
+      text-align: center;
+      color: #d6e9ff;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="orb-container">
+    <div class="orb"></div>
+    <div class="label">Neon Energy Orb</div>
+  </div>
+
+</body>
+</html>
