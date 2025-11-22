@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 164 - Mindful Breathing Focus Card</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0a0f1f;
+      font-family: "Poppins", sans-serif;
+      color: #fff;
+    }
+
+    .card {
+      position: relative;
+      width: 350px;
+      height: 350px;
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .pulse-ring {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(
+        rgba(0, 255, 200, 0.3),
+        rgba(0, 200, 255, 0.0)
+      );
+      animation: breathe 6s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0% { transform: scale(0.6); opacity: 0.4; }
+      50% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(0.6); opacity: 0.4; }
+    }
+
+    h2 {
+      position: relative;
+      z-index: 2;
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      position: relative;
+      z-index: 2;
+      font-size: 1rem;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="pulse-ring"></div>
+
+    <h2>Mindful Breathing</h2>
+    <p>Inhale as the circle expands. Exhale as it contracts.</p>
+  </div>
+
+</body>
+</html>
