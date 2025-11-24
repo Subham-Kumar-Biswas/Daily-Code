@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 166 - Holographic Glass Card</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0a0a0a;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .glass-card {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.3), 0 0 80px rgba(255, 0, 255, 0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, #ff00c8, #00f0ff, #fffb00, #ff00c8);
+      animation: rotate 6s linear infinite;
+      z-index: 0;
+    }
+
+    .glass-card .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .glass-card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    .glass-card p {
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="glass-card">
+    <div class="content">
+      <h2>Holographic Glass Card</h2>
+      <p>Glowing futuristic glass card with blur, transparency, and vibrant linear gradients.</p>
+    </div>
+  </div>
+</body>
+</html>
