@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 167 - Holographic Streak Card</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #050505;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .glass-card {
+      position: relative;
+      width: 320px;
+      height: 420px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      overflow: hidden;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.25),
+                  0 0 80px rgba(255, 0, 255, 0.2);
+    }
+
+    /* Rotating gradient glow */
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background: linear-gradient(
+        45deg,
+        #ff00c8,
+        #00f0ff,
+        #00ff88,
+        #ffe600,
+        #ff00c8
+      );
+      animation: rotate 7s linear infinite;
+      opacity: 0.4;
+    }
+
+    /* Animated holographic streak */
+    .glass-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.35),
+        transparent
+      );
+      filter: blur(12px);
+      animation: streak 3s linear infinite;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      margin-top: 90px;
+    }
+
+    .content h2 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .content p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes streak {
+      0% { left: -100%; }
+      100% { left: 160%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="glass-card">
+    <div class="content">
+      <h2>Holographic Streak</h2>
+      <p>A glowing glass card with animated light streaks for a premium holographic look.</p>
+    </div>
+  </div>
+</body>
+</html>
