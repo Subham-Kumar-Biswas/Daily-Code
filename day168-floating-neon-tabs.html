@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 168 - Floating Neon Tabs</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: #0d0d0d;
+      font-family: "Poppins", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+
+    .tabs-container {
+      width: 360px;
+      background: #111;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .tab-buttons label {
+      flex: 1;
+      padding: 10px 0;
+      text-align: center;
+      border-radius: 12px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(4px);
+      transition: 0.3s;
+      border: 1px solid transparent;
+    }
+
+    .tab-buttons label:hover {
+      border-color: cyan;
+      box-shadow: 0 0 15px cyan;
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    .content {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 20px;
+      border-radius: 14px;
+      min-height: 150px;
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    #tab1:checked ~ .tab-buttons label[for="tab1"],
+    #tab2:checked ~ .tab-buttons label[for="tab2"],
+    #tab3:checked ~ .tab-buttons label[for="tab3"] {
+      background: linear-gradient(45deg, cyan, magenta);
+      box-shadow: 0 0 15px cyan;
+      font-weight: 600;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fade 0.4s ease;
+    }
+
+    #tab1:checked ~ .content .c1 { display: block; }
+    #tab2:checked ~ .content .c2 { display: block; }
+    #tab3:checked ~ .content .c3 { display: block; }
+
+    @keyframes fade {
+      0% { opacity: 0; transform: translateY(8px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="tabs-container">
+    <input type="radio" id="tab1" name="tabs" checked>
+    <input type="radio" id="tab2" name="tabs">
+    <input type="radio" id="tab3" name="tabs">
+
+    <div class="tab-buttons">
+      <label for="tab1">Overview</label>
+      <label for="tab2">Features</label>
+      <label for="tab3">About</label>
+    </div>
+
+    <div class="content">
+      <div class="tab-content c1">
+        <h3>Overview</h3>
+        <p>A futuristic floating tab UI built using pure HTML and CSS.</p>
+      </div>
+
+      <div class="tab-content c2">
+        <h3>Features</h3>
+        <p>Neon glow effects, smooth transitions, blur backgrounds, reusable design.</p>
+      </div>
+
+      <div class="tab-content c3">
+        <h3>About</h3>
+        <p>Designed to enhance dashboards, portfolios, and modern web layouts.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
