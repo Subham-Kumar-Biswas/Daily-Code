@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 171 - Responsive Sliding Info Panel</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    }
+
+    .panel-container {
+      width: 330px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: 0.3s ease-in-out;
+    }
+
+    .panel-content {
+      padding: 20px;
+      color: #fff;
+      position: relative;
+      z-index: 2;
+    }
+
+    .panel-content h2 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    .panel-content p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    .slide-panel {
+      position: absolute;
+      right: -60%;
+      top: 0;
+      height: 100%;
+      width: 60%;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      transition: 0.4s ease-in-out;
+      padding: 20px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-left: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .panel-container:hover .slide-panel {
+      right: 0;
+    }
+
+    /* Touch devices: always show */
+    @media (max-width: 600px) {
+      .slide-panel {
+        right: 0;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="panel-container">
+    <div class="panel-content">
+      <h2>Web Dev Panel</h2>
+      <p>A clean UI component that reveals extra details on hover or tap.</p>
+    </div>
+
+    <div class="slide-panel">
+      <h3>More Info</h3>
+      <p>Perfect for dashboards, profiles, or analytics sections.</p>
+    </div>
+  </div>
+
+</body>
+</html>
