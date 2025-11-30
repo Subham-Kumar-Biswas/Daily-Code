@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 172 - Glowing Neon Text</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #050505;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    h1 {
+      font-size: 4rem;
+      color: #0ff;
+      text-transform: uppercase;
+      text-shadow: 
+        0 0 5px #0ff,
+        0 0 10px #0ff,
+        0 0 20px #0ff,
+        0 0 40px #00ffff,
+        0 0 80px #00ffff;
+      animation: flicker 2s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow:
+          0 0 5px #0ff,
+          0 0 10px #0ff,
+          0 0 20px #0ff,
+          0 0 40px #00ffff,
+          0 0 80px #00ffff;
+      }
+      20%, 24%, 55% {
+        opacity: 0.6;
+        text-shadow:
+          0 0 2px #0ff,
+          0 0 5px #00ffff;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Neon Glow</h1>
+</body>
+</html>
