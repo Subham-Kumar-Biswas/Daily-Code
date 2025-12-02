@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 174 - Floating Glass Button</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0a0f1f, #111827, #000);
+      font-family: "Poppins", sans-serif;
+    }
+
+    .glass-btn {
+      padding: 18px 50px;
+      font-size: 1.3rem;
+      color: #fff;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      cursor: pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: 0.4s ease;
+      position: relative;
+      box-shadow: 0 8px 25px rgba(0, 255, 255, 0.15);
+    }
+
+    .glass-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      padding: 3px;
+      background: linear-gradient(
+        135deg,
+        rgba(0, 255, 255, 0.8),
+        rgba(0, 120, 255, 0.8),
+        rgba(255, 0, 200, 0.8)
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      opacity: 0;
+      transition: 0.4s;
+    }
+
+    .glass-btn:hover {
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 12px 35px rgba(0, 255, 255, 0.35);
+    }
+
+    .glass-btn:hover::before {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="glass-btn">Glass UI</button>
+
+</body>
+</html>
