@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 178 - Liquid Morph Card</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0a0f1f;
+      font-family: "Poppins", sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      width: 350px;
+      height: 230px;
+      border-radius: 25px;
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      overflow: hidden;
+      padding: 20px;
+      color: #fff;
+      z-index: 2;
+    }
+
+    .container h2 {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #7afcff, #ff6bcb, #9d63ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .container p {
+      font-size: 1rem;
+      line-height: 1.5;
+      opacity: 0.85;
+    }
+
+    /* Animated Liquid Blobs */
+    .blob {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle at 30% 30%, #7afcff 0%, transparent 60%);
+      filter: blur(60px);
+      animation: rotate1 10s infinite linear;
+      top: -120px;
+      left: -120px;
+      opacity: 0.6;
+    }
+
+    .blob2 {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle at 70% 70%, #ff6bcb 0%, transparent 60%);
+      filter: blur(60px);
+      animation: rotate2 12s infinite linear;
+      bottom: -120px;
+      right: -120px;
+      opacity: 0.6;
+    }
+
+    @keyframes rotate1 {
+      0% { transform: rotate(0deg) scale(1.1); }
+      100% { transform: rotate(360deg) scale(1.1); }
+    }
+
+    @keyframes rotate2 {
+      0% { transform: rotate(360deg) scale(1); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="blob"></div>
+  <div class="blob2"></div>
+
+  <div class="container">
+    <h2>Liquid Morph Card</h2>
+    <p>
+      A futuristic floating UI featuring animated liquid colors,
+      transparent glass layers, and soft neon glows — built using
+      only HTML and CSS.
+    </p>
+  </div>
+
+</body>
+</html>
