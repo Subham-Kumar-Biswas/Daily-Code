@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Day 179 - Responsive Services Grid</title>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+
+  body {
+    background: #0f172a;
+    color: #ffffff;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .container {
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .title {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .title h1 {
+    font-size: 2.4rem;
+    font-weight: 600;
+  }
+
+  .grid {
+    display: grid;
+    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .card {
+    background: rgba(255,255,255,0.05);
+    padding: 25px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: #3b82f6;
+    box-shadow: 0 10px 25px rgba(59,130,246,0.25);
+  }
+
+  .card h3 {
+    margin-bottom: 12px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #3b82f6;
+  }
+
+  .card p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #e2e8f0;
+  }
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <div class="title">
+    <h1>Our Services</h1>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>Web Development</h3>
+      <p>Custom, responsive websites built with clean code and modern UI that adapts perfectly across devices.</p>
+    </div>
+
+    <div class="card">
+      <h3>UI/UX Design</h3>
+      <p>High-conversion interface designs focusing on usability, clarity, and user engagement.</p>
+    </div>
+
+    <div class="card">
+      <h3>Brand Identity</h3>
+      <p>Complete brand systems including color palettes, typography, and visual guidelines.</p>
+    </div>
+
+    <div class="card">
+      <h3>SaaS Landing Pages</h3>
+      <p>Optimized landing pages engineered to drive sign-ups, conversions, and customer trust.</p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
