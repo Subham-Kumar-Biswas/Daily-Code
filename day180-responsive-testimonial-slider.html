@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 180 - Testimonial Slider</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #fff;
+    }
+
+    .slider-container {
+      width: 100%;
+      max-width: 500px;
+      position: relative;
+    }
+
+    /* Hide radio buttons */
+    input[type="radio"] {
+      display: none;
+    }
+
+    .slide {
+      display: none;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      padding: 25px;
+      border-radius: 16px;
+      text-align: center;
+      animation: fade 0.5s ease;
+    }
+
+    #t1:checked ~ .s1,
+    #t2:checked ~ .s2,
+    #t3:checked ~ .s3 {
+      display: block;
+    }
+
+    @keyframes fade {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .profile {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 15px;
+      border: 2px solid #38bdf8;
+    }
+
+    .profile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .name {
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .job {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      margin-bottom: 12px;
+    }
+
+    .dots {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .dots label {
+      width: 12px;
+      height: 12px;
+      display: inline-block;
+      margin: 0 5px;
+      border-radius: 50%;
+      background: #475569;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #t1:checked ~ .dots label[for="t1"],
+    #t2:checked ~ .dots label[for="t2"],
+    #t3:checked ~ .dots label[for="t3"] {
+      background: #38bdf8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slider-container">
+
+    <!-- Radio controls -->
+    <input type="radio" name="testimonial" id="t1" checked>
+    <input type="radio" name="testimonial" id="t2">
+    <input type="radio" name="testimonial" id="t3">
+
+    <!-- Slide 1 -->
+    <div class="slide s1">
+      <div class="profile">
+        <img src="https://i.pravatar.cc/150?img=12">
+      </div>
+      <p class="name">Sarah Mitchell</p>
+      <p class="job">Brand Strategist</p>
+      <p>Working with this developer completely changed the quality of our website. Fast delivery, clean code and modern design.</p>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide s2">
+      <div class="profile">
+        <img src="https://i.pravatar.cc/150?img=32">
+      </div>
+      <p class="name">James Carter</p>
+      <p class="job">Startup Founder</p>
+      <p>Professional, reliable and extremely easy to work with. Our conversion rate increased by 42% after the redesign.</p>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide s3">
+      <div class="profile">
+        <img src="https://i.pravatar.cc/150?img=58">
+      </div>
+      <p class="name">Emily Davis</p>
+      <p class="job">Marketing Manager</p>
+      <p>Delivered exactly what we needed. The UI feels fresh and responsive. Highly recommended for any frontend project.</p>
+    </div>
+
+    <!-- Slider dots -->
+    <div class="dots">
+      <label for="t1"></label>
+      <label for="t2"></label>
+      <label for="t3"></label>
+    </div>
+
+  </div>
+
+</body>
+</html>
