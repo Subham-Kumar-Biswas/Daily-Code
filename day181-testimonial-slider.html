@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 181 - Testimonial Slider</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0f172a;
+      padding: 30px;
+    }
+
+    .slider-container {
+      width: 350px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slider {
+      display: flex;
+      width: 300%;
+      animation: slide 12s infinite;
+    }
+
+    .slide {
+      width: 100%;
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      color: #fff;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .slide img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      object-fit: cover;
+      border: 3px solid rgba(255,255,255,0.3);
+    }
+
+    .name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 10px;
+      opacity: 0.95;
+    }
+
+    .role {
+      font-size: 0.9rem;
+      opacity: 0.6;
+      margin-bottom: 15px;
+    }
+
+    @keyframes slide {
+      0% { transform: translateX(0%); }
+      33% { transform: translateX(0%); }
+
+      40% { transform: translateX(-100%); }
+      66% { transform: translateX(-100%); }
+
+      73% { transform: translateX(-200%); }
+      100% { transform: translateX(-200%); }
+    }
+
+    @media (max-width: 480px) {
+      .slider-container {
+        width: 280px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slider-container">
+    <div class="slider">
+
+      <div class="slide">
+        <img src="https://i.pravatar.cc/150?img=32">
+        <p>
+          Amazing service. The design quality was far better than what we expected.
+          Highly recommended for any modern web project.
+        </p>
+        <div class="name">Sarah Thompson</div>
+        <div class="role">Marketing Manager</div>
+      </div>
+
+      <div class="slide">
+        <img src="https://i.pravatar.cc/150?img=12">
+        <p>
+          Clean code, great communication, and fast delivery.
+          Would definitely work together again for future projects.
+        </p>
+        <div class="name">Michael Lee</div>
+        <div class="role">Startup Founder</div>
+      </div>
+
+      <div class="slide">
+        <img src="https://i.pravatar.cc/150?img=44">
+        <p>
+          The UI/UX quality is top-notch. This improved our website engagement
+          rate immediately. Truly professional output.
+        </p>
+        <div class="name">Emily Rodriguez</div>
+        <div class="role">Product Designer</div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
