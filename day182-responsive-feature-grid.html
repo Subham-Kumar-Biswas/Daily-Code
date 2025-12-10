@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 182 - Responsive Feature Grid</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: #fff;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .wrapper {
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+
+    .grid {
+      display: grid;
+      gap: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 25px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: #4f9cff;
+    }
+
+    .icon {
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+      color: #4f9cff;
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1 class="title">Our Key Features</h1>
+
+    <div class="grid">
+      <div class="card">
+        <div class="icon">⚡</div>
+        <h3>Fast Performance</h3>
+        <p>Optimised layouts that load quickly and deliver a smooth user experience.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🔒</div>
+        <h3>Secure & Reliable</h3>
+        <p>Built with best practices to keep your users safe and your data protected.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🎨</div>
+        <h3>Clean UI Design</h3>
+        <p>Modern, aesthetic visuals that help brands stand out professionally.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">📱</div>
+        <h3>Fully Responsive</h3>
+        <p>Works flawlessly across all devices, from desktops to mobiles.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">⚙️</div>
+        <h3>Easy to Customize</h3>
+        <p>Code structure is simple and adaptable to any client requirements.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🚀</div>
+        <h3>Scalable Structure</h3>
+        <p>Perfect for startups looking to grow and expand their digital presence.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
