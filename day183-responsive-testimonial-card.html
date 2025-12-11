@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 183 - Responsive Testimonial Card</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .testimonial-card {
+      max-width: 380px;
+      width: 100%;
+      padding: 25px;
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .user-info img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+
+    .user-info h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .user-info p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .testimonial-text {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 500px) {
+      .testimonial-card {
+        padding: 20px;
+      }
+
+      .user-info h3 {
+        font-size: 1.05rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="testimonial-card">
+    <div class="user-info">
+      <img src="https://i.pravatar.cc/150?u=testimonial123" alt="User Placeholder">
+      <div>
+        <h3>Ashley Morgan</h3>
+        <p>UI Research Specialist</p>
+      </div>
+    </div>
+
+    <p class="testimonial-text">
+      Subham consistently delivers polished frontend components with excellent attention to visual detail.
+      His work stays clean, responsive, and ready for production. A reliable choice for any UI-driven project.
+    </p>
+  </div>
+
+</body>
+</html>
