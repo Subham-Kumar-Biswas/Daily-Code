@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 184 - Responsive Testimonial Card</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .testimonial-card {
+      max-width: 380px;
+      width: 100%;
+      padding: 25px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .user-info img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .user-details h3 {
+      font-size: 1.1rem;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .user-details p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .testimonial-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 500px) {
+      .testimonial-card {
+        padding: 20px;
+      }
+
+      .user-details h3 {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="testimonial-card">
+    <div class="user-info">
+      <img src="https://i.pravatar.cc/150?img=12" alt="Client profile">
+      <div class="user-details">
+        <h3>Client Name</h3>
+        <p>Role / Company</p>
+      </div>
+    </div>
+
+    <p class="testimonial-text">
+      This testimonial card component is clean, responsive, and production-ready.
+      It works perfectly for client websites, portfolios, and landing pages while
+      maintaining a modern and professional UI appearance.
+    </p>
+  </div>
+
+</body>
+</html>
