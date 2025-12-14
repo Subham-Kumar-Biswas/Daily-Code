@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 185 - Feature Comparison Table</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .table-wrapper {
+      width: 100%;
+      max-width: 900px;
+      background: #020617;
+      border-radius: 14px;
+      overflow-x: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+
+    thead {
+      background: #020617;
+    }
+
+    th, td {
+      padding: 16px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    th {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #ffffff;
+      background: #020617;
+    }
+
+    td {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .feature {
+      text-align: left;
+      font-weight: 500;
+    }
+
+    .yes {
+      color: #22c55e;
+      font-weight: 600;
+    }
+
+    .no {
+      color: #ef4444;
+      font-weight: 600;
+    }
+
+    .highlight {
+      background: linear-gradient(135deg, #6366f1, #22d3ee);
+      color: #020617;
+      font-weight: 700;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 600px) {
+      th, td {
+        padding: 12px;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Features</th>
+          <th>Basic</th>
+          <th>Pro</th>
+          <th class="highlight">Enterprise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="feature">Responsive Design</td>
+          <td class="yes">Yes</td>
+          <td class="yes">Yes</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td class="feature">Custom UI Components</td>
+          <td class="no">No</td>
+          <td class="yes">Yes</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td class="feature">Performance Optimization</td>
+          <td class="no">No</td>
+          <td class="yes">Yes</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td class="feature">Dedicated Support</td>
+          <td class="no">No</td>
+          <td class="no">No</td>
+          <td class="yes">Yes</td>
+        </tr>
+        <tr>
+          <td class="feature">Enterprise Scalability</td>
+          <td class="no">No</td>
+          <td class="no">No</td>
+          <td class="yes">Yes</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
