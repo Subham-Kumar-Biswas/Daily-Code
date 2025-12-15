@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 186 - Pricing Comparison Table</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      color: #e5e7eb;
+    }
+
+    .pricing-wrapper {
+      max-width: 1000px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .plan {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 18px;
+      padding: 28px 24px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .plan:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .plan.popular {
+      border: 2px solid #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+    }
+
+    .plan h2 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .price {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin: 14px 0;
+      color: #38bdf8;
+    }
+
+    .price span {
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: #cbd5f5;
+    }
+
+    .features {
+      list-style: none;
+      margin: 22px 0;
+      text-align: left;
+    }
+
+    .features li {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    .features li::before {
+      content: "✔";
+      margin-right: 10px;
+      color: #38bdf8;
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 12px 26px;
+      border-radius: 30px;
+      background: #38bdf8;
+      color: #0f172a;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #0ea5e9;
+    }
+
+    @media (max-width: 500px) {
+      .price {
+        font-size: 1.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pricing-wrapper">
+
+    <div class="plan">
+      <h2>Starter</h2>
+      <p class="price">$9<span>/mo</span></p>
+      <ul class="features">
+        <li>Basic UI Components</li>
+        <li>Email Support</li>
+        <li>Single Project</li>
+        <li>Community Access</li>
+      </ul>
+      <a href="#" class="btn">Choose Plan</a>
+    </div>
+
+    <div class="plan popular">
+      <h2>Professional</h2>
+      <p class="price">$29<span>/mo</span></p>
+      <ul class="features">
+        <li>All Starter Features</li>
+        <li>Unlimited Projects</li>
+        <li>Priority Support</li>
+        <li>Client-Ready Templates</li>
+      </ul>
+      <a href="#" class="btn">Most Popular</a>
+    </div>
+
+    <div class="plan">
+      <h2>Enterprise</h2>
+      <p class="price">$59<span>/mo</span></p>
+      <ul class="features">
+        <li>Custom Components</li>
+        <li>Dedicated Support</li>
+        <li>Team Access</li>
+        <li>Advanced Security</li>
+      </ul>
+      <a href="#" class="btn">Choose Plan</a>
+    </div>
+
+  </div>
+
+</body>
+</html>
