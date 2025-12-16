@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 187 - Skeleton Loading UI</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .card {
+      width: 320px;
+      background: #020617;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .skeleton {
+      position: relative;
+      overflow: hidden;
+      background: #1e293b;
+      border-radius: 6px;
+    }
+
+    .skeleton::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-100%);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.08),
+        transparent
+      );
+      animation: shimmer 1.4s infinite;
+    }
+
+    .avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+    }
+
+    .line {
+      height: 14px;
+      width: 100%;
+    }
+
+    .line.short {
+      width: 60%;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    @keyframes shimmer {
+      100% {
+        transform: translateX(100%);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="header">
+      <div class="skeleton avatar"></div>
+      <div style="flex:1; display:flex; flex-direction:column; gap:8px;">
+        <div class="skeleton line short"></div>
+        <div class="skeleton line"></div>
+      </div>
+    </div>
+
+    <div class="skeleton line"></div>
+    <div class="skeleton line"></div>
+    <div class="skeleton line short"></div>
+  </div>
+
+</body>
+</html>
