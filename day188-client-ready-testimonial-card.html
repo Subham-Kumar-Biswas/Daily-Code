@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 188 - Client Ready Testimonial Card</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .testimonial-card {
+      width: 100%;
+      max-width: 400px;
+      padding: 26px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      color: #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .avatar {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: #0f172a;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .user-info h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .user-info p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .testimonial-text {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 480px) {
+      .testimonial-card {
+        padding: 22px;
+      }
+
+      .testimonial-text {
+        font-size: 0.92rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="testimonial-card">
+    <div class="user-info">
+      <div class="avatar">A</div>
+      <div>
+        <h3>Alex Morgan</h3>
+        <p>Startup Founder</p>
+      </div>
+    </div>
+
+    <p class="testimonial-text">
+      The UI components were delivered with precision and scalability in mind.
+      Clean structure, responsive behavior, and production-ready styling made integration seamless.
+      This is exactly the level of frontend quality clients expect.
+    </p>
+  </div>
+
+</body>
+</html>
