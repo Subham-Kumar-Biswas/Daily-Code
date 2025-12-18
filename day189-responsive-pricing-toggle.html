@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 189 - Responsive Pricing Toggle</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .pricing-box {
+      max-width: 400px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+    }
+
+    .pricing-box h2 {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .pricing-box p {
+      font-size: 0.95rem;
+      opacity: 0.8;
+      margin-bottom: 25px;
+    }
+
+    .toggle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .toggle span {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .switch {
+      width: 50px;
+      height: 26px;
+      background: #334155;
+      border-radius: 20px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .switch::before {
+      content: "";
+      width: 20px;
+      height: 20px;
+      background: #22c55e;
+      border-radius: 50%;
+      position: absolute;
+      top: 3px;
+      left: 4px;
+    }
+
+    .price {
+      font-size: 2.4rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #22c55e;
+    }
+
+    .price span {
+      font-size: 1rem;
+      opacity: 0.7;
+    }
+
+    .features {
+      list-style: none;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .features li {
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .features li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: #22c55e;
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      margin-top: 30px;
+      display: inline-block;
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      background: #22c55e;
+      color: #022c22;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .pricing-box {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pricing-box">
+    <h2>Starter Plan</h2>
+    <p>Perfect for freelancers and small projects</p>
+
+    <div class="toggle">
+      <span>Monthly</span>
+      <div class="switch"></div>
+      <span>Yearly</span>
+    </div>
+
+    <div class="price">
+      ₹999 <span>/ month</span>
+    </div>
+
+    <ul class="features">
+      <li>Responsive UI components</li>
+      <li>Basic support</li>
+      <li>Reusable layouts</li>
+      <li>Clean HTML & CSS</li>
+    </ul>
+
+    <a href="#" class="btn">Get Started</a>
+  </div>
+
+</body>
+</html>
