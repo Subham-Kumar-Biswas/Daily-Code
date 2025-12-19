@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 190 - Accessible FAQ Accordion</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      color: #e5e7eb;
+    }
+
+    .faq-container {
+      max-width: 520px;
+      width: 100%;
+      background: #020617;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .faq-container h1 {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    details {
+      background: #0f172a;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: background 0.3s ease;
+    }
+
+    details[open] {
+      background: #020617;
+    }
+
+    summary {
+      cursor: pointer;
+      list-style: none;
+      font-size: 1rem;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      font-size: 1.4rem;
+      transition: transform 0.3s ease;
+    }
+
+    details[open] summary::after {
+      transform: rotate(45deg);
+    }
+
+    .faq-content {
+      margin-top: 12px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #cbd5f5;
+    }
+
+    @media (max-width: 480px) {
+      .faq-container {
+        padding: 18px;
+      }
+
+      .faq-container h1 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="faq-container">
+    <h1>Frequently Asked Questions</h1>
+
+    <details>
+      <summary>Is this FAQ component accessible?</summary>
+      <div class="faq-content">
+        Yes. It uses native HTML details and summary elements, which support keyboard navigation and screen readers by default.
+      </div>
+    </details>
+
+    <details>
+      <summary>Do I need JavaScript for this?</summary>
+      <div class="faq-content">
+        No. The expand and collapse behavior is handled entirely by the browser, making it lightweight and reliable.
+      </div>
+    </details>
+
+    <details>
+      <summary>Can this be used in client projects?</summary>
+      <div class="faq-content">
+        Yes. This is production-ready UI suitable for landing pages, SaaS websites, documentation sections, and support pages.
+      </div>
+    </details>
+
+  </section>
+
+</body>
+</html>
