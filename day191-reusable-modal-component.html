@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 191 - Reusable Modal Component</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Button */
+    .open-btn {
+      padding: 12px 24px;
+      background: #38bdf8;
+      color: #0f172a;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Modal overlay */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Modal box */
+    .modal {
+      background: #020617;
+      color: #e5e7eb;
+      width: 90%;
+      max-width: 400px;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .modal h2 {
+      margin-bottom: 12px;
+      color: #38bdf8;
+    }
+
+    .modal p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      opacity: 0.9;
+    }
+
+    .close-btn {
+      padding: 10px 18px;
+      background: #ef4444;
+      border: none;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* Checkbox control */
+    #modal-toggle {
+      display: none;
+    }
+
+    #modal-toggle:checked ~ .modal-overlay {
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+
+  <input type="checkbox" id="modal-toggle">
+
+  <label for="modal-toggle" class="open-btn">
+    Open Modal
+  </label>
+
+  <div class="modal-overlay">
+    <div class="modal">
+      <h2>Reusable Modal</h2>
+      <p>
+        This modal component can be reused across projects for confirmations,
+        notifications, or user prompts without any JavaScript.
+      </p>
+      <label for="modal-toggle" class="close-btn">
+        Close
+      </label>
+    </div>
+  </div>
+
+</body>
+</html>
