@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 192 - Accessible Pricing Table</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .pricing-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .plan {
+      background: #111827;
+      border-radius: 16px;
+      padding: 25px;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .plan h2 {
+      font-size: 1.4rem;
+      color: #fff;
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+
+    .features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.95rem;
+    }
+
+    .features li {
+      opacity: 0.9;
+    }
+
+    .btn {
+      margin-top: auto;
+      text-align: center;
+      padding: 12px;
+      border-radius: 10px;
+      background: #38bdf8;
+      color: #020617;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: #0ea5e9;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pricing-container">
+    <div class="plan">
+      <h2>Basic</h2>
+      <div class="price">$9/mo</div>
+      <ul class="features">
+        <li>✔ Responsive layout</li>
+        <li>✔ Basic support</li>
+        <li>✔ 1 project</li>
+      </ul>
+      <a href="#" class="btn">Choose Plan</a>
+    </div>
+
+    <div class="plan">
+      <h2>Pro</h2>
+      <div class="price">$29/mo</div>
+      <ul class="features">
+        <li>✔ All Basic features</li>
+        <li>✔ Priority support</li>
+        <li>✔ Unlimited projects</li>
+      </ul>
+      <a href="#" class="btn">Choose Plan</a>
+    </div>
+
+    <div class="plan">
+      <h2>Enterprise</h2>
+      <div class="price">$99/mo</div>
+      <ul class="features">
+        <li>✔ Dedicated support</li>
+        <li>✔ Custom solutions</li>
+        <li>✔ Team access</li>
+      </ul>
+      <a href="#" class="btn">Choose Plan</a>
+    </div>
+  </div>
+
+</body>
+</html>
