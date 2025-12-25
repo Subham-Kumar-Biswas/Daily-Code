@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 196 - Client Stats Summary Card</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #1e3a8a, #020617);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .stats-card {
+      width: 100%;
+      max-width: 800px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid #1e293b;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 0 40px rgba(56, 189, 248, 0.15);
+    }
+
+    .stats-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .stats-header h2 {
+      font-size: 1.8rem;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .stats-header p {
+      font-size: 0.95rem;
+      color: #94a3b8;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .stat-box {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 22px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-box:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.2);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #38bdf8;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      color: #cbd5f5;
+    }
+
+    @media (max-width: 480px) {
+      .stats-card {
+        padding: 22px;
+      }
+
+      .stats-header h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stats-card">
+    <div class="stats-header">
+      <h2>Company Performance</h2>
+      <p>Key metrics trusted by our clients worldwide</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-number">12K+</div>
+        <div class="stat-label">Active Users</div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-number">320+</div>
+        <div class="stat-label">Completed Projects</div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-number">98%</div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-number">4.9★</div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
