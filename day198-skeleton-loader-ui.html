@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 198 - Skeleton Loader UI</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .skeleton-wrapper {
+      width: 100%;
+      max-width: 400px;
+      background: #020617;
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid #1e293b;
+    }
+
+    .skeleton {
+      background: linear-gradient(
+        90deg,
+        #1e293b 25%,
+        #334155 37%,
+        #1e293b 63%
+      );
+      background-size: 400% 100%;
+      animation: shimmer 1.4s ease infinite;
+      border-radius: 8px;
+    }
+
+    .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-bottom: 16px;
+    }
+
+    .line {
+      height: 14px;
+      margin-bottom: 12px;
+    }
+
+    .line.short {
+      width: 60%;
+    }
+
+    .line.medium {
+      width: 80%;
+    }
+
+    .line.full {
+      width: 100%;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 100% 0;
+      }
+      100% {
+        background-position: -100% 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="skeleton-wrapper">
+    <div class="skeleton avatar"></div>
+
+    <div class="skeleton line full"></div>
+    <div class="skeleton line medium"></div>
+    <div class="skeleton line short"></div>
+  </div>
+
+</body>
+</html>
