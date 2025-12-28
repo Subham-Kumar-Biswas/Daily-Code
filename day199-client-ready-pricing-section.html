@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 199 - Pricing Section</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .pricing {
+      max-width: 1000px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .plan {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 18px;
+      padding: 30px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .plan:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    .plan.popular {
+      border: 2px solid #38bdf8;
+    }
+
+    .plan h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #38bdf8;
+      margin: 15px 0;
+    }
+
+    .plan ul {
+      list-style: none;
+      margin: 20px 0;
+    }
+
+    .plan ul li {
+      margin: 10px 0;
+      font-size: 0.95rem;
+      color: #cbd5f5;
+    }
+
+    .plan button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      background: #38bdf8;
+      color: #020617;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .plan button:hover {
+      background: #0ea5e9;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="pricing">
+    <div class="plan">
+      <h3>Basic</h3>
+      <div class="price">$9</div>
+      <ul>
+        <li>Single Website</li>
+        <li>Basic Support</li>
+        <li>Email Integration</li>
+      </ul>
+      <button>Choose Plan</button>
+    </div>
+
+    <div class="plan popular">
+      <h3>Professional</h3>
+      <div class="price">$29</div>
+      <ul>
+        <li>Unlimited Websites</li>
+        <li>Priority Support</li>
+        <li>Advanced Analytics</li>
+      </ul>
+      <button>Choose Plan</button>
+    </div>
+
+    <div class="plan">
+      <h3>Enterprise</h3>
+      <div class="price">$59</div>
+      <ul>
+        <li>Custom Solutions</li>
+        <li>Dedicated Support</li>
+        <li>Security Audits</li>
+      </ul>
+      <button>Choose Plan</button>
+    </div>
+  </section>
+
+</body>
+</html>
