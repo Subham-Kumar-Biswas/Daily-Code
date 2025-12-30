@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 200 - Portfolio Stats Section</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #1e3a8a, #020617);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .stats-section {
+      max-width: 900px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 30px 20px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .stat-number {
+      font-size: 2.4rem;
+      font-weight: bold;
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      color: #cbd5f5;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 480px) {
+      .stat-number {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="stats-section">
+    <div class="stat-card">
+      <div class="stat-number">200+</div>
+      <div class="stat-label">Days of Consistent Practice</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-number">80+</div>
+      <div class="stat-label">UI Components Built</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">HTML & CSS Focused</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-number">∞</div>
+      <div class="stat-label">Learning Mindset</div>
+    </div>
+  </section>
+
+</body>
+</html>
