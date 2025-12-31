@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 201 - Pricing Toggle</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #e5e7eb;
+      padding: 20px;
+    }
+
+    .pricing-box {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 18px;
+      padding: 32px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .pricing-box h2 {
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .pricing-box p {
+      font-size: 0.95rem;
+      color: #cbd5f5;
+      margin-bottom: 25px;
+    }
+
+    .toggle-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .toggle-wrapper span {
+      font-size: 0.9rem;
+      color: #cbd5f5;
+    }
+
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    .toggle {
+      width: 56px;
+      height: 28px;
+      background: #1e293b;
+      border-radius: 50px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .toggle::before {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 20px;
+      height: 20px;
+      background: #38bdf8;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+
+    input:checked + .toggle {
+      background: #0ea5e9;
+    }
+
+    input:checked + .toggle::before {
+      transform: translateX(28px);
+      background: #ffffff;
+    }
+
+    .price {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #38bdf8;
+    }
+
+    .price small {
+      font-size: 1rem;
+      color: #cbd5f5;
+    }
+
+    .note {
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pricing-box">
+    <h2>Pro Plan</h2>
+    <p>Perfect for freelancers and developers</p>
+
+    <div class="toggle-wrapper">
+      <span>Monthly</span>
+      <input type="checkbox" id="billing">
+      <label for="billing" class="toggle"></label>
+      <span>Yearly</span>
+    </div>
+
+    <div class="price">
+      $29 <small>/ month</small>
+    </div>
+
+    <div class="note">
+      Yearly billing saves up to 20%
+    </div>
+  </div>
+
+</body>
+</html>
