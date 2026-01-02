@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 203 - Feature Cards Section</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .features {
+      max-width: 1000px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 18px;
+      padding: 28px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    .icon {
+      font-size: 30px;
+      margin-bottom: 14px;
+      color: #38bdf8;
+    }
+
+    .feature-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #cbd5f5;
+    }
+
+    @media (max-width: 500px) {
+      .feature-card {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="features">
+    <div class="feature-card">
+      <div class="icon">🚀</div>
+      <h3>Fast Delivery</h3>
+      <p>
+        Optimized structure and lightweight styling ensure quick load times
+        and smooth performance across all modern browsers.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <div class="icon">🧩</div>
+      <h3>Reusable Components</h3>
+      <p>
+        Designed as modular UI blocks that can be easily reused or extended
+        in client projects and production environments.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <div class="icon">📈</div>
+      <h3>Scalable Design</h3>
+      <p>
+        Clean layout and consistent spacing make this section scalable
+        as your product or business grows.
+      </p>
+    </div>
+  </section>
+
+</body>
+</html>
