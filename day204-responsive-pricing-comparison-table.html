@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 204 - Pricing Comparison Table</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .pricing-table {
+      max-width: 900px;
+      width: 100%;
+      overflow-x: auto;
+      background: #020617;
+      border-radius: 16px;
+      border: 1px solid #1e293b;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+    }
+
+    thead {
+      background: #020617;
+    }
+
+    th, td {
+      padding: 16px;
+      text-align: center;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    th {
+      color: #38bdf8;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    td {
+      font-size: 0.95rem;
+      color: #cbd5f5;
+    }
+
+    .plan-name {
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .price {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #22c55e;
+    }
+
+    .highlight {
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    @media (max-width: 768px) {
+      th, td {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pricing-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Features</th>
+          <th>Basic</th>
+          <th class="highlight">Pro</th>
+          <th>Enterprise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="plan-name">Price</td>
+          <td class="price">$9</td>
+          <td class="price highlight">$29</td>
+          <td class="price">$99</td>
+        </tr>
+        <tr>
+          <td>Projects</td>
+          <td>5</td>
+          <td class="highlight">Unlimited</td>
+          <td>Unlimited</td>
+        </tr>
+        <tr>
+          <td>Storage</td>
+          <td>10 GB</td>
+          <td class="highlight">100 GB</td>
+          <td>1 TB</td>
+        </tr>
+        <tr>
+          <td>Support</td>
+          <td>Email</td>
+          <td class="highlight">Priority Email</td>
+          <td>24/7 Support</td>
+        </tr>
+        <tr>
+          <td>Custom Domain</td>
+          <td>❌</td>
+          <td class="highlight">✔</td>
+          <td>✔</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
