@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 205 - Stats Dashboard Cards</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .dashboard {
+      max-width: 1000px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 24px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .card h4 {
+      font-size: 0.95rem;
+      color: #94a3b8;
+      margin-bottom: 10px;
+    }
+
+    .card .value {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .card .trend {
+      font-size: 0.85rem;
+      color: #22c55e;
+    }
+
+    .down {
+      color: #ef4444;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="dashboard">
+    <div class="card">
+      <h4>Total Users</h4>
+      <div class="value">12,480</div>
+      <div class="trend">▲ 8.2% this month</div>
+    </div>
+
+    <div class="card">
+      <h4>Active Sessions</h4>
+      <div class="value">3,274</div>
+      <div class="trend">▲ 3.5% today</div>
+    </div>
+
+    <div class="card">
+      <h4>Revenue</h4>
+      <div class="value">$24,930</div>
+      <div class="trend">▲ 12.1% this quarter</div>
+    </div>
+
+    <div class="card">
+      <h4>Churn Rate</h4>
+      <div class="value">2.4%</div>
+      <div class="trend down">▼ 0.6% improvement</div>
+    </div>
+  </section>
+
+</body>
+</html>
