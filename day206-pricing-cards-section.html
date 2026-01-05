@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 206 - Pricing Cards</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .pricing {
+      max-width: 1000px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .plan {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 18px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .plan:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+    }
+
+    .plan h3 {
+      font-size: 1.3rem;
+      color: #ffffff;
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+
+    .price span {
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: #cbd5f5;
+    }
+
+    button {
+      margin-top: auto;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: bold;
+      background: #38bdf8;
+      color: #020617;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #0ea5e9;
+    }
+
+    .highlight {
+      border: 2px solid #38bdf8;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="pricing">
+    <div class="plan">
+      <h3>Starter</h3>
+      <div class="price">$9 <span>/month</span></div>
+      <ul>
+        <li>Basic analytics</li>
+        <li>Email support</li>
+        <li>Single project</li>
+      </ul>
+      <button>Choose Plan</button>
+    </div>
+
+    <div class="plan highlight">
+      <h3>Pro</h3>
+      <div class="price">$29 <span>/month</span></div>
+      <ul>
+        <li>Advanced analytics</li>
+        <li>Priority support</li>
+        <li>Unlimited projects</li>
+      </ul>
+      <button>Choose Plan</button>
+    </div>
+
+    <div class="plan">
+      <h3>Enterprise</h3>
+      <div class="price">$99 <span>/month</span></div>
+      <ul>
+        <li>Custom integrations</li>
+        <li>Dedicated manager</li>
+        <li>Security audits</li>
+      </ul>
+      <button>Contact Sales</button>
+    </div>
+  </section>
+
+</body>
+</html>
