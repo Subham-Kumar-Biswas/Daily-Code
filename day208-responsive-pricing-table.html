@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 208 - Responsive Pricing Table</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .pricing {
+      max-width: 1000px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .plan {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 18px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .plan:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .plan h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .price {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin: 16px 0;
+      color: #38bdf8;
+    }
+
+    .features {
+      list-style: none;
+      margin: 20px 0;
+      width: 100%;
+    }
+
+    .features li {
+      padding: 8px 0;
+      border-bottom: 1px solid #1e293b;
+      font-size: 0.95rem;
+      color: #cbd5f5;
+    }
+
+    .features li:last-child {
+      border-bottom: none;
+    }
+
+    .btn {
+      margin-top: auto;
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: #38bdf8;
+      color: #020617;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #0ea5e9;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="pricing">
+    <div class="plan">
+      <h3>Starter</h3>
+      <div class="price">₹0</div>
+      <ul class="features">
+        <li>Basic UI Components</li>
+        <li>Responsive Layout</li>
+        <li>Email Support</li>
+      </ul>
+      <a href="#" class="btn">Get Started</a>
+    </div>
+
+    <div class="plan">
+      <h3>Professional</h3>
+      <div class="price">₹999</div>
+      <ul class="features">
+        <li>All Starter Features</li>
+        <li>Advanced Components</li>
+        <li>Priority Support</li>
+      </ul>
+      <a href="#" class="btn">Choose Plan</a>
+    </div>
+
+    <div class="plan">
+      <h3>Enterprise</h3>
+      <div class="price">₹2999</div>
+      <ul class="features">
+        <li>Unlimited Components</li>
+        <li>Custom Integrations</li>
+        <li>Dedicated Support</li>
+      </ul>
+      <a href="#" class="btn">Contact Sales</a>
+    </div>
+  </section>
+
+</body>
+</html>
