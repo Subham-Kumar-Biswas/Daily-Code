@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 210 - Form Validation UI</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .form-card {
+      width: 100%;
+      max-width: 420px;
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 26px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .form-card h2 {
+      margin-bottom: 18px;
+      font-size: 1.3rem;
+      color: #ffffff;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: #cbd5f5;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      background: #020617;
+      color: #e5e7eb;
+      outline: none;
+    }
+
+    .field input:focus {
+      border-color: #38bdf8;
+    }
+
+    .field.success input {
+      border-color: #22c55e;
+    }
+
+    .field.error input {
+      border-color: #ef4444;
+    }
+
+    .helper-text {
+      margin-top: 6px;
+      font-size: 0.8rem;
+    }
+
+    .success-text {
+      color: #22c55e;
+    }
+
+    .error-text {
+      color: #ef4444;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: none;
+      background: #38bdf8;
+      color: #020617;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background: #0ea5e9;
+    }
+
+    @media (max-width: 480px) {
+      .form-card {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-card">
+    <h2>Account Details</h2>
+
+    <div class="field success">
+      <label>Email Address</label>
+      <input type="email" placeholder="you@example.com" />
+      <div class="helper-text success-text">
+        Email looks good
+      </div>
+    </div>
+
+    <div class="field error">
+      <label>Password</label>
+      <input type="password" placeholder="Minimum 8 characters" />
+      <div class="helper-text error-text">
+        Password must be at least 8 characters long
+      </div>
+    </div>
+
+    <button class="submit-btn">Create Account</button>
+  </div>
+
+</body>
+</html>
