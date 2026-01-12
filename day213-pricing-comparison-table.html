@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 213 - Pricing Comparison Table</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .pricing-table {
+      max-width: 900px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .plan {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .plan:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .plan h2 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #38bdf8;
+      margin-bottom: 20px;
+    }
+
+    .features {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+
+    .features li {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      color: #cbd5f5;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #020617;
+      background: #38bdf8;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #0ea5e9;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="pricing-table">
+
+    <div class="plan">
+      <h2>Basic</h2>
+      <div class="price">$9/mo</div>
+      <ul class="features">
+        <li>Single Project</li>
+        <li>Email Support</li>
+        <li>Basic Analytics</li>
+      </ul>
+      <a href="#" class="btn">Choose Plan</a>
+    </div>
+
+    <div class="plan">
+      <h2>Pro</h2>
+      <div class="price">$29/mo</div>
+      <ul class="features">
+        <li>Unlimited Projects</li>
+        <li>Priority Support</li>
+        <li>Advanced Analytics</li>
+      </ul>
+      <a href="#" class="btn">Choose Plan</a>
+    </div>
+
+    <div class="plan">
+      <h2>Enterprise</h2>
+      <div class="price">$99/mo</div>
+      <ul class="features">
+        <li>Custom Solutions</li>
+        <li>Dedicated Manager</li>
+        <li>Full Analytics Suite</li>
+      </ul>
+      <a href="#" class="btn">Choose Plan</a>
+    </div>
+
+  </section>
+
+</body>
+</html>
