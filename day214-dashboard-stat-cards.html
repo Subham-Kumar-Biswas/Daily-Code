@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 214 - Dashboard Stat Cards</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .dashboard {
+      max-width: 1000px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .stat-card {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 24px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+    }
+
+    .stat-title {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-bottom: 10px;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #38bdf8;
+      margin-bottom: 8px;
+    }
+
+    .stat-desc {
+      font-size: 0.85rem;
+      color: #cbd5f5;
+    }
+
+  </style>
+</head>
+<body>
+
+  <section class="dashboard">
+
+    <div class="stat-card">
+      <div class="stat-title">Total Users</div>
+      <div class="stat-value">12,480</div>
+      <div class="stat-desc">Active users this month</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-title">Monthly Revenue</div>
+      <div class="stat-value">$34,920</div>
+      <div class="stat-desc">Revenue generated this month</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-title">Conversion Rate</div>
+      <div class="stat-value">4.8%</div>
+      <div class="stat-desc">Based on last 30 days</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-title">Support Tickets</div>
+      <div class="stat-value">128</div>
+      <div class="stat-desc">Pending customer requests</div>
+    </div>
+
+  </section>
+
+</body>
+</html>
