@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 215 - Settings Panel UI</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .settings {
+      width: 100%;
+      max-width: 420px;
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 18px;
+      padding: 24px;
+    }
+
+    .settings h2 {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .setting-item:last-child {
+      border-bottom: none;
+    }
+
+    .setting-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .setting-text span {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .setting-text small {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    /* Toggle Switch */
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background: #334155;
+      border-radius: 30px;
+      transition: 0.3s;
+    }
+
+    .slider::before {
+      content: "";
+      position: absolute;
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      top: 3px;
+      background: #ffffff;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+
+    input:checked + .slider {
+      background: #38bdf8;
+    }
+
+    input:checked + .slider::before {
+      transform: translateX(20px);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="settings">
+    <h2>Settings</h2>
+
+    <div class="setting-item">
+      <div class="setting-text">
+        <span>Dark Mode</span>
+        <small>Reduce eye strain in low light</small>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting-item">
+      <div class="setting-text">
+        <span>Email Notifications</span>
+        <small>Receive important updates</small>
+      </div>
+      <label class="toggle">
+        <input type="checkbox">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting-item">
+      <div class="setting-text">
+        <span>Auto Updates</span>
+        <small>Keep the app up to date</small>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+  </div>
+
+</body>
+</html>
