@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 218 - Audit Log Table</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .audit-container {
+      width: 100%;
+      max-width: 900px;
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .audit-container h2 {
+      font-size: 1.4rem;
+      margin-bottom: 18px;
+      color: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: #020617;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 14px;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    th {
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    td {
+      color: #cbd5f5;
+    }
+
+    .status {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      display: inline-block;
+      font-weight: 600;
+    }
+
+    .success {
+      background: rgba(34,197,94,0.15);
+      color: #22c55e;
+    }
+
+    .warning {
+      background: rgba(234,179,8,0.15);
+      color: #eab308;
+    }
+
+    .danger {
+      background: rgba(239,68,68,0.15);
+      color: #ef4444;
+    }
+
+    @media (max-width: 600px) {
+      th, td {
+        font-size: 0.8rem;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="audit-container">
+    <h2>Audit Logs</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>User</th>
+          <th>Time</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Login Attempt</td>
+          <td>subham.k</td>
+          <td>2026-01-16 09:42</td>
+          <td><span class="status success">Success</span></td>
+        </tr>
+        <tr>
+          <td>Password Change</td>
+          <td>subham.k</td>
+          <td>2026-01-15 21:10</td>
+          <td><span class="status success">Completed</span></td>
+        </tr>
+        <tr>
+          <td>Permission Update</td>
+          <td>admin</td>
+          <td>2026-01-15 18:02</td>
+          <td><span class="status warning">Reviewed</span></td>
+        </tr>
+        <tr>
+          <td>Failed Login</td>
+          <td>unknown</td>
+          <td>2026-01-14 23:51</td>
+          <td><span class="status danger">Blocked</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
