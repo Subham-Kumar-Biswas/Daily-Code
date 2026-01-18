@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 219 - Role Permission Matrix</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .matrix-container {
+      width: 100%;
+      max-width: 900px;
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .matrix-container h2 {
+      font-size: 1.4rem;
+      margin-bottom: 18px;
+      color: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 14px;
+      text-align: center;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    th {
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    td:first-child, th:first-child {
+      text-align: left;
+    }
+
+    .allowed {
+      color: #22c55e;
+      font-weight: 700;
+    }
+
+    .denied {
+      color: #ef4444;
+      font-weight: 700;
+    }
+
+    .partial {
+      color: #eab308;
+      font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
+      th, td {
+        font-size: 0.8rem;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="matrix-container">
+    <h2>Role & Permission Matrix</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Permission</th>
+          <th>Admin</th>
+          <th>Manager</th>
+          <th>User</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>View Dashboard</td>
+          <td class="allowed">✔</td>
+          <td class="allowed">✔</td>
+          <td class="allowed">✔</td>
+        </tr>
+        <tr>
+          <td>Edit Content</td>
+          <td class="allowed">✔</td>
+          <td class="allowed">✔</td>
+          <td class="denied">✖</td>
+        </tr>
+        <tr>
+          <td>Manage Users</td>
+          <td class="allowed">✔</td>
+          <td class="partial">◐</td>
+          <td class="denied">✖</td>
+        </tr>
+        <tr>
+          <td>System Settings</td>
+          <td class="allowed">✔</td>
+          <td class="denied">✖</td>
+          <td class="denied">✖</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
