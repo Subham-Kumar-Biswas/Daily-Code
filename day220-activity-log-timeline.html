@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 220 - Activity Log Timeline</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .timeline-container {
+      width: 100%;
+      max-width: 700px;
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .timeline-container h2 {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 14px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #1e293b;
+    }
+
+    .event {
+      display: flex;
+      gap: 16px;
+      position: relative;
+    }
+
+    .event-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #38bdf8;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .event-content {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 14px 16px;
+      width: 100%;
+    }
+
+    .event-content h4 {
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      color: #ffffff;
+    }
+
+    .event-content p {
+      font-size: 0.85rem;
+      color: #cbd5f5;
+      line-height: 1.5;
+    }
+
+    .event-time {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      margin-top: 6px;
+    }
+
+    .danger .event-dot {
+      background: #ef4444;
+    }
+
+    .warning .event-dot {
+      background: #eab308;
+    }
+
+    @media (max-width: 480px) {
+      .timeline-container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="timeline-container">
+    <h2>Activity Log</h2>
+
+    <div class="timeline">
+
+      <div class="event">
+        <div class="event-dot"></div>
+        <div class="event-content">
+          <h4>User Logged In</h4>
+          <p>User authenticated successfully from a new device.</p>
+          <div class="event-time">Today • 09:12 AM</div>
+        </div>
+      </div>
+
+      <div class="event warning">
+        <div class="event-dot"></div>
+        <div class="event-content">
+          <h4>Password Changed</h4>
+          <p>User updated account password.</p>
+          <div class="event-time">Today • 08:40 AM</div>
+        </div>
+      </div>
+
+      <div class="event danger">
+        <div class="event-dot"></div>
+        <div class="event-content">
+          <h4>Failed Login Attempt</h4>
+          <p>Multiple failed login attempts detected.</p>
+          <div class="event-time">Yesterday • 10:58 PM</div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-dot"></div>
+        <div class="event-content">
+          <h4>Profile Updated</h4>
+          <p>User updated profile information.</p>
+          <div class="event-time">Yesterday • 06:15 PM</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
