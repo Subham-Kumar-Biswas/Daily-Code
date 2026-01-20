@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 221 - Settings Panel</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #e5e7eb;
+    }
+
+    .settings-panel {
+      width: 100%;
+      max-width: 520px;
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .settings-panel h2 {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .setting-item:last-child {
+      border-bottom: none;
+    }
+
+    .setting-info h4 {
+      font-size: 0.95rem;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .setting-info p {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    .toggle {
+      position: relative;
+      width: 46px;
+      height: 24px;
+    }
+
+    .toggle input {
+      display: none;
+    }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: #1e293b;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .slider::before {
+      content: "";
+      position: absolute;
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      top: 3px;
+      background: #ffffff;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+
+    input:checked + .slider {
+      background: #38bdf8;
+    }
+
+    input:checked + .slider::before {
+      transform: translateX(22px);
+    }
+
+    @media (max-width: 480px) {
+      .settings-panel {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="settings-panel">
+    <h2>Account Settings</h2>
+
+    <div class="setting-item">
+      <div class="setting-info">
+        <h4>Email Notifications</h4>
+        <p>Receive updates and alerts via email</p>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting-item">
+      <div class="setting-info">
+        <h4>Two-Factor Authentication</h4>
+        <p>Add an extra layer of account security</p>
+      </div>
+      <label class="toggle">
+        <input type="checkbox">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting-item">
+      <div class="setting-info">
+        <h4>Dark Mode</h4>
+        <p>Enable dark theme across the platform</p>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+  </div>
+
+</body>
+</html>
