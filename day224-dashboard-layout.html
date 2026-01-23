@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 224 Dashboard Layout</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      grid-template-rows: 60px 1fr;
+      grid-template-areas:
+        "sidebar header"
+        "sidebar main";
+      height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      grid-area: sidebar;
+      background-color: #1f2933;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sidebar h2 {
+      font-size: 20px;
+    }
+
+    .sidebar nav a {
+      display: block;
+      color: #cbd5e1;
+      text-decoration: none;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .sidebar nav a:hover {
+      color: #fff;
+    }
+
+    /* Header */
+    .header {
+      grid-area: header;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .header h1 {
+      font-size: 18px;
+    }
+
+    .header .actions button {
+      padding: 8px 14px;
+      border: none;
+      background-color: #2563eb;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    /* Main content */
+    .main {
+      grid-area: main;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .card h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+        grid-template-rows: 60px auto 1fr;
+        grid-template-areas:
+          "header"
+          "sidebar"
+          "main";
+      }
+
+      .sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+      }
+
+      .sidebar nav {
+        display: flex;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+    <aside class="sidebar">
+      <h2>Dashboard</h2>
+      <nav>
+        <a href="#">Overview</a>
+        <a href="#">Analytics</a>
+        <a href="#">Users</a>
+        <a href="#">Settings</a>
+      </nav>
+    </aside>
+
+    <header class="header">
+      <h1>Admin Panel</h1>
+      <div class="actions">
+        <button>Add New</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="cards">
+        <div class="card">
+          <h3>Users</h3>
+          <p>1,240 active users</p>
+        </div>
+        <div class="card">
+          <h3>Revenue</h3>
+          <p>$12,430 this month</p>
+        </div>
+        <div class="card">
+          <h3>Performance</h3>
+          <p>Server uptime 99.9%</p>
+        </div>
+        <div class="card">
+          <h3>Tasks</h3>
+          <p>23 pending tasks</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>
