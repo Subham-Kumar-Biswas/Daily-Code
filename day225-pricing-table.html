@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 225 Pricing Table</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #0f172a;
+      color: #e5e7eb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .pricing-section {
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .pricing-header h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .pricing-header p {
+      font-size: 15px;
+      color: #94a3b8;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .plan {
+      background-color: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .plan.featured {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+    }
+
+    .plan h2 {
+      font-size: 20px;
+      margin-bottom: 6px;
+      color: #ffffff;
+    }
+
+    .price {
+      font-size: 32px;
+      font-weight: bold;
+      margin: 16px 0;
+      color: #38bdf8;
+    }
+
+    .price span {
+      font-size: 14px;
+      font-weight: normal;
+      color: #94a3b8;
+    }
+
+    .features {
+      list-style: none;
+      margin: 20px 0;
+      flex-grow: 1;
+    }
+
+    .features li {
+      font-size: 14px;
+      color: #cbd5f5;
+      margin-bottom: 10px;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .features li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #22c55e;
+    }
+
+    .plan button {
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .plan button.primary {
+      background-color: #38bdf8;
+      color: #020617;
+    }
+
+    .plan button.secondary {
+      background-color: transparent;
+      color: #e5e7eb;
+      border: 1px solid #1e293b;
+    }
+
+    .plan button.secondary:hover {
+      background-color: rgba(148, 163, 184, 0.1);
+    }
+
+    .plan button.primary:hover {
+      background-color: #0ea5e9;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="pricing-section">
+    <div class="pricing-header">
+      <h1>Simple Pricing</h1>
+      <p>Choose a plan that fits your needs</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="plan">
+        <h2>Starter</h2>
+        <div class="price">$9 <span>/ month</span></div>
+        <ul class="features">
+          <li>Basic analytics</li>
+          <li>100 GB bandwidth</li>
+          <li>Email support</li>
+        </ul>
+        <button class="secondary">Get Started</button>
+      </div>
+
+      <div class="plan featured">
+        <h2>Pro</h2>
+        <div class="price">$29 <span>/ month</span></div>
+        <ul class="features">
+          <li>Advanced analytics</li>
+          <li>Unlimited bandwidth</li>
+          <li>Priority support</li>
+          <li>Custom integrations</li>
+        </ul>
+        <button class="primary">Buy Pro</button>
+      </div>
+
+      <div class="plan">
+        <h2>Enterprise</h2>
+        <div class="price">$99 <span>/ month</span></div>
+        <ul class="features">
+          <li>Dedicated infrastructure</li>
+          <li>Security audits</li>
+          <li>24/7 phone support</li>
+        </ul>
+        <button class="secondary">Contact Sales</button>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
