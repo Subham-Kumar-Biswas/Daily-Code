@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 229 Authentication Form</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #0f172a;
+      color: #e5e7eb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 420px;
+      background-color: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 28px 24px;
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .auth-header h1 {
+      font-size: 22px;
+      margin-bottom: 6px;
+      color: #ffffff;
+    }
+
+    .auth-header p {
+      font-size: 14px;
+      color: #94a3b8;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    label {
+      font-size: 13px;
+      color: #cbd5f5;
+      margin-bottom: 4px;
+    }
+
+    input {
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #1e293b;
+      background-color: #0f172a;
+      color: #e5e7eb;
+      font-size: 14px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #38bdf8;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .auth-button {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background-color: #38bdf8;
+      color: #020617;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .auth-button:hover {
+      background-color: #0ea5e9;
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-container">
+    <div class="auth-header">
+      <h1>Sign In</h1>
+      <p>Enter your credentials to continue</p>
+    </div>
+
+    <form>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" id="email" placeholder="you@example.com">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••">
+      </div>
+
+      <button class="auth-button" type="submit">Login</button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Forgot your password?</p>
+    </div>
+  </div>
+
+</body>
+</html>
