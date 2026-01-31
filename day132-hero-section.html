@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 132 Hero Section</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #020617;
+      color: #e5e7eb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .hero {
+      max-width: 900px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      margin-bottom: 16px;
+      color: #ffffff;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: #94a3b8;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-actions button {
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .primary {
+      background-color: #38bdf8;
+      color: #020617;
+    }
+
+    .secondary {
+      background-color: transparent;
+      color: #e5e7eb;
+      border: 1px solid #1e293b;
+    }
+
+    .primary:hover {
+      background-color: #0ea5e9;
+    }
+
+    .secondary:hover {
+      background-color: rgba(148, 163, 184, 0.1);
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <h1>Build Better Interfaces</h1>
+    <p>
+      A simple hero section layout using Flexbox, consistent spacing, and clear
+      visual hierarchy.
+    </p>
+
+    <div class="hero-actions">
+      <button class="primary">Get Started</button>
+      <button class="secondary">Learn More</button>
+    </div>
+  </section>
+
+</body>
+</html>
