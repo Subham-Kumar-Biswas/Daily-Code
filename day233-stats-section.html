@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 233 Stats Section</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #0f172a;
+      color: #e5e7eb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .stats-section {
+      max-width: 1000px;
+      width: 100%;
+      background-color: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 40px 24px;
+    }
+
+    .stats-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .stats-header h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    .stats-header p {
+      font-size: 15px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 24px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 20px;
+      border-radius: 12px;
+      background-color: #0f172a;
+      border: 1px solid #1e293b;
+    }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #38bdf8;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: #cbd5f5;
+    }
+
+    @media (max-width: 640px) {
+      .stat-value {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="stats-section">
+    <div class="stats-header">
+      <h1>Key Metrics</h1>
+      <p>
+        A simple statistics layout using CSS Grid and consistent spacing to
+        highlight important values.
+      </p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-value">1.2K</div>
+        <div class="stat-label">Active Users</div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-value">98%</div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-value">24/7</div>
+        <div class="stat-label">Availability</div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-value">150+</div>
+        <div class="stat-label">Integrations</div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
