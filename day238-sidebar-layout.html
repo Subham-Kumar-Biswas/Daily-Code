@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sidebar Layout - Day 238</title>
+
+  <style>
+    :root {
+      --bg: #020617;
+      --surface: #0f172a;
+      --border: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #22c55e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    aside {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 100vh;
+      background-color: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    aside h1 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    aside nav ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    aside nav a {
+      text-decoration: none;
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    aside nav a:hover {
+      background-color: rgba(34, 197, 94, 0.12);
+      color: var(--text);
+    }
+
+    main {
+      margin-left: 220px;
+      padding: 2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    section {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      max-width: 900px;
+    }
+
+    section h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+    }
+
+    section p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+      max-width: 65ch;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <aside>
+      <h1>Day 238</h1>
+      <nav>
+        <ul>
+          <li><a href="#">Overview</a></li>
+          <li><a href="#">Structure</a></li>
+          <li><a href="#">Layout</a></li>
+          <li><a href="#">Styles</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main>
+      <section>
+        <h2>Fixed Sidebar</h2>
+        <p>
+          The sidebar uses fixed positioning to remain visible while the main
+          content scrolls independently.
+        </p>
+      </section>
+
+      <section>
+        <h2>Flexible Main Area</h2>
+        <p>
+          The main element offsets its margin to account for the sidebar width
+          and expands naturally using Flexbox.
+        </p>
+      </section>
+
+      <section>
+        <h2>Layout Composition</h2>
+        <p>
+          This structure demonstrates combining fixed and flexible elements
+          without JavaScript or layout hacks.
+        </p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
