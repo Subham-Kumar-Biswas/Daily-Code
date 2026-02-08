@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 239 Toast Notification</title>
+
+  <style>
+    :root {
+      --bg: #020617;
+      --surface: #0f172a;
+      --border: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --success: #22c55e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg);
+      font-family: system-ui, sans-serif;
+      color: var(--text);
+    }
+
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 1000;
+    }
+
+    .toast {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--success);
+      border-radius: 10px;
+      padding: 14px 16px;
+      min-width: 260px;
+      max-width: 320px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      animation: slideIn 0.35s ease-out forwards;
+    }
+
+    .toast-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .toast-message {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="toast-container">
+    <div class="toast">
+      <div class="toast-title">Action completed</div>
+      <div class="toast-message">
+        The operation finished successfully without errors.
+      </div>
+    </div>
+
+    <div class="toast">
+      <div class="toast-title">Settings saved</div>
+      <div class="toast-message">
+        Your preferences have been updated.
+      </div>
+    </div>
+  </div>
+</body>
+</html>
