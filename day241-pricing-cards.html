@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 241 Pricing Cards</title>
+
+  <style>
+    :root {
+      --bg: #020617;
+      --surface: #0f172a;
+      --border: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #22c55e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg);
+      font-family: system-ui, sans-serif;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .price {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .price span {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .features li {
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .features li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .card-footer {
+      margin-top: auto;
+    }
+
+    .card-footer button {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background-color: transparent;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background-color 0.2s ease;
+    }
+
+    .card-footer button:hover {
+      background-color: rgba(34, 197, 94, 0.12);
+    }
+  </style>
+</head>
+
+<body>
+  <section class="pricing-grid">
+    <article class="card">
+      <h2>Basic</h2>
+      <div class="price">$9 <span>/ month</span></div>
+      <ul class="features">
+        <li>Core features</li>
+        <li>Email support</li>
+        <li>Single project</li>
+      </ul>
+      <div class="card-footer">
+        <button>Select plan</button>
+      </div>
+    </article>
+
+    <article class="card">
+      <h2>Standard</h2>
+      <div class="price">$19 <span>/ month</span></div>
+      <ul class="features">
+        <li>All basic features</li>
+        <li>Priority support</li>
+        <li>Up to 5 projects</li>
+      </ul>
+      <div class="card-footer">
+        <button>Select plan</button>
+      </div>
+    </article>
+
+    <article class="card">
+      <h2>Premium</h2>
+      <div class="price">$39 <span>/ month</span></div>
+      <ul class="features">
+        <li>All standard features</li>
+        <li>Unlimited projects</li>
+        <li>Dedicated support</li>
+      </ul>
+      <div class="card-footer">
+        <button>Select plan</button>
+      </div>
+    </article>
+  </section>
+</body>
+</html>
