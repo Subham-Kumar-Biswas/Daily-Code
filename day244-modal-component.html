@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 244 Modal Component</title>
+
+  <style>
+    :root {
+      --bg: #020617;
+      --surface: #0f172a;
+      --border: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --overlay: rgba(0, 0, 0, 0.6);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+    }
+
+    /* Hidden toggle */
+    #modal-toggle {
+      display: none;
+    }
+
+    .open-btn {
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background-color: var(--accent);
+      color: #020617;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: var(--overlay);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    #modal-toggle:checked ~ .modal-overlay {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 420px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .modal h2 {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .modal p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background-color: transparent;
+      color: var(--text);
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      background-color: var(--accent);
+      border-color: var(--accent);
+      color: #020617;
+    }
+
+    .close-label {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <input type="checkbox" id="modal-toggle" />
+
+  <label for="modal-toggle" class="open-btn">
+    Open Modal
+  </label>
+
+  <div class="modal-overlay">
+    <div class="modal">
+      <h2>Confirm Action</h2>
+      <p>
+        This modal component is controlled entirely by CSS using a hidden
+        checkbox as a state mechanism.
+      </p>
+
+      <div class="modal-actions">
+        <label for="modal-toggle" class="btn close-label">Cancel</label>
+        <button class="btn primary">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
