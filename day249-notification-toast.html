@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 249 Notification Toast</title>
+
+  <style>
+    :root {
+      --bg: #020617;
+      --surface: #0f172a;
+      --border: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+
+      --success: #22c55e;
+      --error: #ef4444;
+      --info: #38bdf8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 280px;
+    }
+
+    .toast {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--info);
+      border-radius: 10px;
+      padding: 12px 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    }
+
+    .toast.success { border-left-color: var(--success); }
+    .toast.error { border-left-color: var(--error); }
+    .toast.info { border-left-color: var(--info); }
+
+    .icon {
+      font-size: 1rem;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    .toast.success .icon { color: var(--success); }
+    .toast.error .icon { color: var(--error); }
+    .toast.info .icon { color: var(--info); }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .title {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .message {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="toast-container">
+
+    <div class="toast success">
+      <div class="icon">✔</div>
+      <div class="content">
+        <div class="title">Success</div>
+        <div class="message">Your changes have been saved successfully.</div>
+      </div>
+    </div>
+
+    <div class="toast error">
+      <div class="icon">✖</div>
+      <div class="content">
+        <div class="title">Error</div>
+        <div class="message">Something went wrong. Please try again.</div>
+      </div>
+    </div>
+
+    <div class="toast info">
+      <div class="icon">ℹ</div>
+      <div class="content">
+        <div class="title">Information</div>
+        <div class="message">New updates are available for your dashboard.</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
