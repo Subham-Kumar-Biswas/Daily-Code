@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 250 Responsive Navbar</title>
+
+  <style>
+    :root {
+      --bg: #020617;
+      --surface: #0f172a;
+      --border: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 22px;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    .actions button {
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      background: var(--accent);
+      color: #020617;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Mobile Toggle */
+    #menu-toggle {
+      display: none;
+    }
+
+    .menu-icon {
+      display: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 0;
+        display: none;
+      }
+
+      #menu-toggle:checked + nav ul {
+        display: flex;        
+      }
+
+      .menu-icon {
+        display: block;
+        margin-left: auto;
+      }
+
+      .actions {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <div class="logo">MySite</div>
+
+      <label for="menu-toggle" class="menu-icon">☰</label>
+      <input type="checkbox" id="menu-toggle" />
+
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Features</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="actions">
+        <button>Sign In</button>
+      </div>
+    </div>
+  </header>
+</body>
+</html>
