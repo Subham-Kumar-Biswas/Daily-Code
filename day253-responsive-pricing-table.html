@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 253 Pricing Table</title>
+
+  <style>
+    :root {
+      --bg: #020617;
+      --surface: #0f172a;
+      --border: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --highlight: #6366f1;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 40px;
+      font-size: 0.95rem;
+    }
+
+    .pricing {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px 24px;
+      width: 300px;
+      text-align: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 30px rgba(0,0,0,0.35);
+    }
+
+    .card.highlight {
+      border: 2px solid var(--highlight);
+      transform: scale(1.04);
+    }
+
+    .plan {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .price {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .price span {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    ul {
+      list-style: none;
+      margin: 20px 0;
+      padding: 0;
+    }
+
+    ul li {
+      margin: 10px 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    button {
+      background: var(--accent);
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #020617;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .card.highlight {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Simple Pricing</h2>
+    <p class="subtitle">Choose a plan that fits your needs</p>
+
+    <div class="pricing">
+
+      <div class="card">
+        <div class="plan">Starter</div>
+        <div class="price">₹0 <span>/mo</span></div>
+        <ul>
+          <li>Basic features</li>
+          <li>Community support</li>
+          <li>Single user</li>
+        </ul>
+        <button>Get Started</button>
+      </div>
+
+      <div class="card highlight">
+        <div class="plan">Pro</div>
+        <div class="price">₹499 <span>/mo</span></div>
+        <ul>
+          <li>All core features</li>
+          <li>Priority support</li>
+          <li>Up to 5 users</li>
+        </ul>
+        <button>Choose Plan</button>
+      </div>
+
+      <div class="card">
+        <div class="plan">Enterprise</div>
+        <div class="price">₹999 <span>/mo</span></div>
+        <ul>
+          <li>Advanced features</li>
+          <li>Dedicated support</li>
+          <li>Unlimited users</li>
+        </ul>
+        <button>Contact Sales</button>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
