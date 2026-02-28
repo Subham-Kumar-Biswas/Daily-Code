@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 256 Dashboard Stats</title>
+
+  <style>
+    :root {
+      --bg: #020617;
+      --surface: #0f172a;
+      --border: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --positive: #22c55e;
+      --negative: #ef4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding: 60px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 28px rgba(0,0,0,0.35);
+    }
+
+    .label {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .value {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .trend {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .trend.positive {
+      color: var(--positive);
+    }
+
+    .trend.negative {
+      color: var(--negative);
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 40px 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Dashboard Overview</h2>
+
+    <div class="stats-grid">
+
+      <div class="card">
+        <div class="label">Total Revenue</div>
+        <div class="value">₹1,24,500</div>
+        <div class="trend positive">+12% from last month</div>
+      </div>
+
+      <div class="card">
+        <div class="label">New Users</div>
+        <div class="value">1,842</div>
+        <div class="trend positive">+8% from last week</div>
+      </div>
+
+      <div class="card">
+        <div class="label">Active Subscriptions</div>
+        <div class="value">764</div>
+        <div class="trend negative">-3% from yesterday</div>
+      </div>
+
+      <div class="card">
+        <div class="label">Support Tickets</div>
+        <div class="value">32</div>
+        <div class="trend positive">+5% resolved today</div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
