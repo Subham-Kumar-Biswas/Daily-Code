@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 257 FAQ Accordion</title>
+
+  <style>
+    :root {
+      --bg: #020617;
+      --surface: #0f172a;
+      --border: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding: 60px 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 16px;
+      padding: 18px 20px;
+      transition: border 0.2s ease;
+    }
+
+    .faq-item[open] {
+      border-color: var(--accent);
+    }
+
+    summary {
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      float: right;
+      font-size: 1.2rem;
+      transition: transform 0.2s ease;
+    }
+
+    details[open] summary::after {
+      content: "−";
+    }
+
+    .faq-content {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 40px 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Frequently Asked Questions</h2>
+
+    <details class="faq-item">
+      <summary>What services do you offer?</summary>
+      <div class="faq-content">
+        I provide frontend development services including responsive design, landing pages, dashboards, and UI components using modern HTML and CSS.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is the layout mobile-friendly?</summary>
+      <div class="faq-content">
+        Yes. All components are designed with responsive techniques to ensure proper display across mobile, tablet, and desktop devices.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can this section be reused in other projects?</summary>
+      <div class="faq-content">
+        Absolutely. The structure is modular and can be easily copied into SaaS products, portfolio websites, and business landing pages.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Do I need JavaScript for this accordion?</summary>
+      <div class="faq-content">
+        No. This implementation uses native HTML elements with CSS styling, making it lightweight and accessible.
+      </div>
+    </details>
+
+  </div>
+</body>
+</html>
