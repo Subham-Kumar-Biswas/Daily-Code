@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day 259 Pricing Cards</title>
+
+  <style>
+    :root {
+      --bg: #020617;
+      --surface: #0f172a;
+      --border: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --highlight-bg: #1e293b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding: 60px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 40px;
+      font-size: 0.95rem;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 20px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 28px rgba(0,0,0,0.35);
+    }
+
+    .card.highlight {
+      background: var(--highlight-bg);
+      border-color: var(--accent);
+    }
+
+    .plan {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .price {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 20px;
+      padding-left: 0;
+    }
+
+    .features li {
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      background: var(--accent);
+      color: #020617;
+      transition: background 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #0ea5e9;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 40px 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Pricing Plans</h2>
+    <p class="subtitle">Choose a plan that fits your needs</p>
+
+    <div class="pricing-grid">
+
+      <div class="card">
+        <div class="plan">Basic</div>
+        <div class="price">₹499/mo</div>
+        <ul class="features">
+          <li>5 Projects</li>
+          <li>Basic Support</li>
+          <li>Limited Analytics</li>
+        </ul>
+        <a href="#" class="btn">Choose Plan</a>
+      </div>
+
+      <div class="card highlight">
+        <div class="plan">Pro</div>
+        <div class="price">₹1,299/mo</div>
+        <ul class="features">
+          <li>20 Projects</li>
+          <li>Priority Support</li>
+          <li>Advanced Analytics</li>
+        </ul>
+        <a href="#" class="btn">Choose Plan</a>
+      </div>
+
+      <div class="card">
+        <div class="plan">Enterprise</div>
+        <div class="price">₹2,999/mo</div>
+        <ul class="features">
+          <li>Unlimited Projects</li>
+          <li>Dedicated Support</li>
+          <li>Full Analytics Suite</li>
+        </ul>
+        <a href="#" class="btn">Choose Plan</a>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
