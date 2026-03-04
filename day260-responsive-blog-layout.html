@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 260 Blog Layout</title>
+
+  <style>
+    :root {
+      --bg: #020617;
+      --surface: #0f172a;
+      --border: #1e293b;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding: 60px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h2 {
+      font-size: 1.9rem;
+      margin-bottom: 30px;
+    }
+
+    /* Featured Post */
+    .featured {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 40px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .featured:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 30px rgba(0,0,0,0.35);
+    }
+
+    .featured h3 {
+      font-size: 1.6rem;
+      margin-bottom: 14px;
+    }
+
+    .featured p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .read-more {
+      text-decoration: none;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* Blog Grid */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 28px rgba(0,0,0,0.35);
+    }
+
+    .card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 40px 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Latest Articles</h2>
+
+    <div class="featured">
+      <h3>Building Scalable Frontend Architectures</h3>
+      <p>
+        Learn how to structure modern web applications with reusable components,
+        maintainable styling patterns, and responsive design principles.
+      </p>
+      <a href="#" class="read-more">Read Full Article</a>
+    </div>
+
+    <div class="blog-grid">
+      <div class="card">
+        <h4>Understanding CSS Grid</h4>
+        <p>A practical guide to building responsive layouts using modern grid techniques.</p>
+        <a href="#" class="read-more">Read More</a>
+      </div>
+
+      <div class="card">
+        <h4>Flexbox vs Grid</h4>
+        <p>When to use Flexbox and when Grid provides better structural control.</p>
+        <a href="#" class="read-more">Read More</a>
+      </div>
+
+      <div class="card">
+        <h4>Designing Better UI Systems</h4>
+        <p>Improve consistency and scalability using reusable design components.</p>
+        <a href="#" class="read-more">Read More</a>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
