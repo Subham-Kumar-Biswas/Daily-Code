@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 267 Navbar Component</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #020617;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+
+    /* Navbar Container */
+
+    .navbar {
+      width: 100%;
+      background: #0f172a;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 16px 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Logo */
+
+    .logo {
+      font-size: 18px;
+      font-weight: 600;
+      color: #38bdf8;
+    }
+
+    /* Navigation Links */
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #cbd5e1;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    /* Action Buttons */
+
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #334155;
+      color: #cbd5e1;
+    }
+
+    .btn-outline:hover {
+      background: #1e293b;
+    }
+
+    .btn-primary {
+      background: #38bdf8;
+      color: #020617;
+    }
+
+    .btn-primary:hover {
+      background: #0ea5e9;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 768px) {
+
+      .nav-container {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .nav-actions {
+        justify-content: center;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+
+      <div class="logo">
+        NovaUI
+      </div>
+
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Docs</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="btn btn-outline">Login</button>
+        <button class="btn btn-primary">Sign Up</button>
+      </div>
+
+    </div>
+  </nav>
+
+</body>
+</html>
