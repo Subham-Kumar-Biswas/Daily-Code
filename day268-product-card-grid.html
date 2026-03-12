@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 268 Product Card Grid</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #020617;
+      color: #e2e8f0;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title h1 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      font-size: 14px;
+      color: #94a3b8;
+    }
+
+    /* Product Grid */
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    /* Product Card */
+
+    .product-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: #38bdf8;
+    }
+
+    .product-image {
+      height: 160px;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #94a3b8;
+    }
+
+    .product-content {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .product-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .product-description {
+      font-size: 13px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    .product-footer {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .price {
+      font-size: 15px;
+      font-weight: 600;
+      color: #38bdf8;
+    }
+
+    .btn {
+      padding: 6px 12px;
+      font-size: 12px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background: #38bdf8;
+      color: #020617;
+    }
+
+    .btn:hover {
+      background: #0ea5e9;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="section-title">
+      <h1>Featured Products</h1>
+      <p>Explore our latest products and tools</p>
+    </div>
+
+    <div class="product-grid">
+
+      <div class="product-card">
+        <div class="product-image">Product Image</div>
+
+        <div class="product-content">
+          <div class="product-title">Smart Dashboard Kit</div>
+
+          <div class="product-description">
+            UI components and templates for building modern admin dashboards.
+          </div>
+
+          <div class="product-footer">
+            <div class="price">$29</div>
+            <button class="btn">Buy</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="product-card">
+        <div class="product-image">Product Image</div>
+
+        <div class="product-content">
+          <div class="product-title">Landing Page Builder</div>
+
+          <div class="product-description">
+            Create professional startup landing pages quickly with reusable UI blocks.
+          </div>
+
+          <div class="product-footer">
+            <div class="price">$19</div>
+            <button class="btn">Buy</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="product-card">
+        <div class="product-image">Product Image</div>
+
+        <div class="product-content">
+          <div class="product-title">Analytics Toolkit</div>
+
+          <div class="product-description">
+            Visualize and track key performance metrics using interactive dashboards.
+          </div>
+
+          <div class="product-footer">
+            <div class="price">$39</div>
+            <button class="btn">Buy</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="product-card">
+        <div class="product-image">Product Image</div>
+
+        <div class="product-content">
+          <div class="product-title">Marketing Automation</div>
+
+          <div class="product-description">
+            Automate campaigns and manage customer engagement with powerful tools.
+          </div>
+
+          <div class="product-footer">
+            <div class="price">$49</div>
+            <button class="btn">Buy</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
