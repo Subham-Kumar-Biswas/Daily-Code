@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 270 Stats Section</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #020617;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .stats-section {
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-header h1 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .section-header p {
+      font-size: 14px;
+      color: #94a3b8;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+    }
+
+    .stat-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 28px;
+      text-align: center;
+      transition: transform 0.2s, border 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-6px);
+      border-color: #38bdf8;
+    }
+
+    .stat-number {
+      font-size: 34px;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: #cbd5e1;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <section class="stats-section">
+
+    <div class="section-header">
+      <h1>Our Impact</h1>
+      <p>Trusted by thousands of users worldwide</p>
+    </div>
+
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <div class="stat-number">10K+</div>
+        <div class="stat-label">Active Users</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number">850+</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number">120+</div>
+        <div class="stat-label">Global Clients</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number">99.9%</div>
+        <div class="stat-label">Uptime Reliability</div>
+      </div>
+
+    </div>
+
+  </section>
+
+</body>
+</html>
