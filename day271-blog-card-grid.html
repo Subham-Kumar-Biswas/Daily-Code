@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 271 Blog Card Grid</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #020617;
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-header h1 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .section-header p {
+      font-size: 14px;
+      color: #94a3b8;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .blog-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border 0.2s;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-6px);
+      border-color: #38bdf8;
+    }
+
+    .blog-image {
+      height: 160px;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .blog-content {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .blog-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .blog-description {
+      font-size: 14px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    .blog-footer {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+
+    .author {
+      font-weight: 500;
+    }
+
+    .date {
+      color: #64748b;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="section-header">
+      <h1>Latest Articles</h1>
+      <p>Insights, tutorials, and updates from our team</p>
+    </div>
+
+    <div class="blog-grid">
+
+      <div class="blog-card">
+
+        <div class="blog-image">
+          Article Image
+        </div>
+
+        <div class="blog-content">
+          <div class="blog-title">
+            Building Modern Web Interfaces
+          </div>
+
+          <div class="blog-description">
+            Learn how modern frontend development focuses on performance, accessibility, and scalable UI architecture.
+          </div>
+
+          <div class="blog-footer">
+            <span class="author">Alex Carter</span>
+            <span class="date">May 12</span>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="blog-card">
+
+        <div class="blog-image">
+          Article Image
+        </div>
+
+        <div class="blog-content">
+          <div class="blog-title">
+            CSS Grid vs Flexbox
+          </div>
+
+          <div class="blog-description">
+            Understanding when to use CSS Grid and when Flexbox is the better layout solution.
+          </div>
+
+          <div class="blog-footer">
+            <span class="author">Sarah Kim</span>
+            <span class="date">May 15</span>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="blog-card">
+
+        <div class="blog-image">
+          Article Image
+        </div>
+
+        <div class="blog-content">
+          <div class="blog-title">
+            Designing Scalable UI Systems
+          </div>
+
+          <div class="blog-description">
+            Discover how design systems help maintain consistency across large applications.
+          </div>
+
+          <div class="blog-footer">
+            <span class="author">Daniel Lee</span>
+            <span class="date">May 18</span>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="blog-card">
+
+        <div class="blog-image">
+          Article Image
+        </div>
+
+        <div class="blog-content">
+          <div class="blog-title">
+            Optimizing Website Performance
+          </div>
+
+          <div class="blog-description">
+            Practical strategies to improve loading speed and user experience on modern websites.
+          </div>
+
+          <div class="blog-footer">
+            <span class="author">Maria Gomez</span>
+            <span class="date">May 21</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
