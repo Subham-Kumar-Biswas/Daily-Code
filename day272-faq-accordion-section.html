@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 272 FAQ Accordion Section</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #020617;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 50px 20px;
+    }
+
+    .faq-section {
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .faq-header h1 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .faq-header p {
+      font-size: 14px;
+      color: #94a3b8;
+    }
+
+    .faq-item {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 16px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      background: #0f172a;
+    }
+
+    .faq-question:hover {
+      background: #1e293b;
+    }
+
+    .faq-answer {
+      padding: 16px 20px;
+      font-size: 14px;
+      color: #94a3b8;
+      line-height: 1.6;
+      border-top: 1px solid #1e293b;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <section class="faq-section">
+
+    <div class="faq-header">
+      <h1>Frequently Asked Questions</h1>
+      <p>Find answers to the most common questions</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        What services do you provide?
+      </div>
+      <div class="faq-answer">
+        We provide web development, UI design, and product development services for startups and businesses.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        How long does a typical project take?
+      </div>
+      <div class="faq-answer">
+        Project timelines depend on complexity, but most web projects take between 2 to 6 weeks.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        Do you provide ongoing support?
+      </div>
+      <div class="faq-answer">
+        Yes. We offer maintenance plans and ongoing support after the project is delivered.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">
+        Can you build custom web applications?
+      </div>
+      <div class="faq-answer">
+        Yes. We specialize in building scalable custom applications tailored to business requirements.
+      </div>
+    </div>
+
+  </section>
+
+</body>
+</html>
