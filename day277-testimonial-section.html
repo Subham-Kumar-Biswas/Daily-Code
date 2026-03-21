@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 277 - Testimonial Section</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      color: #e2e8f0;
+    }
+
+    /* Section Header */
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-header .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 10px;
+    }
+
+    .section-header p {
+      font-size: 0.95rem;
+      color: #64748b;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Grid */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    /* Card */
+    .testimonial-card {
+      background: #1e293b;
+      border: 1px solid #263348;
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      border-color: #38bdf8;
+    }
+
+    /* Stars */
+    .stars {
+      display: flex;
+      gap: 4px;
+    }
+
+    .star {
+      font-size: 1rem;
+      color: #f59e0b;
+    }
+
+    /* Review Text */
+    .review-text {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      line-height: 1.7;
+      flex-grow: 1;
+    }
+
+    .review-text::before {
+      content: '\201C';
+      font-size: 1.4rem;
+      color: #38bdf8;
+      line-height: 0;
+      vertical-align: -0.35em;
+      margin-right: 2px;
+    }
+
+    /* Divider */
+    .card-divider {
+      border: none;
+      border-top: 1px solid #263348;
+    }
+
+    /* Author */
+    .author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0f172a;
+      flex-shrink: 0;
+    }
+
+    .avatar.blue   { background: #38bdf8; }
+    .avatar.purple { background: #a78bfa; }
+    .avatar.green  { background: #34d399; }
+    .avatar.orange { background: #fb923c; }
+    .avatar.pink   { background: #f472b6; }
+    .avatar.yellow { background: #fbbf24; }
+
+    .author-info .name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    .author-info .role {
+      font-size: 0.78rem;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .testimonial-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 580px) {
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="section-header">
+    <span class="tag">Testimonials</span>
+    <h2>What Our Customers Say</h2>
+    <p>Real feedback from real people who use our product every day.</p>
+  </div>
+
+  <div class="testimonial-grid">
+
+    <!-- Card 1 -->
+    <div class="testimonial-card">
+      <div class="stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        <span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="review-text">
+        The onboarding was incredibly smooth. Within a day our entire team was set up and running without any issues.
+      </p>
+      <hr class="card-divider" />
+      <div class="author">
+        <div class="avatar blue">AK</div>
+        <div class="author-info">
+          <p class="name">Arjun Kapoor</p>
+          <p class="role">CTO, NovaTech</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="testimonial-card">
+      <div class="stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        <span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="review-text">
+        We replaced three tools with just this one. The analytics dashboard alone saved us hours every single week.
+      </p>
+      <hr class="card-divider" />
+      <div class="author">
+        <div class="avatar purple">SR</div>
+        <div class="author-info">
+          <p class="name">Sarah Reeves</p>
+          <p class="role">Product Manager, Loopify</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="testimonial-card">
+      <div class="stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        <span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="review-text">
+        Customer support is on another level. Every issue got resolved within hours, not days. Truly impressive.
+      </p>
+      <hr class="card-divider" />
+      <div class="author">
+        <div class="avatar green">PM</div>
+        <div class="author-info">
+          <p class="name">Priya Mehta</p>
+          <p class="role">Founder, GreenStack</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="testimonial-card">
+      <div class="stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        <span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="review-text">
+        I've tried at least five similar platforms. This one just gets out of your way and lets you focus on building.
+      </p>
+      <hr class="card-divider" />
+      <div class="author">
+        <div class="avatar orange">TW</div>
+        <div class="author-info">
+          <p class="name">Tom Williams</p>
+          <p class="role">Lead Developer, Craftly</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="testimonial-card">
+      <div class="stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        <span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="review-text">
+        The design is clean, fast, and intuitive. Our non-technical team members picked it up in under an hour.
+      </p>
+      <hr class="card-divider" />
+      <div class="author">
+        <div class="avatar pink">LN</div>
+        <div class="author-info">
+          <p class="name">Laura Nguyen</p>
+          <p class="role">Operations Lead, Stride</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="testimonial-card">
+      <div class="stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        <span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="review-text">
+        Switched from a competitor after two years. Best decision we made this quarter. Performance is night and day.
+      </p>
+      <hr class="card-divider" />
+      <div class="author">
+        <div class="avatar yellow">RB</div>
+        <div class="author-info">
+          <p class="name">Rohan Bose</p>
+          <p class="role">CEO, Hivelink</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
