@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 278 - FAQ Accordion</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      color: #e2e8f0;
+    }
+
+    /* Section Header */
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-header .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 10px;
+    }
+
+    .section-header p {
+      font-size: 0.95rem;
+      color: #64748b;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* FAQ Wrapper */
+    .faq-wrapper {
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Hide checkbox */
+    .faq-toggle {
+      display: none;
+    }
+
+    /* FAQ Item */
+    .faq-item {
+      background: #1e293b;
+      border: 1px solid #263348;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    /* Label = clickable question row */
+    .faq-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      cursor: pointer;
+      user-select: none;
+      gap: 16px;
+    }
+
+    .faq-question {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #f1f5f9;
+      line-height: 1.5;
+    }
+
+    /* Toggle icon */
+    .faq-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #0f172a;
+      border: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+      color: #38bdf8;
+      transition: transform 0.3s ease, background 0.2s ease;
+    }
+
+    /* Answer */
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s ease;
+      padding: 0 24px;
+    }
+
+    .faq-answer p {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      line-height: 1.8;
+      padding-bottom: 20px;
+      border-top: 1px solid #263348;
+      padding-top: 16px;
+    }
+
+    /* Checked state — open */
+    .faq-toggle:checked + .faq-item {
+      border-color: #38bdf8;
+    }
+
+    .faq-toggle:checked + .faq-item .faq-icon {
+      transform: rotate(45deg);
+      background: #38bdf8;
+      color: #0f172a;
+      border-color: #38bdf8;
+    }
+
+    .faq-toggle:checked + .faq-item .faq-question {
+      color: #38bdf8;
+    }
+
+    .faq-toggle:checked + .faq-item .faq-answer {
+      max-height: 300px;
+    }
+
+    /* Hover on label */
+    .faq-label:hover .faq-question {
+      color: #bae6fd;
+    }
+
+    /* Responsive */
+    @media (max-width: 580px) {
+      .section-header h2 {
+        font-size: 1.6rem;
+      }
+
+      .faq-label {
+        padding: 18px 18px;
+      }
+
+      .faq-answer p {
+        padding: 14px 18px 18px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="section-header">
+    <span class="tag">FAQ</span>
+    <h2>Frequently Asked Questions</h2>
+    <p>Everything you need to know. Can't find an answer? Reach out to our team.</p>
+  </div>
+
+  <div class="faq-wrapper">
+
+    <!-- Item 1 -->
+    <input type="checkbox" id="faq1" class="faq-toggle" />
+    <div class="faq-item">
+      <label class="faq-label" for="faq1">
+        <span class="faq-question">What is included in the free plan?</span>
+        <span class="faq-icon">+</span>
+      </label>
+      <div class="faq-answer">
+        <p>The free plan includes 1 project, 5 GB of storage, and access to basic analytics. It is ideal for individuals who are just getting started and want to explore the platform before committing.</p>
+      </div>
+    </div>
+
+    <!-- Item 2 -->
+    <input type="checkbox" id="faq2" class="faq-toggle" />
+    <div class="faq-item">
+      <label class="faq-label" for="faq2">
+        <span class="faq-question">Can I upgrade or downgrade my plan anytime?</span>
+        <span class="faq-icon">+</span>
+      </label>
+      <div class="faq-answer">
+        <p>Yes, you can upgrade or downgrade your plan at any time from your account settings. Changes take effect immediately and billing is prorated automatically for the remaining cycle.</p>
+      </div>
+    </div>
+
+    <!-- Item 3 -->
+    <input type="checkbox" id="faq3" class="faq-toggle" />
+    <div class="faq-item">
+      <label class="faq-label" for="faq3">
+        <span class="faq-question">Is my data secure and private?</span>
+        <span class="faq-icon">+</span>
+      </label>
+      <div class="faq-answer">
+        <p>Absolutely. All data is encrypted at rest and in transit using AES-256 and TLS 1.3. We never share your data with third parties and are fully compliant with GDPR and SOC 2 standards.</p>
+      </div>
+    </div>
+
+    <!-- Item 4 -->
+    <input type="checkbox" id="faq4" class="faq-toggle" />
+    <div class="faq-item">
+      <label class="faq-label" for="faq4">
+        <span class="faq-question">Do you offer refunds?</span>
+        <span class="faq-icon">+</span>
+      </label>
+      <div class="faq-answer">
+        <p>We offer a 14-day money-back guarantee on all paid plans. If you are not satisfied for any reason, contact our support team within 14 days of your purchase and we will issue a full refund.</p>
+      </div>
+    </div>
+
+    <!-- Item 5 -->
+    <input type="checkbox" id="faq5" class="faq-toggle" />
+    <div class="faq-item">
+      <label class="faq-label" for="faq5">
+        <span class="faq-question">How do I cancel my subscription?</span>
+        <span class="faq-icon">+</span>
+      </label>
+      <div class="faq-answer">
+        <p>You can cancel your subscription anytime from the Billing section in your account dashboard. Once cancelled, your plan remains active until the end of the current billing period with no further charges.</p>
+      </div>
+    </div>
+
+    <!-- Item 6 -->
+    <input type="checkbox" id="faq6" class="faq-toggle" />
+    <div class="faq-item">
+      <label class="faq-label" for="faq6">
+        <span class="faq-question">Is there a limit on team members?</span>
+        <span class="faq-icon">+</span>
+      </label>
+      <div class="faq-answer">
+        <p>The Starter plan supports 1 user. The Pro plan supports up to 10 team members, and the Enterprise plan has no seat limit. You can manage team roles and permissions directly from the Team Settings page.</p>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
