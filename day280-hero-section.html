@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 280 - Hero Section</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+      color: #e2e8f0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Background glow blobs */
+    .glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .glow-blue {
+      width: 520px;
+      height: 520px;
+      background: #38bdf8;
+      top: -120px;
+      left: -100px;
+    }
+
+    .glow-purple {
+      width: 420px;
+      height: 420px;
+      background: #818cf8;
+      bottom: -100px;
+      right: -80px;
+    }
+
+    /* Hero Container */
+    .hero {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 720px;
+      gap: 28px;
+    }
+
+    /* Announcement Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #7dd3fc;
+      letter-spacing: 0.03em;
+    }
+
+    .badge .dot {
+      width: 7px;
+      height: 7px;
+      background: #38bdf8;
+      border-radius: 50%;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(1.4); }
+    }
+
+    /* Headline */
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      color: #f8fafc;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 .gradient-text {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Subtext */
+    .hero p {
+      font-size: 1.05rem;
+      color: #64748b;
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    /* CTA Buttons */
+    .cta-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 13px 26px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-primary {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+
+    .btn-primary:hover {
+      background: #0ea5e9;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(56, 189, 248, 0.25);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: #94a3b8;
+      border: 1px solid #334155;
+    }
+
+    .btn-ghost:hover {
+      background: #1e293b;
+      color: #e2e8f0;
+      transform: translateY(-2px);
+    }
+
+    .btn-arrow {
+      margin-left: 6px;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-primary:hover .btn-arrow {
+      transform: translateX(3px);
+    }
+
+    /* Divider line */
+    .hero-divider {
+      width: 100%;
+      border: none;
+      border-top: 1px solid #1e293b;
+    }
+
+    /* Trust Bar */
+    .trust-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* Avatar Stack */
+    .avatar-stack {
+      display: flex;
+      align-items: center;
+    }
+
+    .avatar-stack .av {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-left: -10px;
+    }
+
+    .avatar-stack .av:first-child {
+      margin-left: 0;
+    }
+
+    .av-1 { background: #38bdf8; }
+    .av-2 { background: #a78bfa; }
+    .av-3 { background: #34d399; }
+    .av-4 { background: #fb923c; }
+    .av-5 { background: #f472b6; }
+
+    .trust-text {
+      font-size: 0.82rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    .trust-text strong {
+      color: #94a3b8;
+    }
+
+    .stars {
+      display: flex;
+      gap: 2px;
+    }
+
+    .stars span {
+      font-size: 0.85rem;
+      color: #f59e0b;
+    }
+
+    .trust-separator {
+      width: 1px;
+      height: 28px;
+      background: #1e293b;
+    }
+
+    /* Responsive */
+    @media (max-width: 580px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 0.95rem;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .cta-group {
+        width: 100%;
+        flex-direction: column;
+      }
+
+      .trust-separator {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background glows -->
+  <div class="glow glow-blue"></div>
+  <div class="glow glow-purple"></div>
+
+  <div class="hero">
+
+    <!-- Badge -->
+    <div class="badge">
+      <span class="dot"></span>
+      New — Version 2.0 is now live
+    </div>
+
+    <!-- Headline -->
+    <h1>
+      Build products your<br />
+      users will <span class="gradient-text">actually love</span>
+    </h1>
+
+    <!-- Subtext -->
+    <p>
+      The all-in-one platform for modern teams to ship faster, collaborate better,
+      and deliver experiences that drive real results.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="cta-group">
+      <button class="btn btn-primary">
+        Start for free <span class="btn-arrow">→</span>
+      </button>
+      <button class="btn btn-ghost">
+        Watch demo
+      </button>
+    </div>
+
+    <hr class="hero-divider" />
+
+    <!-- Trust Bar -->
+    <div class="trust-bar">
+
+      <div class="avatar-stack">
+        <div class="av av-1">AK</div>
+        <div class="av av-2">SR</div>
+        <div class="av av-3">PM</div>
+        <div class="av av-4">TW</div>
+        <div class="av av-5">LN</div>
+      </div>
+
+      <div class="trust-text">
+        <div class="stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <span>Trusted by <strong>12,000+</strong> teams worldwide</span>
+      </div>
+
+      <div class="trust-separator"></div>
+
+      <div class="trust-text">
+        <strong>No credit card</strong> required<br />
+        Free 14-day trial
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
