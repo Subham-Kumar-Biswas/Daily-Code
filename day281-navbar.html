@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 281 - Navbar</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+
+    /* ── Navbar Wrapper ── */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ── Logo ── */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .logo-text {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f8fafc;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── Desktop Nav Links ── */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #94a3b8;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #38bdf8;
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: #f1f5f9;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a.active {
+      color: #38bdf8;
+    }
+
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    /* ── Right Side ── */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .btn-login {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .btn-login:hover {
+      color: #f1f5f9;
+    }
+
+    .btn-cta {
+      padding: 9px 20px;
+      background: #38bdf8;
+      color: #0f172a;
+      font-size: 0.875rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .btn-cta:hover {
+      background: #0ea5e9;
+      transform: translateY(-1px);
+    }
+
+    /* ── Hamburger Toggle (checkbox hack) ── */
+    .menu-toggle {
+      display: none;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #94a3b8;
+      border-radius: 999px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* Hamburger → X animation */
+    .menu-toggle:checked ~ .nav-inner .hamburger span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle:checked ~ .nav-inner .hamburger span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle:checked ~ .nav-inner .hamburger span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* ── Mobile Menu ── */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.35s ease;
+      border-top: 1px solid #1e293b;
+    }
+
+    .menu-toggle:checked ~ .mobile-menu {
+      max-height: 400px;
+    }
+
+    .mobile-menu a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #94a3b8;
+      padding: 14px 24px;
+      border-bottom: 1px solid #1e293b;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+
+    .mobile-menu a:hover {
+      color: #f1f5f9;
+      background: #1e293b;
+    }
+
+    .mobile-menu a.active {
+      color: #38bdf8;
+    }
+
+    .mobile-menu .mobile-cta {
+      margin: 16px 24px 20px;
+      padding: 12px;
+      background: #38bdf8;
+      color: #0f172a;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.2s ease;
+    }
+
+    .mobile-menu .mobile-cta:hover {
+      background: #0ea5e9;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .nav-links,
+      .nav-right {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .mobile-menu {
+        display: flex;
+      }
+    }
+
+    /* ── Demo Page Content ── */
+    .demo-content {
+      max-width: 1100px;
+      margin: 80px auto;
+      padding: 0 24px;
+      text-align: center;
+    }
+
+    .demo-content h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 12px;
+    }
+
+    .demo-content p {
+      font-size: 0.95rem;
+      color: #64748b;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hamburger Toggle Checkbox -->
+  <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+
+  <nav class="navbar">
+    <div class="nav-inner">
+
+      <!-- Logo -->
+      <a href="#" class="logo">
+        <div class="logo-icon">S</div>
+        <span class="logo-text">Subham.dev</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <ul class="nav-links">
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+
+      <!-- Desktop Right -->
+      <div class="nav-right">
+        <button class="btn-login">Log in</button>
+        <button class="btn-cta">Get Started →</button>
+      </div>
+
+      <!-- Hamburger Label -->
+      <label for="menu-toggle" class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+      <a href="#" class="active">Home</a>
+      <a href="#">Features</a>
+      <a href="#">Pricing</a>
+      <a href="#">Blog</a>
+      <a href="#">About</a>
+      <button class="mobile-cta">Get Started →</button>
+    </div>
+
+  </nav>
+
+  <!-- Demo Page Body -->
+  <div class="demo-content">
+    <h1>Day 281 — Navbar Component</h1>
+    <p>Scroll or resize the window to see the sticky navbar and mobile hamburger menu in action.<br />No JavaScript used — pure HTML and CSS only.</p>
+  </div>
+
+</body>
+</html>
