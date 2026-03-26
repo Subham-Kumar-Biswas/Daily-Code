@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 282 - Stats Section</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      color: #e2e8f0;
+    }
+
+    /* Section Header */
+    .section-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .section-header .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 10px;
+    }
+
+    .section-header p {
+      font-size: 0.95rem;
+      color: #64748b;
+      max-width: 460px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    /* Card */
+    .stat-card {
+      background: #1e293b;
+      border: 1px solid #263348;
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: #38bdf8;
+    }
+
+    /* Top accent line */
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .stat-card.blue::before   { background: linear-gradient(90deg, #38bdf8, #818cf8); }
+    .stat-card.green::before  { background: linear-gradient(90deg, #34d399, #38bdf8); }
+    .stat-card.purple::before { background: linear-gradient(90deg, #a78bfa, #f472b6); }
+    .stat-card.orange::before { background: linear-gradient(90deg, #fb923c, #fbbf24); }
+
+    /* Icon Badge */
+    .icon-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .icon-badge.blue   { background: rgba(56, 189, 248, 0.12); }
+    .icon-badge.green  { background: rgba(52, 211, 153, 0.12); }
+    .icon-badge.purple { background: rgba(167, 139, 250, 0.12); }
+    .icon-badge.orange { background: rgba(251, 146, 60,  0.12); }
+
+    /* Stat Number */
+    .stat-number {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #f8fafc;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+    }
+
+    .stat-number .suffix {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-bottom: 3px;
+    }
+
+    .stat-number.green  .suffix { color: #34d399; }
+    .stat-number.purple .suffix { color: #a78bfa; }
+    .stat-number.orange .suffix { color: #fb923c; }
+
+    /* Count-up animation */
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+
+    .stat-number {
+      animation: countUp 0.6s ease forwards;
+    }
+
+    .stat-card:nth-child(1) .stat-number { animation-delay: 0.1s; }
+    .stat-card:nth-child(2) .stat-number { animation-delay: 0.2s; }
+    .stat-card:nth-child(3) .stat-number { animation-delay: 0.3s; }
+    .stat-card:nth-child(4) .stat-number { animation-delay: 0.4s; }
+
+    /* Stat Label */
+    .stat-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+
+    /* Stat Description */
+    .stat-desc {
+      font-size: 0.78rem;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    /* Trend badge */
+    .trend {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 999px;
+      width: fit-content;
+    }
+
+    .trend.up {
+      background: rgba(52, 211, 153, 0.1);
+      color: #34d399;
+    }
+
+    .trend.down {
+      background: rgba(248, 113, 113, 0.1);
+      color: #f87171;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="section-header">
+    <span class="tag">By the Numbers</span>
+    <h2>Trusted at Scale</h2>
+    <p>Real numbers from real usage. No vanity metrics — just what matters.</p>
+  </div>
+
+  <div class="stats-grid">
+
+    <!-- Stat 1 -->
+    <div class="stat-card blue">
+      <div class="icon-badge blue">👥</div>
+      <div class="stat-number blue">
+        12<span class="suffix">K+</span>
+      </div>
+      <div class="stat-label">Active Users</div>
+      <div class="stat-desc">Teams across 40+ countries using the platform daily.</div>
+      <span class="trend up">↑ 18% this month</span>
+    </div>
+
+    <!-- Stat 2 -->
+    <div class="stat-card green">
+      <div class="icon-badge green">📦</div>
+      <div class="stat-number green">
+        98<span class="suffix">%</span>
+      </div>
+      <div class="stat-label">Uptime SLA</div>
+      <div class="stat-desc">Enterprise-grade reliability with redundant infrastructure.</div>
+      <span class="trend up">↑ 0.3% vs last quarter</span>
+    </div>
+
+    <!-- Stat 3 -->
+    <div class="stat-card purple">
+      <div class="icon-badge purple">🚀</div>
+      <div class="stat-number purple">
+        3.2<span class="suffix">M</span>
+      </div>
+      <div class="stat-label">Tasks Completed</div>
+      <div class="stat-desc">Workflows automated and shipped by our users this year.</div>
+      <span class="trend up">↑ 41% year over year</span>
+    </div>
+
+    <!-- Stat 4 -->
+    <div class="stat-card orange">
+      <div class="icon-badge orange">⚡</div>
+      <div class="stat-number orange">
+        4.9<span class="suffix">★</span>
+      </div>
+      <div class="stat-label">Average Rating</div>
+      <div class="stat-desc">Based on 2,400+ verified reviews across all platforms.</div>
+      <span class="trend down">↓ 0.1 from last cycle</span>
+    </div>
+
+  </div>
+
+</body>
+</html>
