@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 283 - Feature Section</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      color: #e2e8f0;
+    }
+
+    /* ── Section Header ── */
+    .section-header {
+      text-align: center;
+      margin-bottom: 52px;
+      max-width: 600px;
+    }
+
+    .section-header .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .section-header p {
+      font-size: 0.95rem;
+      color: #64748b;
+      line-height: 1.7;
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      width: 100%;
+      max-width: 1000px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 64px;
+    }
+
+    /* ── Icon Card Grid ── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+    }
+
+    .feature-card {
+      background: #1e293b;
+      border: 1px solid #263348;
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: #38bdf8;
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .feature-icon.blue   { background: rgba(56, 189, 248, 0.12); }
+    .feature-icon.purple { background: rgba(167, 139, 250, 0.12); }
+    .feature-icon.green  { background: rgba(52, 211, 153, 0.12); }
+    .feature-icon.orange { background: rgba(251, 146, 60,  0.12); }
+    .feature-icon.pink   { background: rgba(244, 114, 182, 0.12); }
+    .feature-icon.yellow { background: rgba(251, 191, 36,  0.12); }
+
+    .feature-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+
+    .feature-card p {
+      font-size: 0.85rem;
+      color: #64748b;
+      line-height: 1.7;
+    }
+
+    /* ── Divider ── */
+    .section-divider {
+      width: 100%;
+      border: none;
+      border-top: 1px solid #1e293b;
+    }
+
+    /* ── Highlight Block ── */
+    .highlight-block {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 56px;
+    }
+
+    .highlight-block.reverse {
+      flex-direction: row-reverse;
+    }
+
+    /* Visual panel */
+    .highlight-visual {
+      flex: 1;
+      min-height: 280px;
+      background: #1e293b;
+      border: 1px solid #263348;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .highlight-visual::before {
+      content: '';
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+    }
+
+    .highlight-visual.blue::before   { background: #38bdf8; }
+    .highlight-visual.purple::before { background: #a78bfa; }
+
+    .visual-icon {
+      font-size: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Text panel */
+    .highlight-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .highlight-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #38bdf8;
+    }
+
+    .highlight-tag.purple { color: #a78bfa; }
+
+    .highlight-text h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #f8fafc;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+
+    .highlight-text p {
+      font-size: 0.9rem;
+      color: #64748b;
+      line-height: 1.75;
+    }
+
+    /* Bullet list */
+    .highlight-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .highlight-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.875rem;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    .highlight-list li .check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(56, 189, 248, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: #38bdf8;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .highlight-list li .check.purple {
+      background: rgba(167, 139, 250, 0.12);
+      color: #a78bfa;
+    }
+
+    /* CTA Link */
+    .highlight-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #38bdf8;
+      text-decoration: none;
+      transition: gap 0.2s ease;
+    }
+
+    .highlight-cta.purple { color: #a78bfa; }
+
+    .highlight-cta:hover {
+      gap: 10px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .highlight-block,
+      .highlight-block.reverse {
+        flex-direction: column;
+      }
+
+      .highlight-visual {
+        min-height: 180px;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 420px) {
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header h2 {
+        font-size: 1.6rem;
+      }
+
+      .highlight-text h3 {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- Section Header -->
+    <div class="section-header">
+      <span class="tag">Features</span>
+      <h2>Everything you need to ship faster</h2>
+      <p>A complete toolkit built for modern teams — from solo founders to enterprise engineering orgs.</p>
+    </div>
+
+    <!-- ── Icon Card Grid ── -->
+    <div class="feature-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon blue">⚡</div>
+        <h3>Instant Deployment</h3>
+        <p>Push to production in seconds with zero-config pipelines and automatic rollbacks.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon purple">🔒</div>
+        <h3>Enterprise Security</h3>
+        <p>SOC 2 compliant with end-to-end encryption, SSO, and role-based access control.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon green">📊</div>
+        <h3>Advanced Analytics</h3>
+        <p>Real-time dashboards with custom reports, funnels, and retention tracking built in.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon orange">🔗</div>
+        <h3>200+ Integrations</h3>
+        <p>Connect your existing stack — Slack, GitHub, Jira, Figma, and hundreds more.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon pink">🎨</div>
+        <h3>Custom Branding</h3>
+        <p>White-label the entire experience with your colors, logo, and custom domain.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon yellow">🌍</div>
+        <h3>Global CDN</h3>
+        <p>Assets served from 80+ edge locations worldwide for sub-50ms load times globally.</p>
+      </div>
+
+    </div>
+
+    <hr class="section-divider" />
+
+    <!-- ── Highlight Block 1 ── -->
+    <div class="highlight-block">
+
+      <div class="highlight-visual blue">
+        <div class="visual-icon">⚡</div>
+      </div>
+
+      <div class="highlight-text">
+        <span class="highlight-tag">Performance</span>
+        <h3>Ship 10x faster without the bottlenecks</h3>
+        <p>Stop waiting on slow CI pipelines and manual review gates. Our platform cuts deploy time from hours to seconds with intelligent caching and parallel execution.</p>
+        <ul class="highlight-list">
+          <li><span class="check">✓</span> Automatic preview environments on every PR</li>
+          <li><span class="check">✓</span> One-click rollback to any previous deployment</li>
+          <li><span class="check">✓</span> Zero-downtime blue-green deployments built in</li>
+        </ul>
+        <a href="#" class="highlight-cta">Explore deployment features →</a>
+      </div>
+
+    </div>
+
+    <!-- ── Highlight Block 2 (reversed) ── -->
+    <div class="highlight-block reverse">
+
+      <div class="highlight-visual purple">
+        <div class="visual-icon">🔒</div>
+      </div>
+
+      <div class="highlight-text">
+        <span class="highlight-tag purple">Security</span>
+        <h3>Enterprise-grade security out of the box</h3>
+        <p>Security should not be an afterthought. Every account gets encryption at rest, audit logs, and fine-grained permissions without any extra configuration required.</p>
+        <ul class="highlight-list">
+          <li><span class="check purple">✓</span> SOC 2 Type II certified infrastructure</li>
+          <li><span class="check purple">✓</span> SAML SSO and SCIM provisioning support</li>
+          <li><span class="check purple">✓</span> Full audit log with export and retention controls</li>
+        </ul>
+        <a href="#" class="highlight-cta purple">Explore security features →</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
