@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 285 - Blog Card Grid</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      color: #e2e8f0;
+    }
+
+    /* ── Section Header ── */
+    .section-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .section-header .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 10px;
+    }
+
+    .section-header p {
+      font-size: 0.95rem;
+      color: #64748b;
+      max-width: 460px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── Grid ── */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    /* ── Card ── */
+    .blog-card {
+      background: #1e293b;
+      border: 1px solid #263348;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-4px);
+      border-color: #38bdf8;
+    }
+
+    /* Thumbnail */
+    .card-thumb {
+      width: 100%;
+      height: 168px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-thumb.grad-blue   { background: linear-gradient(135deg, #0ea5e9, #6366f1); }
+    .card-thumb.grad-purple { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
+    .card-thumb.grad-green  { background: linear-gradient(135deg, #10b981, #06b6d4); }
+    .card-thumb.grad-orange { background: linear-gradient(135deg, #f97316, #eab308); }
+    .card-thumb.grad-pink   { background: linear-gradient(135deg, #e879f9, #6366f1); }
+    .card-thumb.grad-teal   { background: linear-gradient(135deg, #14b8a6, #3b82f6); }
+
+    /* Thumb overlay */
+    .card-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.15);
+    }
+
+    .thumb-icon {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Card Body */
+    .card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    /* Top row: category + read time */
+    .card-meta-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .category-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .badge-blue   { background: rgba(56, 189, 248, 0.1);  color: #38bdf8; }
+    .badge-purple { background: rgba(167, 139, 250, 0.1); color: #a78bfa; }
+    .badge-green  { background: rgba(52, 211, 153, 0.1);  color: #34d399; }
+    .badge-orange { background: rgba(251, 146, 60,  0.1); color: #fb923c; }
+    .badge-pink   { background: rgba(244, 114, 182, 0.1); color: #f472b6; }
+    .badge-teal   { background: rgba(45, 212, 191, 0.1);  color: #2dd4bf; }
+
+    .read-time {
+      font-size: 0.75rem;
+      color: #475569;
+    }
+
+    /* Title */
+    .card-title {
+      font-size: 0.975rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      line-height: 1.4;
+    }
+
+    .blog-card:hover .card-title {
+      color: #38bdf8;
+    }
+
+    /* Excerpt */
+    .card-excerpt {
+      font-size: 0.83rem;
+      color: #64748b;
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    /* Divider */
+    .card-divider {
+      border: none;
+      border-top: 1px solid #263348;
+    }
+
+    /* Author Row */
+    .author-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .author-av {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #0f172a;
+      flex-shrink: 0;
+    }
+
+    .av-blue   { background: #38bdf8; }
+    .av-purple { background: #a78bfa; }
+    .av-green  { background: #34d399; }
+    .av-orange { background: #fb923c; }
+    .av-pink   { background: #f472b6; }
+    .av-teal   { background: #2dd4bf; }
+
+    .author-info .author-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+
+    .author-info .post-date {
+      font-size: 0.75rem;
+      color: #475569;
+      margin-top: 1px;
+    }
+
+    /* ── View All Button ── */
+    .view-all-wrap {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .btn-view-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: transparent;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-view-all:hover {
+      background: #1e293b;
+      color: #f1f5f9;
+      border-color: #38bdf8;
+      gap: 12px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 540px) {
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="section-header">
+    <span class="tag">Blog</span>
+    <h2>Latest from the Team</h2>
+    <p>Tutorials, product updates, and deep dives from the people building the platform.</p>
+  </div>
+
+  <div class="blog-grid">
+
+    <!-- Card 1 -->
+    <a href="#" class="blog-card">
+      <div class="card-thumb grad-blue">
+        <span class="thumb-icon">⚡</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta-top">
+          <span class="category-badge badge-blue">Performance</span>
+          <span class="read-time">5 min read</span>
+        </div>
+        <h3 class="card-title">How we cut deploy times by 80% with intelligent caching</h3>
+        <p class="card-excerpt">A deep dive into the caching layer we built to make deployments feel instant — even for large monorepos with thousands of files.</p>
+        <hr class="card-divider" />
+        <div class="author-row">
+          <div class="author-av av-blue">AK</div>
+          <div class="author-info">
+            <p class="author-name">Arjun Kapoor</p>
+            <p class="post-date">March 12, 2025</p>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 2 -->
+    <a href="#" class="blog-card">
+      <div class="card-thumb grad-purple">
+        <span class="thumb-icon">🔒</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta-top">
+          <span class="category-badge badge-purple">Security</span>
+          <span class="read-time">7 min read</span>
+        </div>
+        <h3 class="card-title">What SOC 2 Type II actually means for your team's data</h3>
+        <p class="card-excerpt">We break down the certification process, what auditors actually look for, and how it changes the way we think about access control.</p>
+        <hr class="card-divider" />
+        <div class="author-row">
+          <div class="author-av av-purple">SR</div>
+          <div class="author-info">
+            <p class="author-name">Sarah Reeves</p>
+            <p class="post-date">March 5, 2025</p>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 3 -->
+    <a href="#" class="blog-card">
+      <div class="card-thumb grad-green">
+        <span class="thumb-icon">📊</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta-top">
+          <span class="category-badge badge-green">Analytics</span>
+          <span class="read-time">4 min read</span>
+        </div>
+        <h3 class="card-title">Building retention dashboards that your team will actually use</h3>
+        <p class="card-excerpt">Most analytics dashboards go unread. Here is how we designed ours to surface only the metrics that drive real product decisions.</p>
+        <hr class="card-divider" />
+        <div class="author-row">
+          <div class="author-av av-green">PM</div>
+          <div class="author-info">
+            <p class="author-name">Priya Mehta</p>
+            <p class="post-date">Feb 26, 2025</p>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 4 -->
+    <a href="#" class="blog-card">
+      <div class="card-thumb grad-orange">
+        <span class="thumb-icon">🔗</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta-top">
+          <span class="category-badge badge-orange">Integrations</span>
+          <span class="read-time">6 min read</span>
+        </div>
+        <h3 class="card-title">Connecting 200+ tools without losing your mind or your stack</h3>
+        <p class="card-excerpt">Integration sprawl is real. We share the architecture decisions that let us support hundreds of connections without scaling our infra team.</p>
+        <hr class="card-divider" />
+        <div class="author-row">
+          <div class="author-av av-orange">TW</div>
+          <div class="author-info">
+            <p class="author-name">Tom Williams</p>
+            <p class="post-date">Feb 18, 2025</p>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 5 -->
+    <a href="#" class="blog-card">
+      <div class="card-thumb grad-pink">
+        <span class="thumb-icon">🎨</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta-top">
+          <span class="category-badge badge-pink">Design</span>
+          <span class="read-time">3 min read</span>
+        </div>
+        <h3 class="card-title">Why we rebuilt our design system from scratch in 2025</h3>
+        <p class="card-excerpt">After two years of accumulated debt, we took a hard reset. Here is everything we learned about building a system that actually scales.</p>
+        <hr class="card-divider" />
+        <div class="author-row">
+          <div class="author-av av-pink">LN</div>
+          <div class="author-info">
+            <p class="author-name">Laura Nguyen</p>
+            <p class="post-date">Feb 10, 2025</p>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Card 6 -->
+    <a href="#" class="blog-card">
+      <div class="card-thumb grad-teal">
+        <span class="thumb-icon">🌍</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta-top">
+          <span class="category-badge badge-teal">Infrastructure</span>
+          <span class="read-time">8 min read</span>
+        </div>
+        <h3 class="card-title">How we serve assets in under 50ms from 80 edge locations</h3>
+        <p class="card-excerpt">Global CDN architecture is complex. We walk through our edge network setup, cache invalidation strategy, and the tradeoffs we made along the way.</p>
+        <hr class="card-divider" />
+        <div class="author-row">
+          <div class="author-av av-teal">RB</div>
+          <div class="author-info">
+            <p class="author-name">Rohan Bose</p>
+            <p class="post-date">Feb 3, 2025</p>
+          </div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="view-all-wrap">
+    <button class="btn-view-all">View all articles →</button>
+  </div>
+
+</body>
+</html>
