@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 286 - Image Gallery</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+      color: #e2e8f0;
+    }
+
+    /* ── Section Header ── */
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .section-header .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 10px;
+    }
+
+    .section-header p {
+      font-size: 0.95rem;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    /* ── Filter Tabs ── */
+    .filter-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    /* Hide radio inputs */
+    .filter-radio {
+      display: none;
+    }
+
+    /* Tab labels */
+    .filter-tab {
+      padding: 8px 20px;
+      border-radius: 999px;
+      border: 1px solid #263348;
+      background: transparent;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .filter-tab:hover {
+      color: #94a3b8;
+      border-color: #334155;
+      background: #1e293b;
+    }
+
+    /* Active tab — each radio controls its label */
+    #filter-all:checked    ~ .filter-wrap label[for="filter-all"],
+    #filter-nature:checked ~ .filter-wrap label[for="filter-nature"],
+    #filter-city:checked   ~ .filter-wrap label[for="filter-city"],
+    #filter-people:checked ~ .filter-wrap label[for="filter-people"],
+    #filter-abstract:checked ~ .filter-wrap label[for="filter-abstract"] {
+      background: #38bdf8;
+      color: #0f172a;
+      border-color: #38bdf8;
+    }
+
+    /* ── Gallery Grid ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 160px;
+      gap: 14px;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    /* ── Gallery Item ── */
+    .gallery-item {
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+    }
+
+    /* Row span variants */
+    .span-2 { grid-row: span 2; }
+    .span-3 { grid-row: span 3; }
+    .col-2  { grid-column: span 2; }
+
+    /* Gradient placeholder backgrounds */
+    .g-1  { background: linear-gradient(135deg, #0ea5e9, #6366f1); }
+    .g-2  { background: linear-gradient(135deg, #10b981, #06b6d4); }
+    .g-3  { background: linear-gradient(135deg, #f97316, #eab308); }
+    .g-4  { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
+    .g-5  { background: linear-gradient(135deg, #14b8a6, #3b82f6); }
+    .g-6  { background: linear-gradient(135deg, #e879f9, #6366f1); }
+    .g-7  { background: linear-gradient(135deg, #f43f5e, #f97316); }
+    .g-8  { background: linear-gradient(135deg, #22d3ee, #6366f1); }
+    .g-9  { background: linear-gradient(135deg, #a3e635, #06b6d4); }
+    .g-10 { background: linear-gradient(135deg, #fb7185, #a78bfa); }
+    .g-11 { background: linear-gradient(135deg, #fbbf24, #f97316); }
+    .g-12 { background: linear-gradient(135deg, #34d399, #818cf8); }
+
+    /* Emoji icon centered */
+    .item-icon {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      position: relative;
+      z-index: 0;
+    }
+
+    .span-3 .item-icon { font-size: 3.2rem; }
+    .col-2  .item-icon { font-size: 2.8rem; }
+
+    /* Hover Overlay */
+    .item-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.72);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: 16px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .gallery-item:hover .item-overlay {
+      opacity: 1;
+    }
+
+    .overlay-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #f8fafc;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .overlay-cat {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+    }
+
+    /* ── Filter Logic — show/hide items ── */
+
+    /* Default: all visible */
+    .gallery-item { display: block; }
+
+    /* When a specific filter is active, hide non-matching */
+    #filter-nature:checked   ~ .gallery-grid .gallery-item:not(.nature)   { display: none; }
+    #filter-city:checked     ~ .gallery-grid .gallery-item:not(.city)     { display: none; }
+    #filter-people:checked   ~ .gallery-grid .gallery-item:not(.people)   { display: none; }
+    #filter-abstract:checked ~ .gallery-grid .gallery-item:not(.abstract) { display: none; }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 140px;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 130px;
+      }
+
+      .span-3 { grid-row: span 2; }
+      .col-2  { grid-column: span 1; }
+
+      .section-header h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Filter radio inputs must sit BEFORE the grid for CSS sibling selectors -->
+  <input type="radio" name="gallery-filter" id="filter-all"      class="filter-radio" checked />
+  <input type="radio" name="gallery-filter" id="filter-nature"   class="filter-radio" />
+  <input type="radio" name="gallery-filter" id="filter-city"     class="filter-radio" />
+  <input type="radio" name="gallery-filter" id="filter-people"   class="filter-radio" />
+  <input type="radio" name="gallery-filter" id="filter-abstract" class="filter-radio" />
+
+  <!-- Section Header -->
+  <div class="section-header">
+    <span class="tag">Gallery</span>
+    <h2>Our Creative Work</h2>
+    <p>A curated collection across nature, city, people, and abstract photography.</p>
+  </div>
+
+  <!-- Filter Tabs -->
+  <div class="filter-wrap">
+    <label for="filter-all"      class="filter-tab">All</label>
+    <label for="filter-nature"   class="filter-tab">🌿 Nature</label>
+    <label for="filter-city"     class="filter-tab">🏙 City</label>
+    <label for="filter-people"   class="filter-tab">👤 People</label>
+    <label for="filter-abstract" class="filter-tab">🎨 Abstract</label>
+  </div>
+
+  <!-- Gallery Grid -->
+  <div class="gallery-grid">
+
+    <!-- 1 — Nature, tall -->
+    <div class="gallery-item span-3 g-2 nature">
+      <div class="item-icon">🌲</div>
+      <div class="item-overlay">
+        <p class="overlay-title">Morning Forest Light</p>
+        <span class="overlay-cat">Nature</span>
+      </div>
+    </div>
+
+    <!-- 2 — City -->
+    <div class="gallery-item g-1 city">
+      <div class="item-icon">🏙</div>
+      <div class="item-overlay">
+        <p class="overlay-title">Downtown at Dusk</p>
+        <span class="overlay-cat">City</span>
+      </div>
+    </div>
+
+    <!-- 3 — People -->
+    <div class="gallery-item g-4 people">
+      <div class="item-icon">👤</div>
+      <div class="item-overlay">
+        <p class="overlay-title">Street Portrait</p>
+        <span class="overlay-cat">People</span>
+      </div>
+    </div>
+
+    <!-- 4 — Abstract, wide -->
+    <div class="gallery-item col-2 g-6 abstract">
+      <div class="item-icon">🎨</div>
+      <div class="item-overlay">
+        <p class="overlay-title">Chromatic Drift</p>
+        <span class="overlay-cat">Abstract</span>
+      </div>
+    </div>
+
+    <!-- 5 — City -->
+    <div class="gallery-item g-5 city">
+      <div class="item-icon">🌉</div>
+      <div class="item-overlay">
+        <p class="overlay-title">Bridge at Midnight</p>
+        <span class="overlay-cat">City</span>
+      </div>
+    </div>
+
+    <!-- 6 — Nature -->
+    <div class="gallery-item g-9 nature">
+      <div class="item-icon">🌊</div>
+      <div class="item-overlay">
+        <p class="overlay-title">Coastal Tide</p>
+        <span class="overlay-cat">Nature</span>
+      </div>
+    </div>
+
+    <!-- 7 — Abstract -->
+    <div class="gallery-item g-8 abstract">
+      <div class="item-icon">🌀</div>
+      <div class="item-overlay">
+        <p class="overlay-title">Vortex Study</p>
+        <span class="overlay-cat">Abstract</span>
+      </div>
+    </div>
+
+    <!-- 8 — People, tall -->
+    <div class="gallery-item span-2 g-10 people">
+      <div class="item-icon">🧍</div>
+      <div class="item-overlay">
+        <p class="overlay-title">Still in the Crowd</p>
+        <span class="overlay-cat">People</span>
+      </div>
+    </div>
+
+    <!-- 9 — Nature -->
+    <div class="gallery-item g-3 nature">
+      <div class="item-icon">🌄</div>
+      <div class="item-overlay">
+        <p class="overlay-title">Golden Hour Ridge</p>
+        <span class="overlay-cat">Nature</span>
+      </div>
+    </div>
+
+    <!-- 10 — City, wide -->
+    <div class="gallery-item col-2 g-7 city">
+      <div class="item-icon">🚦</div>
+      <div class="item-overlay">
+        <p class="overlay-title">Rush Hour Geometry</p>
+        <span class="overlay-cat">City</span>
+      </div>
+    </div>
+
+    <!-- 11 — Abstract -->
+    <div class="gallery-item g-12 abstract">
+      <div class="item-icon">💠</div>
+      <div class="item-overlay">
+        <p class="overlay-title">Fractal Echo</p>
+        <span class="overlay-cat">Abstract</span>
+      </div>
+    </div>
+
+    <!-- 12 — People -->
+    <div class="gallery-item g-11 people">
+      <div class="item-icon">🤝</div>
+      <div class="item-overlay">
+        <p class="overlay-title">Handshake Series</p>
+        <span class="overlay-cat">People</span>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
