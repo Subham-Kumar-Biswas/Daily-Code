@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 288 - Notification Feed</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      color: #e2e8f0;
+    }
+
+    /* ── Panel ── */
+    .notif-panel {
+      width: 100%;
+      max-width: 420px;
+      background: #1e293b;
+      border: 1px solid #263348;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Panel Header ── */
+    .panel-header {
+      padding: 18px 20px;
+      border-bottom: 1px solid #263348;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .panel-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .unread-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: #38bdf8;
+      color: #0f172a;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .mark-read {
+      font-size: 0.78rem;
+      color: #38bdf8;
+      cursor: pointer;
+      font-weight: 600;
+      background: none;
+      border: none;
+      transition: color 0.2s ease;
+    }
+
+    .mark-read:hover {
+      color: #0ea5e9;
+    }
+
+    /* ── Notification List ── */
+    .notif-list {
+      display: flex;
+      flex-direction: column;
+      max-height: 520px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #263348 transparent;
+    }
+
+    .notif-list::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .notif-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .notif-list::-webkit-scrollbar-thumb {
+      background: #263348;
+      border-radius: 999px;
+    }
+
+    /* ── Notification Row ── */
+    .notif-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 20px;
+      border-bottom: 1px solid #1e3a5f22;
+      position: relative;
+      transition: background 0.15s ease;
+    }
+
+    .notif-row:last-child {
+      border-bottom: none;
+    }
+
+    .notif-row:hover {
+      background: rgba(56, 189, 248, 0.03);
+    }
+
+    /* Unread state */
+    .notif-row.unread {
+      background: rgba(56, 189, 248, 0.05);
+    }
+
+    /* ── Type Icon Badge ── */
+    .notif-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .notif-icon.success  { background: rgba(52, 211, 153, 0.12); }
+    .notif-icon.warning  { background: rgba(251, 191, 36,  0.12); }
+    .notif-icon.error    { background: rgba(248, 113, 113, 0.12); }
+    .notif-icon.info     { background: rgba(56,  189, 248, 0.12); }
+    .notif-icon.social   { background: rgba(167, 139, 250, 0.12); }
+
+    /* ── Content ── */
+    .notif-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .notif-message {
+      font-size: 0.875rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    .notif-message strong {
+      color: #f1f5f9;
+      font-weight: 600;
+    }
+
+    .notif-time {
+      font-size: 0.75rem;
+      color: #475569;
+    }
+
+    /* ── Unread Dot ── */
+    .unread-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #38bdf8;
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    /* ── Section Label ── */
+    .notif-section-label {
+      padding: 10px 20px 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #334155;
+      background: #1e293b;
+    }
+
+    /* ── Panel Footer ── */
+    .panel-footer {
+      padding: 14px 20px;
+      border-top: 1px solid #263348;
+      text-align: center;
+    }
+
+    .view-all-btn {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #64748b;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .view-all-btn:hover {
+      color: #38bdf8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="notif-panel">
+
+    <!-- Header -->
+    <div class="panel-header">
+      <div class="header-left">
+        <span class="panel-title">Notifications</span>
+        <span class="unread-badge">5 new</span>
+      </div>
+      <button class="mark-read">Mark all read</button>
+    </div>
+
+    <!-- List -->
+    <div class="notif-list">
+
+      <div class="notif-section-label">New</div>
+
+      <!-- 1 — Success, unread -->
+      <div class="notif-row unread">
+        <div class="notif-icon success">✅</div>
+        <div class="notif-content">
+          <p class="notif-message"><strong>Deployment successful</strong> — your latest build was deployed to production without any errors.</p>
+          <span class="notif-time">2 minutes ago</span>
+        </div>
+        <div class="unread-dot"></div>
+      </div>
+
+      <!-- 2 — Social, unread -->
+      <div class="notif-row unread">
+        <div class="notif-icon social">👤</div>
+        <div class="notif-content">
+          <p class="notif-message"><strong>Priya Mehta</strong> started following you and left a comment on your latest project.</p>
+          <span class="notif-time">15 minutes ago</span>
+        </div>
+        <div class="unread-dot"></div>
+      </div>
+
+      <!-- 3 — Warning, unread -->
+      <div class="notif-row unread">
+        <div class="notif-icon warning">⚠️</div>
+        <div class="notif-content">
+          <p class="notif-message"><strong>Storage at 85%</strong> — you are approaching your plan limit. Consider upgrading your storage.</p>
+          <span class="notif-time">1 hour ago</span>
+        </div>
+        <div class="unread-dot"></div>
+      </div>
+
+      <!-- 4 — Info, unread -->
+      <div class="notif-row unread">
+        <div class="notif-icon info">💡</div>
+        <div class="notif-content">
+          <p class="notif-message"><strong>New feature available</strong> — real-time collaboration is now live on all Pro and Enterprise plans.</p>
+          <span class="notif-time">3 hours ago</span>
+        </div>
+        <div class="unread-dot"></div>
+      </div>
+
+      <!-- 5 — Error, unread -->
+      <div class="notif-row unread">
+        <div class="notif-icon error">❌</div>
+        <div class="notif-content">
+          <p class="notif-message"><strong>Payment failed</strong> — your card ending in 4242 was declined. Please update your billing details.</p>
+          <span class="notif-time">5 hours ago</span>
+        </div>
+        <div class="unread-dot"></div>
+      </div>
+
+      <div class="notif-section-label">Earlier</div>
+
+      <!-- 6 — Success, read -->
+      <div class="notif-row">
+        <div class="notif-icon success">✅</div>
+        <div class="notif-content">
+          <p class="notif-message"><strong>Backup complete</strong> — your project data was successfully backed up to secure cloud storage.</p>
+          <span class="notif-time">Yesterday, 11:42 PM</span>
+        </div>
+      </div>
+
+      <!-- 7 — Social, read -->
+      <div class="notif-row">
+        <div class="notif-icon social">👤</div>
+        <div class="notif-content">
+          <p class="notif-message"><strong>Arjun Kapoor</strong> accepted your collaboration request on the NovaTech dashboard project.</p>
+          <span class="notif-time">Yesterday, 4:10 PM</span>
+        </div>
+      </div>
+
+      <!-- 8 — Info, read -->
+      <div class="notif-row">
+        <div class="notif-icon info">💡</div>
+        <div class="notif-content">
+          <p class="notif-message"><strong>Weekly report ready</strong> — your analytics summary for the past 7 days is now available to view.</p>
+          <span class="notif-time">2 days ago</span>
+        </div>
+      </div>
+
+      <!-- 9 — Warning, read -->
+      <div class="notif-row">
+        <div class="notif-icon warning">⚠️</div>
+        <div class="notif-content">
+          <p class="notif-message"><strong>Unusual login detected</strong> — a new sign-in from Mumbai, India was recorded on your account.</p>
+          <span class="notif-time">3 days ago</span>
+        </div>
+      </div>
+
+      <!-- 10 — Error, read -->
+      <div class="notif-row">
+        <div class="notif-icon error">❌</div>
+        <div class="notif-content">
+          <p class="notif-message"><strong>Build failed</strong> — the staging pipeline threw 3 errors on the last push. Review the build logs.</p>
+          <span class="notif-time">4 days ago</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="panel-footer">
+      <button class="view-all-btn">View all notifications →</button>
+    </div>
+
+  </div>
+
+</body>
+</html>
