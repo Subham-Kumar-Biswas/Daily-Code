@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 289 - Kanban Board</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      padding: 40px 24px;
+      color: #e2e8f0;
+    }
+
+    /* ── Page Header ── */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .page-header-left h1 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #f8fafc;
+      letter-spacing: -0.02em;
+    }
+
+    .page-header-left p {
+      font-size: 0.82rem;
+      color: #475569;
+      margin-top: 3px;
+    }
+
+    .btn-new-task {
+      padding: 9px 20px;
+      background: #38bdf8;
+      color: #0f172a;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .btn-new-task:hover {
+      background: #0ea5e9;
+      transform: translateY(-1px);
+    }
+
+    /* ── Board ── */
+    .kanban-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      align-items: start;
+      overflow-x: auto;
+      padding-bottom: 16px;
+    }
+
+    /* ── Column ── */
+    .kanban-col {
+      background: #1e293b;
+      border: 1px solid #263348;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-width: 260px;
+    }
+
+    /* Column top accent */
+    .kanban-col::before {
+      content: '';
+      display: block;
+      height: 3px;
+      width: 100%;
+    }
+
+    .col-backlog::before    { background: #64748b; }
+    .col-inprogress::before { background: #38bdf8; }
+    .col-inreview::before   { background: #f59e0b; }
+    .col-done::before       { background: #34d399; }
+
+    /* Column Header */
+    .col-header {
+      padding: 16px 16px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #263348;
+    }
+
+    .col-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .col-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .col-backlog    .col-dot { background: #64748b; }
+    .col-inprogress .col-dot { background: #38bdf8; }
+    .col-inreview   .col-dot { background: #f59e0b; }
+    .col-done       .col-dot { background: #34d399; }
+
+    .col-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+
+    .col-count {
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: #0f172a;
+      color: #64748b;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid #263348;
+    }
+
+    .col-add {
+      font-size: 1.1rem;
+      color: #334155;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      transition: color 0.2s ease;
+    }
+
+    .col-add:hover {
+      color: #38bdf8;
+    }
+
+    /* Column Body */
+    .col-body {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* ── Task Card ── */
+    .task-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      cursor: grab;
+    }
+
+    .task-card:hover {
+      transform: translateY(-2px);
+      border-color: #334155;
+    }
+
+    /* Done column cards — muted */
+    .col-done .task-card {
+      opacity: 0.6;
+    }
+
+    .col-done .task-card:hover {
+      opacity: 0.85;
+    }
+
+    /* Card Top Row */
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Priority Badge */
+    .priority {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    .priority.high   { background: rgba(248,113,113,0.12); color: #f87171; }
+    .priority.medium { background: rgba(251,191,36, 0.12); color: #fbbf24; }
+    .priority.low    { background: rgba(52, 211,153,0.12); color: #34d399; }
+
+    /* Card ID */
+    .card-id {
+      font-size: 0.7rem;
+      color: #334155;
+      font-weight: 600;
+    }
+
+    /* Task Title */
+    .task-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      line-height: 1.4;
+    }
+
+    /* Task Desc */
+    .task-desc {
+      font-size: 0.78rem;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    /* Tags */
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 2px 9px;
+      border-radius: 999px;
+      border: 1px solid;
+    }
+
+    .tag.blue   { background: rgba(56,189,248,0.08);  color: #38bdf8;  border-color: rgba(56,189,248,0.2);  }
+    .tag.purple { background: rgba(167,139,250,0.08); color: #a78bfa;  border-color: rgba(167,139,250,0.2); }
+    .tag.green  { background: rgba(52,211,153,0.08);  color: #34d399;  border-color: rgba(52,211,153,0.2);  }
+    .tag.orange { background: rgba(251,146,60,0.08);  color: #fb923c;  border-color: rgba(251,146,60,0.2);  }
+    .tag.pink   { background: rgba(244,114,182,0.08); color: #f472b6;  border-color: rgba(244,114,182,0.2); }
+
+    /* Card Footer */
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Assignee */
+    .assignee {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .assignee-av {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: #0f172a;
+      flex-shrink: 0;
+    }
+
+    .av-blue   { background: #38bdf8; }
+    .av-purple { background: #a78bfa; }
+    .av-green  { background: #34d399; }
+    .av-orange { background: #fb923c; }
+    .av-pink   { background: #f472b6; }
+    .av-teal   { background: #2dd4bf; }
+
+    .assignee-name {
+      font-size: 0.75rem;
+      color: #475569;
+      font-weight: 500;
+    }
+
+    /* Due date */
+    .due-date {
+      font-size: 0.72rem;
+      color: #334155;
+      font-weight: 500;
+    }
+
+    .due-date.overdue {
+      color: #f87171;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .kanban-board {
+        grid-template-columns: repeat(4, 260px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <h1>🗂 Project Board</h1>
+      <p>Subham.dev — Sprint 12 · April 2026</p>
+    </div>
+    <button class="btn-new-task">+ New Task</button>
+  </div>
+
+  <!-- Kanban Board -->
+  <div class="kanban-board">
+
+    <!-- ── Backlog ── -->
+    <div class="kanban-col col-backlog">
+      <div class="col-header">
+        <div class="col-title-wrap">
+          <span class="col-dot"></span>
+          <span class="col-title">Backlog</span>
+          <span class="col-count">3</span>
+        </div>
+        <button class="col-add">+</button>
+      </div>
+      <div class="col-body">
+
+        <div class="task-card">
+          <div class="card-top">
+            <span class="priority high">High</span>
+            <span class="card-id">#014</span>
+          </div>
+          <p class="task-title">Set up CI/CD pipeline for staging environment</p>
+          <p class="task-desc">Configure GitHub Actions to auto-deploy on push to the staging branch.</p>
+          <div class="tag-row">
+            <span class="tag blue">DevOps</span>
+            <span class="tag green">GitHub</span>
+          </div>
+          <div class="card-footer">
+            <div class="assignee">
+              <div class="assignee-av av-blue">SK</div>
+              <span class="assignee-name">Subham</span>
+            </div>
+            <span class="due-date overdue">Apr 1</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="card-top">
+            <span class="priority medium">Medium</span>
+            <span class="card-id">#015</span>
+          </div>
+          <p class="task-title">Research best DSA patterns for graph problems</p>
+          <p class="task-desc">Compile notes on BFS, DFS, Dijkstra, and union-find for LeetCode practice.</p>
+          <div class="tag-row">
+            <span class="tag purple">DSA</span>
+            <span class="tag orange">Java</span>
+          </div>
+          <div class="card-footer">
+            <div class="assignee">
+              <div class="assignee-av av-blue">SK</div>
+              <span class="assignee-name">Subham</span>
+            </div>
+            <span class="due-date">Apr 10</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="card-top">
+            <span class="priority low">Low</span>
+            <span class="card-id">#016</span>
+          </div>
+          <p class="task-title">Write README for Subham.dev component library</p>
+          <p class="task-desc">Document all 289 components with usage notes and preview screenshots.</p>
+          <div class="tag-row">
+            <span class="tag green">Docs</span>
+            <span class="tag blue">HTML/CSS</span>
+          </div>
+          <div class="card-footer">
+            <div class="assignee">
+              <div class="assignee-av av-blue">SK</div>
+              <span class="assignee-name">Subham</span>
+            </div>
+            <span class="due-date">Apr 15</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── In Progress ── -->
+    <div class="kanban-col col-inprogress">
+      <div class="col-header">
+        <div class="col-title-wrap">
+          <span class="col-dot"></span>
+          <span class="col-title">In Progress</span>
+          <span class="col-count">3</span>
+        </div>
+        <button class="col-add">+</button>
+      </div>
+      <div class="col-body">
+
+        <div class="task-card">
+          <div class="card-top">
+            <span class="priority high">High</span>
+            <span class="card-id">#009</span>
+          </div>
+          <p class="task-title">Build freelance portfolio landing page</p>
+          <p class="task-desc">Assemble hero, features, pricing, testimonials, and contact sections into one deployable page.</p>
+          <div class="tag-row">
+            <span class="tag blue">HTML</span>
+            <span class="tag purple">CSS</span>
+            <span class="tag pink">Freelancing</span>
+          </div>
+          <div class="card-footer">
+            <div class="assignee">
+              <div class="assignee-av av-blue">SK</div>
+              <span class="assignee-name">Subham</span>
+            </div>
+            <span class="due-date">Apr 5</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="card-top">
+            <span class="priority high">High</span>
+            <span class="card-id">#010</span>
+          </div>
+          <p class="task-title">Complete Kunal Kushwaha Java playlist — Week 3</p>
+          <p class="task-desc">Code along with OOP and collections videos, push all solutions to GitHub daily.</p>
+          <div class="tag-row">
+            <span class="tag orange">Java</span>
+            <span class="tag green">GitHub</span>
+          </div>
+          <div class="card-footer">
+            <div class="assignee">
+              <div class="assignee-av av-blue">SK</div>
+              <span class="assignee-name">Subham</span>
+            </div>
+            <span class="due-date">Apr 7</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="card-top">
+            <span class="priority medium">Medium</span>
+            <span class="card-id">#011</span>
+          </div>
+          <p class="task-title">Solve 5 LeetCode problems this week</p>
+          <p class="task-desc">Focus on arrays and strings. Maintain daily streak and push solutions with comments.</p>
+          <div class="tag-row">
+            <span class="tag purple">DSA</span>
+            <span class="tag orange">LeetCode</span>
+          </div>
+          <div class="card-footer">
+            <div class="assignee">
+              <div class="assignee-av av-blue">SK</div>
+              <span class="assignee-name">Subham</span>
+            </div>
+            <span class="due-date">Apr 6</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── In Review ── -->
+    <div class="kanban-col col-inreview">
+      <div class="col-header">
+        <div class="col-title-wrap">
+          <span class="col-dot"></span>
+          <span class="col-title">In Review</span>
+          <span class="col-count">2</span>
+        </div>
+        <button class="col-add">+</button>
+      </div>
+      <div class="col-body">
+
+        <div class="task-card">
+          <div class="card-top">
+            <span class="priority high">High</span>
+            <span class="card-id">#006</span>
+          </div>
+          <p class="task-title">Redesign BellaVista restaurant website</p>
+          <p class="task-desc">Upgrade existing project with the dark design system, responsive navbar, and new menu section.</p>
+          <div class="tag-row">
+            <span class="tag blue">HTML</span>
+            <span class="tag purple">CSS</span>
+            <span class="tag pink">Client</span>
+          </div>
+          <div class="card-footer">
+            <div class="assignee">
+              <div class="assignee-av av-blue">SK</div>
+              <span class="assignee-name">Subham</span>
+            </div>
+            <span class="due-date">Apr 3</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="card-top">
+            <span class="priority medium">Medium</span>
+            <span class="card-id">#007</span>
+          </div>
+          <p class="task-title">Optimise LinkedIn profile for freelancing</p>
+          <p class="task-desc">Update headline, about section, and featured projects before June launch.</p>
+          <div class="tag-row">
+            <span class="tag green">LinkedIn</span>
+            <span class="tag pink">Branding</span>
+          </div>
+          <div class="card-footer">
+            <div class="assignee">
+              <div class="assignee-av av-blue">SK</div>
+              <span class="assignee-name">Subham</span>
+            </div>
+            <span class="due-date">Apr 8</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Done ── -->
+    <div class="kanban-col col-done">
+      <div class="col-header">
+        <div class="col-title-wrap">
+          <span class="col-dot"></span>
+          <span class="col-title">Done</span>
+          <span class="col-count">3</span>
+        </div>
+        <button class="col-add">+</button>
+      </div>
+      <div class="col-body">
+
+        <div class="task-card">
+          <div class="card-top">
+            <span class="priority high">High</span>
+            <span class="card-id">#001</span>
+          </div>
+          <p class="task-title">Build complete SaaS landing page system</p>
+          <p class="task-desc">Navbar, hero, features, stats, pricing, testimonials, FAQ, contact, footer — all done.</p>
+          <div class="tag-row">
+            <span class="tag blue">HTML</span>
+            <span class="tag purple">CSS</span>
+          </div>
+          <div class="card-footer">
+            <div class="assignee">
+              <div class="assignee-av av-blue">SK</div>
+              <span class="assignee-name">Subham</span>
+            </div>
+            <span class="due-date">Mar 28</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="card-top">
+            <span class="priority medium">Medium</span>
+            <span class="card-id">#002</span>
+          </div>
+          <p class="task-title">Set up Git and GitHub daily streak</p>
+          <p class="task-desc">Configured Git Bash on Windows, resolved push issues, and established commit workflow.</p>
+          <div class="tag-row">
+            <span class="tag green">Git</span>
+            <span class="tag green">GitHub</span>
+          </div>
+          <div class="card-footer">
+            <div class="assignee">
+              <div class="assignee-av av-blue">SK</div>
+              <span class="assignee-name">Subham</span>
+            </div>
+            <span class="due-date">Mar 18</span>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="card-top">
+            <span class="priority low">Low</span>
+            <span class="card-id">#003</span>
+          </div>
+          <p class="task-title">Start Kunal Kushwaha Java + DSA playlist</p>
+          <p class="task-desc">Began coding along from video 1 on March 18, pushing all solutions to GitHub.</p>
+          <div class="tag-row">
+            <span class="tag orange">Java</span>
+            <span class="tag purple">DSA</span>
+          </div>
+          <div class="card-footer">
+            <div class="assignee">
+              <div class="assignee-av av-blue">SK</div>
+              <span class="assignee-name">Subham</span>
+            </div>
+            <span class="due-date">Mar 18</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
