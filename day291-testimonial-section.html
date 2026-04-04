@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 291 - Testimonial Section</title>
+
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 64px 16px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+    }
+
+    /* Section Header */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #38bdf8;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f8fafc;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      font-size: 0.95rem;
+      color: #64748b;
+      text-align: center;
+      margin-bottom: 52px;
+      max-width: 480px;
+    }
+
+    /* Grid */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    /* Card */
+    .card {
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: #334155;
+      transform: translateY(-4px);
+    }
+
+    /* Stars */
+    .stars {
+      display: flex;
+      gap: 4px;
+    }
+
+    .star {
+      width: 16px;
+      height: 16px;
+      background: #f59e0b;
+      clip-path: polygon(
+        50% 0%, 61% 35%, 98% 35%, 68% 57%,
+        79% 91%, 50% 70%, 21% 91%, 32% 57%,
+        2% 35%, 39% 35%
+      );
+    }
+
+    .star.empty {
+      background: #1e293b;
+    }
+
+    /* Quote */
+    .quote-mark {
+      font-size: 3rem;
+      line-height: 0.6;
+      color: #1e3a5f;
+      font-family: Georgia, serif;
+      font-weight: 700;
+      user-select: none;
+    }
+
+    .quote-text {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      line-height: 1.7;
+    }
+
+    /* Author */
+    .author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 4px;
+      border-top: 1px solid #1e293b;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      text-transform: uppercase;
+    }
+
+    .avatar.blue   { background: #38bdf8; }
+    .avatar.green  { background: #34d399; }
+    .avatar.purple { background: #a78bfa; }
+    .avatar.orange { background: #fb923c; }
+    .avatar.pink   { background: #f472b6; }
+    .avatar.teal   { background: #2dd4bf; }
+
+    .author-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .author-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+
+    .author-role {
+      font-size: 0.78rem;
+      color: #475569;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+      }
+
+      .section-title {
+        font-size: 1.6rem;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 960px) {
+      .testimonial-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <p class="section-label">Testimonials</p>
+  <h1 class="section-title">What our customers say</h1>
+  <p class="section-sub">Trusted by teams and individuals building real products around the world.</p>
+
+  <div class="testimonial-grid">
+
+    <!-- Card 1 -->
+    <div class="card">
+      <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+      </div>
+      <div>
+        <div class="quote-mark">"</div>
+        <p class="quote-text">The onboarding was seamless and the interface is incredibly intuitive. Our team was up and running within a day. Genuinely the best product we've adopted this year.</p>
+      </div>
+      <div class="author">
+        <div class="avatar blue">AK</div>
+        <div class="author-info">
+          <span class="author-name">Arjun Kapoor</span>
+          <span class="author-role">Product Manager, Finstack</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+      </div>
+      <div>
+        <div class="quote-mark">"</div>
+        <p class="quote-text">We replaced three separate tools with this one platform. The analytics alone saved us hours every week. I'd recommend it to any serious growth team without hesitation.</p>
+      </div>
+      <div class="author">
+        <div class="avatar green">SR</div>
+        <div class="author-info">
+          <span class="author-name">Sara Reeves</span>
+          <span class="author-role">Growth Lead, Orbitly</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star empty"></div>
+      </div>
+      <div>
+        <div class="quote-mark">"</div>
+        <p class="quote-text">Solid product with excellent support. The custom domain feature was the deciding factor for us. Would love to see more export options, but overall very satisfied.</p>
+      </div>
+      <div class="author">
+        <div class="avatar purple">TN</div>
+        <div class="author-info">
+          <span class="author-name">Takeshi Noda</span>
+          <span class="author-role">CTO, Lumenix</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card">
+      <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+      </div>
+      <div>
+        <div class="quote-mark">"</div>
+        <p class="quote-text">I've used a dozen similar tools over the years. This one is the first that actually feels like it was built by people who understand how designers and developers work together.</p>
+      </div>
+      <div class="author">
+        <div class="avatar orange">ML</div>
+        <div class="author-info">
+          <span class="author-name">Maya Lin</span>
+          <span class="author-role">UI Designer, Craftbase</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card">
+      <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+      </div>
+      <div>
+        <div class="quote-mark">"</div>
+        <p class="quote-text">Switched from a competitor after just one free trial session. The performance difference is night and day. Our client delivery time dropped by 40% in the first month alone.</p>
+      </div>
+      <div class="author">
+        <div class="avatar pink">PR</div>
+        <div class="author-info">
+          <span class="author-name">Priya Rao</span>
+          <span class="author-role">Founder, Pixelwave Agency</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="card">
+      <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star empty"></div>
+      </div>
+      <div>
+        <div class="quote-mark">"</div>
+        <p class="quote-text">Clean, fast, and reliable. The team integrations saved us hours of back-and-forth. We're planning to move our entire workflow here by next quarter. Very impressed so far.</p>
+      </div>
+      <div class="author">
+        <div class="avatar teal">DB</div>
+        <div class="author-info">
+          <span class="author-name">Daniel Bauer</span>
+          <span class="author-role">Engineering Manager, Stackr</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
