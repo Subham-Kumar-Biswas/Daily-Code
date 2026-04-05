@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 192 - Toast Notification Component</title>
+
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 16px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+      gap: 16px;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #38bdf8;
+      margin-bottom: 4px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #f8fafc;
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    /* Toast wrapper */
+    .toast-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    /* Base toast */
+    .toast {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 18px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      position: relative;
+      background: #0a1628;
+    }
+
+    /* Icon circle */
+    .toast-icon {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    /* Content */
+    .toast-content {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex: 1;
+    }
+
+    .toast-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    .toast-message {
+      font-size: 0.8rem;
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    /* Close button */
+    .toast-close {
+      font-size: 1rem;
+      color: #475569;
+      cursor: pointer;
+      line-height: 1;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: color 0.2s;
+      user-select: none;
+    }
+
+    .toast-close:hover {
+      color: #94a3b8;
+    }
+
+    /* Left accent bar */
+    .toast::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 12px;
+      bottom: 12px;
+      width: 3px;
+      border-radius: 0 3px 3px 0;
+    }
+
+    /* --- Variants --- */
+
+    /* Success */
+    .toast.success {
+      border-color: #166534;
+      background: #052e16;
+    }
+
+    .toast.success::before {
+      background: #22c55e;
+    }
+
+    .toast.success .toast-icon {
+      background: #14532d;
+      color: #22c55e;
+    }
+
+    .toast.success .toast-title {
+      color: #bbf7d0;
+    }
+
+    /* Error */
+    .toast.error {
+      border-color: #7f1d1d;
+      background: #2d0a0a;
+    }
+
+    .toast.error::before {
+      background: #ef4444;
+    }
+
+    .toast.error .toast-icon {
+      background: #450a0a;
+      color: #ef4444;
+    }
+
+    .toast.error .toast-title {
+      color: #fecaca;
+    }
+
+    /* Warning */
+    .toast.warning {
+      border-color: #713f12;
+      background: #1c0f00;
+    }
+
+    .toast.warning::before {
+      background: #f59e0b;
+    }
+
+    .toast.warning .toast-icon {
+      background: #3b1a00;
+      color: #f59e0b;
+    }
+
+    .toast.warning .toast-title {
+      color: #fde68a;
+    }
+
+    /* Info */
+    .toast.info {
+      border-color: #1e3a5f;
+      background: #0a1628;
+    }
+
+    .toast.info::before {
+      background: #38bdf8;
+    }
+
+    .toast.info .toast-icon {
+      background: #0c2340;
+      color: #38bdf8;
+    }
+
+    .toast.info .toast-title {
+      color: #bae6fd;
+    }
+
+    /* Progress bar */
+    .toast-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      border-radius: 0 0 12px 12px;
+      width: 60%;
+      opacity: 0.4;
+    }
+
+    .toast.success .toast-progress { background: #22c55e; }
+    .toast.error   .toast-progress { background: #ef4444; }
+    .toast.warning .toast-progress { background: #f59e0b; }
+    .toast.info    .toast-progress { background: #38bdf8; }
+
+    @media (max-width: 480px) {
+      .toast-stack {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <p class="section-label">Components</p>
+  <h1 class="section-title">Toast Notifications</h1>
+
+  <div class="toast-stack">
+
+    <!-- Success -->
+    <div class="toast success">
+      <div class="toast-icon">✓</div>
+      <div class="toast-content">
+        <span class="toast-title">Changes saved successfully</span>
+        <span class="toast-message">Your profile has been updated. Changes will reflect immediately.</span>
+      </div>
+      <span class="toast-close">✕</span>
+      <div class="toast-progress"></div>
+    </div>
+
+    <!-- Error -->
+    <div class="toast error">
+      <div class="toast-icon">✕</div>
+      <div class="toast-content">
+        <span class="toast-title">Upload failed</span>
+        <span class="toast-message">The file could not be uploaded. Please check your connection and try again.</span>
+      </div>
+      <span class="toast-close">✕</span>
+      <div class="toast-progress"></div>
+    </div>
+
+    <!-- Warning -->
+    <div class="toast warning">
+      <div class="toast-icon">⚠</div>
+      <div class="toast-content">
+        <span class="toast-title">Storage limit approaching</span>
+        <span class="toast-message">You have used 90% of your storage. Upgrade your plan to avoid interruptions.</span>
+      </div>
+      <span class="toast-close">✕</span>
+      <div class="toast-progress"></div>
+    </div>
+
+    <!-- Info -->
+    <div class="toast info">
+      <div class="toast-icon">i</div>
+      <div class="toast-content">
+        <span class="toast-title">New update available</span>
+        <span class="toast-message">Version 3.2.0 is ready to install. Refresh the page to apply the latest changes.</span>
+      </div>
+      <span class="toast-close">✕</span>
+      <div class="toast-progress"></div>
+    </div>
+
+  </div>
+
+</body>
+</html>
