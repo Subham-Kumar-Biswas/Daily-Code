@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 293 - FAQ Accordion</title>
+
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 64px 16px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+    }
+
+    /* Section header */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #38bdf8;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f8fafc;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      font-size: 0.95rem;
+      color: #64748b;
+      text-align: center;
+      margin-bottom: 52px;
+      max-width: 480px;
+    }
+
+    /* FAQ wrapper */
+    .faq-list {
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Each item */
+    details {
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    details:hover {
+      border-color: #334155;
+    }
+
+    details[open] {
+      border-color: #38bdf8;
+    }
+
+    /* Question row */
+    summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 22px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #f1f5f9;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      transition: color 0.2s;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details[open] summary {
+      color: #38bdf8;
+    }
+
+    /* Chevron icon */
+    .chevron {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      border-radius: 50%;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.3s;
+    }
+
+    .chevron::before {
+      content: '';
+      display: block;
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid #64748b;
+      border-bottom: 2px solid #64748b;
+      transform: rotate(45deg) translateY(-2px);
+      transition: border-color 0.2s;
+    }
+
+    details[open] .chevron {
+      background: #0c2340;
+      transform: rotate(180deg);
+    }
+
+    details[open] .chevron::before {
+      border-color: #38bdf8;
+    }
+
+    /* Answer */
+    .answer {
+      padding: 0 22px 20px;
+      font-size: 0.875rem;
+      color: #64748b;
+      line-height: 1.75;
+      border-top: 1px solid #1e293b;
+      padding-top: 16px;
+    }
+
+    /* Divider line inside open item */
+    details[open] summary {
+      border-bottom: 1px solid #1e293b;
+    }
+
+    /* Bottom CTA */
+    .faq-cta {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .faq-cta p {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 14px;
+    }
+
+    .faq-cta a {
+      display: inline-block;
+      padding: 11px 28px;
+      background: #38bdf8;
+      color: #0f172a;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .faq-cta a:hover {
+      background: #0ea5e9;
+    }
+
+    @media (max-width: 480px) {
+      .section-title {
+        font-size: 1.6rem;
+      }
+
+      summary {
+        font-size: 0.875rem;
+        padding: 16px 16px;
+      }
+
+      .answer {
+        padding: 14px 16px 16px;
+        font-size: 0.825rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <p class="section-label">FAQ</p>
+  <h1 class="section-title">Frequently asked questions</h1>
+  <p class="section-sub">Everything you need to know about the product. Can't find an answer? Talk to our team.</p>
+
+  <div class="faq-list">
+
+    <details open>
+      <summary>
+        What is included in the free plan?
+        <span class="chevron"></span>
+      </summary>
+      <div class="answer">
+        The free plan includes up to 3 active projects, 5 GB of storage, basic analytics, and email support. It is designed for individuals and side projects getting started. You can upgrade to Pro or Enterprise at any time without losing your data.
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        Can I cancel my subscription at any time?
+        <span class="chevron"></span>
+      </summary>
+      <div class="answer">
+        Yes, absolutely. You can cancel your subscription from your account settings at any time. Your plan remains active until the end of the current billing cycle and you will not be charged again after that.
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        Do you offer refunds?
+        <span class="chevron"></span>
+      </summary>
+      <div class="answer">
+        We offer a 14-day money-back guarantee on all paid plans. If you are not satisfied for any reason within the first 14 days, contact our support team and we will issue a full refund — no questions asked.
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        How do I upgrade or downgrade my plan?
+        <span class="chevron"></span>
+      </summary>
+      <div class="answer">
+        You can change your plan at any time from the Billing section in your account settings. Upgrades take effect immediately and you are only charged the prorated difference. Downgrades take effect at the start of the next billing cycle.
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        Is my data secure?
+        <span class="chevron"></span>
+      </summary>
+      <div class="answer">
+        Yes. All data is encrypted in transit using TLS and at rest using AES-256 encryption. We are SOC 2 Type II compliant and conduct regular third-party security audits. Your data is never sold or shared with third parties.
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        Do you support team collaboration?
+        <span class="chevron"></span>
+      </summary>
+      <div class="answer">
+        Yes. Pro and Enterprise plans support multiple team members with role-based access controls. You can invite teammates, assign roles such as Admin, Editor, or Viewer, and manage permissions from the Team Settings panel.
+      </div>
+    </details>
+
+  </div>
+
+  <div class="faq-cta">
+    <p>Still have questions?</p>
+    <a href="#">Contact our support team</a>
+  </div>
+
+</body>
+</html>
