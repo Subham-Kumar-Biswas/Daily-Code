@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 295 - Sidebar Navigation</title>
+
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 240px;
+      min-height: 100vh;
+      background: #020617;
+      border-right: 1px solid #1e293b;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      transition: width 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    /* Logo row */
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 18px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      background: #38bdf8;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .logo-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f8fafc;
+      white-space: nowrap;
+    }
+
+    .logo-name span {
+      color: #38bdf8;
+    }
+
+    /* Nav sections */
+    .nav-section {
+      padding: 20px 12px 8px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .nav-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #334155;
+      padding: 0 8px;
+      margin-bottom: 6px;
+    }
+
+    .nav-group {
+      margin-bottom: 24px;
+    }
+
+    /* Nav link */
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #64748b;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      background: #0f1f35;
+      color: #cbd5e1;
+    }
+
+    .nav-link.active {
+      background: #0c2340;
+      color: #38bdf8;
+    }
+
+    .nav-link.active .nav-icon {
+      color: #38bdf8;
+    }
+
+    /* Icon */
+    .nav-icon {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    /* Badge */
+    .nav-badge {
+      margin-left: auto;
+      background: #38bdf8;
+      color: #0f172a;
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+
+    .nav-badge.muted {
+      background: #1e293b;
+      color: #64748b;
+    }
+
+    /* Submenu */
+    .submenu {
+      margin-left: 30px;
+      margin-top: 2px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      border-left: 1px solid #1e293b;
+      padding-left: 12px;
+    }
+
+    .submenu .nav-link {
+      font-size: 0.8rem;
+      padding: 7px 10px;
+      color: #475569;
+    }
+
+    .submenu .nav-link:hover {
+      color: #94a3b8;
+      background: transparent;
+    }
+
+    .submenu .nav-link.active {
+      color: #38bdf8;
+      background: transparent;
+    }
+
+    /* Divider */
+    .nav-divider {
+      height: 1px;
+      background: #1e293b;
+      margin: 8px 8px 16px;
+    }
+
+    /* Bottom user strip */
+    .sidebar-footer {
+      border-top: 1px solid #1e293b;
+      padding: 14px 12px;
+    }
+
+    .user-strip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .user-strip:hover {
+      background: #0f1f35;
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .user-info {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .user-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-plan {
+      font-size: 0.68rem;
+      color: #475569;
+    }
+
+    .user-menu-icon {
+      font-size: 0.75rem;
+      color: #334155;
+    }
+
+    /* ── Main content area ── */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top bar */
+    .topbar {
+      height: 56px;
+      background: #020617;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .topbar-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topbar-btn {
+      padding: 7px 16px;
+      background: #38bdf8;
+      color: #0f172a;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .topbar-btn:hover {
+      background: #0ea5e9;
+    }
+
+    .topbar-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #0f1f35;
+      border: 1px solid #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: #64748b;
+      transition: background 0.15s;
+    }
+
+    .topbar-icon:hover {
+      background: #1e293b;
+      color: #cbd5e1;
+    }
+
+    /* Content */
+    .content {
+      flex: 1;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .content-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #38bdf8;
+    }
+
+    .content-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .content-sub {
+      font-size: 0.875rem;
+      color: #475569;
+      max-width: 460px;
+      line-height: 1.6;
+    }
+
+    /* Placeholder cards */
+    .placeholder-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .placeholder-card {
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ph-label {
+      font-size: 0.72rem;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .ph-value {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .ph-change {
+      font-size: 0.75rem;
+      color: #34d399;
+    }
+
+    @media (max-width: 640px) {
+      .sidebar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-logo">
+      <div class="logo-icon">S</div>
+      <span class="logo-name">Subham<span>.dev</span></span>
+    </div>
+
+    <nav class="nav-section">
+
+      <!-- Main -->
+      <div class="nav-group">
+        <p class="nav-label">Main</p>
+        <a href="#" class="nav-link active">
+          <span class="nav-icon">⊞</span> Overview
+        </a>
+        <a href="#" class="nav-link">
+          <span class="nav-icon">📊</span> Analytics
+          <span class="nav-badge">New</span>
+        </a>
+        <a href="#" class="nav-link">
+          <span class="nav-icon">📁</span> Projects
+          <span class="nav-badge muted">12</span>
+        </a>
+      </div>
+
+      <!-- Projects submenu -->
+      <div class="submenu">
+        <a href="#" class="nav-link active">All Projects</a>
+        <a href="#" class="nav-link">Active</a>
+        <a href="#" class="nav-link">Archived</a>
+      </div>
+
+      <div class="nav-divider"></div>
+
+      <!-- Manage -->
+      <div class="nav-group">
+        <p class="nav-label">Manage</p>
+        <a href="#" class="nav-link">
+          <span class="nav-icon">👥</span> Clients
+        </a>
+        <a href="#" class="nav-link">
+          <span class="nav-icon">🧾</span> Invoices
+          <span class="nav-badge muted">3</span>
+        </a>
+        <a href="#" class="nav-link">
+          <span class="nav-icon">📅</span> Schedule
+        </a>
+      </div>
+
+      <div class="nav-divider"></div>
+
+      <!-- System -->
+      <div class="nav-group">
+        <p class="nav-label">System</p>
+        <a href="#" class="nav-link">
+          <span class="nav-icon">⚙</span> Settings
+        </a>
+        <a href="#" class="nav-link">
+          <span class="nav-icon">🔔</span> Notifications
+          <span class="nav-badge">2</span>
+        </a>
+        <a href="#" class="nav-link">
+          <span class="nav-icon">❓</span> Help
+        </a>
+      </div>
+
+    </nav>
+
+    <!-- Footer user strip -->
+    <div class="sidebar-footer">
+      <div class="user-strip">
+        <div class="user-avatar">SK</div>
+        <div class="user-info">
+          <p class="user-name">Subham Kumar</p>
+          <p class="user-plan">Pro Plan</p>
+        </div>
+        <span class="user-menu-icon">⋯</span>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- Main content -->
+  <div class="main">
+
+    <div class="topbar">
+      <span class="topbar-title">Overview</span>
+      <div class="topbar-actions">
+        <div class="topbar-icon">🔔</div>
+        <div class="topbar-icon">⚙</div>
+        <button class="topbar-btn">+ New Project</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <p class="content-label">Dashboard</p>
+      <h1 class="content-title">Welcome back, Subham 👋</h1>
+      <p class="content-sub">Here is a summary of your activity. Your sidebar navigation is live and production-ready.</p>
+
+      <div class="placeholder-grid">
+        <div class="placeholder-card">
+          <p class="ph-label">Active Projects</p>
+          <p class="ph-value">12</p>
+          <p class="ph-change">↑ 3 this month</p>
+        </div>
+        <div class="placeholder-card">
+          <p class="ph-label">Clients</p>
+          <p class="ph-value">8</p>
+          <p class="ph-change">↑ 2 new</p>
+        </div>
+        <div class="placeholder-card">
+          <p class="ph-label">Invoices</p>
+          <p class="ph-value">₹42k</p>
+          <p class="ph-change">↑ 18% vs last month</p>
+        </div>
+        <div class="placeholder-card">
+          <p class="ph-label">Days Streak</p>
+          <p class="ph-value">295</p>
+          <p class="ph-change">↑ Unbroken</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
