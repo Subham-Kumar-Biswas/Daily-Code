@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 298 - Hero Section</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Nav */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      border-bottom: 1px solid #1e293b;
+      background: #020617;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .nav-logo-icon {
+      width: 28px;
+      height: 28px;
+      background: #38bdf8;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.825rem;
+      color: #64748b;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #cbd5e1; }
+
+    .nav-actions { display: flex; gap: 8px; }
+
+    .btn {
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, color 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid #1e293b;
+      color: #64748b;
+    }
+
+    .btn-ghost:hover { background: #1e293b; color: #cbd5e1; }
+
+    .btn-primary { background: #38bdf8; color: #0f172a; }
+    .btn-primary:hover { background: #0ea5e9; }
+
+    /* Hero */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background glow */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(56,189,248,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 14px;
+      background: #0c2340;
+      border: 1px solid #1e3a5f;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #38bdf8;
+      margin-bottom: 28px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      background: #38bdf8;
+      border-radius: 50%;
+    }
+
+    /* Headline */
+    .headline {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      color: #f8fafc;
+      line-height: 1.15;
+      max-width: 720px;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .headline span {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Subtext */
+    .subtext {
+      font-size: 1rem;
+      color: #64748b;
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    /* CTA buttons */
+    .cta-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 52px;
+    }
+
+    .btn-hero-primary {
+      padding: 12px 28px;
+      background: #38bdf8;
+      color: #0f172a;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-hero-primary:hover { background: #0ea5e9; transform: translateY(-1px); }
+
+    .btn-hero-outline {
+      padding: 12px 28px;
+      background: transparent;
+      border: 1px solid #1e293b;
+      color: #94a3b8;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-hero-outline:hover { background: #1e293b; color: #e2e8f0; }
+
+    /* Social proof */
+    .social-proof {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatars {
+      display: flex;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-left: -8px;
+    }
+
+    .avatars .avatar:first-child { margin-left: 0; }
+
+    .av-blue   { background: #38bdf8; }
+    .av-green  { background: #34d399; }
+    .av-purple { background: #a78bfa; }
+    .av-orange { background: #fb923c; }
+    .av-pink   { background: #f472b6; }
+
+    .proof-text {
+      font-size: 0.78rem;
+      color: #475569;
+    }
+
+    .proof-text strong { color: #94a3b8; }
+
+    /* Stars */
+    .stars { display: flex; gap: 2px; margin-bottom: 2px; }
+
+    .star {
+      width: 12px;
+      height: 12px;
+      background: #f59e0b;
+      clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+    }
+
+    /* Divider strip */
+    .brand-strip {
+      border-top: 1px solid #1e293b;
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .strip-label {
+      font-size: 0.72rem;
+      color: #334155;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-right: 8px;
+    }
+
+    .brand-pill {
+      padding: 5px 16px;
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .brand-strip { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">
+      <div class="nav-logo-icon">S</div>
+      Subham.dev
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Product</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li><a href="#">Docs</a></li>
+      <li><a href="#">Blog</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#" class="btn btn-ghost">Log in</a>
+      <a href="#" class="btn btn-primary">Get started</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="badge">
+      <div class="badge-dot"></div>
+      Now in public beta — 298 days of shipping
+    </div>
+
+    <h1 class="headline">
+      Ship faster with<br />
+      <span>components that work</span>
+    </h1>
+
+    <p class="subtext">
+      Production-ready HTML and CSS components built for real clients and real products. Clean, semantic, and drop-in ready from day one.
+    </p>
+
+    <div class="cta-group">
+      <button class="btn-hero-primary">Start building free →</button>
+      <button class="btn-hero-outline">View components</button>
+    </div>
+
+    <div class="social-proof">
+      <div class="stars">
+        <div class="star"></div><div class="star"></div><div class="star"></div>
+        <div class="star"></div><div class="star"></div>
+      </div>
+      <div class="avatars">
+        <div class="avatar av-blue">AK</div>
+        <div class="avatar av-green">SR</div>
+        <div class="avatar av-purple">TN</div>
+        <div class="avatar av-orange">ML</div>
+        <div class="avatar av-pink">PR</div>
+      </div>
+      <p class="proof-text"><strong>2,400+</strong> developers already building with this</p>
+    </div>
+  </section>
+
+  <div class="brand-strip">
+    <span class="strip-label">Trusted by teams at</span>
+    <span class="brand-pill">Finstack</span>
+    <span class="brand-pill">Orbitly</span>
+    <span class="brand-pill">Lumenix</span>
+    <span class="brand-pill">Craftbase</span>
+    <span class="brand-pill">Pixelwave</span>
+    <span class="brand-pill">Stackr</span>
+  </div>
+
+</body>
+</html>
