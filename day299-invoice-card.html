@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 299 - Invoice Card</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 16px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+    }
+
+    /* Invoice card */
+    .invoice {
+      width: 100%;
+      max-width: 620px;
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    /* Header */
+    .inv-header {
+      padding: 28px 32px;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .inv-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: #38bdf8;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .brand-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .brand-sub {
+      font-size: 0.72rem;
+      color: #475569;
+    }
+
+    .inv-meta {
+      text-align: right;
+    }
+
+    .inv-number {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #38bdf8;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+    }
+
+    .inv-dates {
+      font-size: 0.72rem;
+      color: #475569;
+      line-height: 1.7;
+    }
+
+    /* Status badge */
+    .status-row {
+      padding: 12px 32px;
+      background: #060f1e;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .status-label {
+      font-size: 0.72rem;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 12px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+
+    .badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .badge-paid {
+      background: #052e16;
+      color: #34d399;
+      border-color: #166534;
+    }
+
+    .badge-paid::before { background: #34d399; }
+
+    .badge-pending {
+      background: #1c0f00;
+      color: #f59e0b;
+      border-color: #713f12;
+    }
+
+    .badge-pending::before { background: #f59e0b; }
+
+    .badge-overdue {
+      background: #2d0a0a;
+      color: #ef4444;
+      border-color: #7f1d1d;
+    }
+
+    .badge-overdue::before { background: #ef4444; }
+
+    /* Bill to / from */
+    .inv-parties {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding: 24px 32px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .party-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+
+    .party-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #f1f5f9;
+      margin-bottom: 4px;
+    }
+
+    .party-detail {
+      font-size: 0.75rem;
+      color: #475569;
+      line-height: 1.65;
+    }
+
+    /* Items table */
+    .inv-table {
+      padding: 24px 32px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #334155;
+      padding: 0 0 10px;
+      border-bottom: 1px solid #1e293b;
+      text-align: left;
+    }
+
+    th:last-child, td:last-child { text-align: right; }
+
+    td {
+      padding: 12px 0;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      border-bottom: 1px solid #0f1f35;
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td { border-bottom: none; }
+
+    .item-name {
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-bottom: 2px;
+    }
+
+    .item-desc {
+      font-size: 0.72rem;
+      color: #475569;
+    }
+
+    /* Totals */
+    .inv-totals {
+      padding: 20px 32px 24px;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .total-row {
+      display: flex;
+      gap: 48px;
+      font-size: 0.78rem;
+      color: #64748b;
+    }
+
+    .total-row span:last-child {
+      min-width: 80px;
+      text-align: right;
+      color: #94a3b8;
+    }
+
+    .total-row.grand {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f8fafc;
+      padding-top: 10px;
+      border-top: 1px solid #1e293b;
+      margin-top: 4px;
+    }
+
+    .total-row.grand span:last-child {
+      color: #38bdf8;
+    }
+
+    /* Note */
+    .inv-note {
+      padding: 16px 32px;
+      border-bottom: 1px solid #1e293b;
+      font-size: 0.75rem;
+      color: #334155;
+      line-height: 1.6;
+    }
+
+    .inv-note strong { color: #475569; }
+
+    /* Actions */
+    .inv-actions {
+      padding: 18px 32px;
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 9px 20px;
+      border-radius: 9px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #1e293b;
+      color: #64748b;
+    }
+
+    .btn-outline:hover { background: #1e293b; color: #cbd5e1; }
+
+    .btn-primary { background: #38bdf8; color: #0f172a; }
+    .btn-primary:hover { background: #0ea5e9; }
+
+    @media (max-width: 480px) {
+      .inv-header, .inv-parties,
+      .inv-table, .inv-totals,
+      .inv-actions, .status-row,
+      .inv-note { padding-left: 20px; padding-right: 20px; }
+
+      .inv-parties { grid-template-columns: 1fr; gap: 16px; }
+      .inv-meta { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="invoice">
+
+    <!-- Header -->
+    <div class="inv-header">
+      <div class="inv-brand">
+        <div class="brand-icon">S</div>
+        <div>
+          <p class="brand-name">Subham Kumar</p>
+          <p class="brand-sub">Frontend Developer · Freelancer</p>
+        </div>
+      </div>
+      <div class="inv-meta">
+        <p class="inv-number">INV-2026-299</p>
+        <p class="inv-dates">
+          Issued: April 12, 2026<br />
+          Due: April 26, 2026
+        </p>
+      </div>
+    </div>
+
+    <!-- Status -->
+    <div class="status-row">
+      <span class="status-label">Payment status</span>
+      <span class="badge badge-pending">Pending</span>
+    </div>
+
+    <!-- Bill to / from -->
+    <div class="inv-parties">
+      <div>
+        <p class="party-label">From</p>
+        <p class="party-name">Subham Kumar</p>
+        <p class="party-detail">
+          Rayagada, Odisha, India<br />
+          subham@subham.dev<br />
+          github.com/Subham-Kumar-Biswas
+        </p>
+      </div>
+      <div>
+        <p class="party-label">Bill To</p>
+        <p class="party-name">Priya Rao</p>
+        <p class="party-detail">
+          Pixelwave Agency<br />
+          Bengaluru, Karnataka, India<br />
+          priya@pixelwave.in
+        </p>
+      </div>
+    </div>
+
+    <!-- Items -->
+    <div class="inv-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th style="text-align:center;">Qty</th>
+            <th style="text-align:center;">Rate</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <p class="item-name">Landing Page Design</p>
+              <p class="item-desc">Hero, features, pricing, FAQ, footer sections</p>
+            </td>
+            <td style="text-align:center;">1</td>
+            <td style="text-align:center;">₹12,000</td>
+            <td>₹12,000</td>
+          </tr>
+          <tr>
+            <td>
+              <p class="item-name">UI Component Library</p>
+              <p class="item-desc">8 reusable components, design system tokens</p>
+            </td>
+            <td style="text-align:center;">1</td>
+            <td style="text-align:center;">₹8,000</td>
+            <td>₹8,000</td>
+          </tr>
+          <tr>
+            <td>
+              <p class="item-name">Revision Rounds</p>
+              <p class="item-desc">Up to 3 rounds of feedback and changes</p>
+            </td>
+            <td style="text-align:center;">3</td>
+            <td style="text-align:center;">₹1,000</td>
+            <td>₹3,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Totals -->
+    <div class="inv-totals">
+      <div class="total-row">
+        <span>Subtotal</span>
+        <span>₹23,000</span>
+      </div>
+      <div class="total-row">
+        <span>GST (18%)</span>
+        <span>₹4,140</span>
+      </div>
+      <div class="total-row">
+        <span>Discount</span>
+        <span>− ₹1,000</span>
+      </div>
+      <div class="total-row grand">
+        <span>Total Due</span>
+        <span>₹26,140</span>
+      </div>
+    </div>
+
+    <!-- Note -->
+    <div class="inv-note">
+      <strong>Payment note:</strong> Please transfer to UPI ID subham@upi or bank account details shared separately. Include invoice number INV-2026-299 in the payment reference.
+    </div>
+
+    <!-- Actions -->
+    <div class="inv-actions">
+      <button class="btn btn-outline">Download PDF</button>
+      <button class="btn btn-outline">Send Email</button>
+      <button class="btn btn-primary">Mark as Paid</button>
+    </div>
+
+  </div>
+
+</body>
+</html>
