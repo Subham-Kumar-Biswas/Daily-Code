@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 301 - Contact Form</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 16px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+    }
+
+    /* Wrapper */
+    .contact-wrap {
+      width: 100%;
+      max-width: 860px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      background: #020617;
+      border-right: 1px solid #1e293b;
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .sidebar-top { display: flex; flex-direction: column; gap: 8px; }
+
+    .sidebar-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #38bdf8;
+    }
+
+    .sidebar-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #f8fafc;
+      line-height: 1.3;
+    }
+
+    .sidebar-desc {
+      font-size: 0.78rem;
+      color: #475569;
+      line-height: 1.65;
+    }
+
+    /* Contact items */
+    .contact-items {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .contact-icon {
+      width: 34px; height: 34px;
+      min-width: 34px;
+      background: #0c2340;
+      border: 1px solid #1e3a5f;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+    }
+
+    .contact-info { display: flex; flex-direction: column; gap: 2px; }
+
+    .contact-info-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #334155;
+    }
+
+    .contact-info-value {
+      font-size: 0.775rem;
+      color: #94a3b8;
+    }
+
+    /* Social links */
+    .social-links { display: flex; gap: 8px; }
+
+    .social-btn {
+      width: 34px; height: 34px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+
+    .social-btn:hover {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    /* Availability badge */
+    .availability {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: #052e16;
+      border: 1px solid #166534;
+      border-radius: 10px;
+      margin-top: auto;
+    }
+
+    .avail-dot {
+      width: 8px; height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .avail-text {
+      font-size: 0.72rem;
+      color: #34d399;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    /* ── Form side ── */
+    .form-side { padding: 36px 32px; }
+
+    .form-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 4px;
+    }
+
+    .form-sub {
+      font-size: 0.775rem;
+      color: #475569;
+      margin-bottom: 28px;
+    }
+
+    /* Success banner */
+    .success-banner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: #052e16;
+      border: 1px solid #166534;
+      border-radius: 10px;
+      margin-bottom: 24px;
+      font-size: 0.78rem;
+      color: #34d399;
+      font-weight: 600;
+    }
+
+    /* Form grid */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #475569;
+    }
+
+    .required { color: #ef4444; margin-left: 2px; }
+
+    input, select, textarea {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 9px;
+      padding: 10px 14px;
+      font-size: 0.825rem;
+      color: #e2e8f0;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+    }
+
+    input::placeholder,
+    textarea::placeholder { color: #334155; }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56,189,248,0.08);
+    }
+
+    /* Error state */
+    input.error { border-color: #ef4444; }
+    input.error:focus { box-shadow: 0 0 0 3px rgba(239,68,68,0.08); }
+
+    .field-error {
+      font-size: 0.68rem;
+      color: #ef4444;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Valid state */
+    input.valid { border-color: #22c55e; }
+
+    textarea { resize: vertical; min-height: 120px; line-height: 1.55; }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2364748b'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      padding-right: 36px;
+      color: #e2e8f0;
+    }
+
+    select option { background: #0f172a; }
+
+    /* Checkbox */
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      grid-column: 1 / -1;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 16px; height: 16px;
+      min-width: 16px;
+      margin-top: 1px;
+      accent-color: #38bdf8;
+      cursor: pointer;
+      padding: 0;
+      border-radius: 4px;
+    }
+
+    .checkbox-label {
+      font-size: 0.75rem;
+      color: #475569;
+      line-height: 1.5;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 400;
+    }
+
+    /* Submit */
+    .submit-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      grid-column: 1 / -1;
+      margin-top: 4px;
+    }
+
+    .submit-note {
+      font-size: 0.72rem;
+      color: #334155;
+    }
+
+    .btn-submit {
+      padding: 11px 28px;
+      background: #38bdf8;
+      color: #0f172a;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-submit:hover {
+      background: #0ea5e9;
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 680px) {
+      .contact-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        border-right: none;
+        border-bottom: 1px solid #1e293b;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full,
+      .checkbox-group,
+      .submit-row { grid-column: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contact-wrap">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <div class="sidebar-top">
+        <p class="sidebar-label">Get in touch</p>
+        <h2 class="sidebar-title">Let's build something together</h2>
+        <p class="sidebar-desc">Have a project in mind? Fill out the form and I'll get back to you within 24 hours.</p>
+      </div>
+
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div class="contact-info">
+            <span class="contact-info-label">Email</span>
+            <span class="contact-info-value">subham@subham.dev</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-info">
+            <span class="contact-info-label">Location</span>
+            <span class="contact-info-value">Rayagada, Odisha, India</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">⏱️</div>
+          <div class="contact-info">
+            <span class="contact-info-label">Response time</span>
+            <span class="contact-info-value">Within 24 hours</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="contact-info-label" style="margin-bottom:10px;">Find me online</p>
+        <div class="social-links">
+          <a href="https://github.com/Subham-Kumar-Biswas" class="social-btn">🐙</a>
+          <a href="https://www.linkedin.com/in/subham-kumar-biswas-495964363/" class="social-btn">💼</a>
+          <a href="#" class="social-btn">🐦</a>
+        </div>
+      </div>
+
+      <div class="availability">
+        <div class="avail-dot"></div>
+        <span class="avail-text">Available for freelance work from June 2026</span>
+      </div>
+
+    </div>
+
+    <!-- Form -->
+    <div class="form-side">
+
+      <p class="form-title">Send a message</p>
+      <p class="form-sub">All fields marked with <span style="color:#ef4444;">*</span> are required.</p>
+
+      <div class="success-banner">
+        ✓ &nbsp;Your message has been sent — I'll reply within 24 hours.
+      </div>
+
+      <form>
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label>First name <span class="required">*</span></label>
+            <input type="text" placeholder="Subham" class="valid" />
+          </div>
+
+          <div class="form-group">
+            <label>Last name <span class="required">*</span></label>
+            <input type="text" placeholder="Kumar" class="valid" />
+          </div>
+
+          <div class="form-group full">
+            <label>Email address <span class="required">*</span></label>
+            <input type="email" placeholder="you@example.com" class="error" />
+            <span class="field-error">⚠ Please enter a valid email address.</span>
+          </div>
+
+          <div class="form-group full">
+            <label>Project type <span class="required">*</span></label>
+            <select>
+              <option value="" disabled selected>Select a service...</option>
+              <option>Landing Page</option>
+              <option>UI Component Library</option>
+              <option>SaaS Dashboard</option>
+              <option>Portfolio Site</option>
+              <option>Full Website</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label>Budget range</label>
+            <select>
+              <option value="" disabled selected>Select your budget...</option>
+              <option>Under ₹5,000</option>
+              <option>₹5,000 – ₹15,000</option>
+              <option>₹15,000 – ₹30,000</option>
+              <option>₹30,000 – ₹60,000</option>
+              <option>₹60,000+</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label>Message <span class="required">*</span></label>
+            <textarea placeholder="Tell me about your project — what you're building, your timeline, and any specific requirements..."></textarea>
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="agree" checked />
+            <label class="checkbox-label" for="agree">
+              I agree to be contacted about my project enquiry. I understand my information will not be shared with third parties.
+            </label>
+          </div>
+
+          <div class="submit-row">
+            <span class="submit-note">🔒 Your data is safe and secure.</span>
+            <button type="submit" class="btn-submit">Send message →</button>
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+</body>
+</html>
