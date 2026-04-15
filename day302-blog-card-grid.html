@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 302 - Blog Card Grid</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+      padding: 64px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Section header */
+    .sec-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #38bdf8;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .sec-title {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #f8fafc;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .sec-sub {
+      font-size: 0.875rem;
+      color: #475569;
+      text-align: center;
+      max-width: 440px;
+      line-height: 1.65;
+      margin-bottom: 48px;
+    }
+
+    /* Grid wrapper */
+    .blog-wrap {
+      width: 100%;
+      max-width: 980px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ── Featured card ── */
+    .featured-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 18px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .featured-card:hover {
+      border-color: #334155;
+      transform: translateY(-2px);
+    }
+
+    .featured-thumb {
+      background: linear-gradient(135deg, #0c2340 0%, #1a3a5c 50%, #0e3060 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      min-height: 260px;
+      position: relative;
+    }
+
+    .featured-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 50%, rgba(56,189,248,0.12) 0%, transparent 60%);
+    }
+
+    .featured-body {
+      padding: 32px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .featured-top { display: flex; flex-direction: column; gap: 14px; }
+
+    /* Category badge */
+    .cat-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 12px;
+      border-radius: 999px;
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+      width: fit-content;
+    }
+
+    .cat-blue   { background: #0c2340; color: #38bdf8; border-color: #1e3a5f; }
+    .cat-green  { background: #052e16; color: #34d399; border-color: #166534; }
+    .cat-purple { background: #1e0a3c; color: #a78bfa; border-color: #3b1a6e; }
+    .cat-orange { background: #2d1200; color: #fb923c; border-color: #7c2d12; }
+    .cat-pink   { background: #2d0a1e; color: #f472b6; border-color: #831843; }
+
+    .post-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f8fafc;
+      line-height: 1.4;
+      text-decoration: none;
+      transition: color 0.2s;
+      display: block;
+    }
+
+    .post-title:hover { color: #38bdf8; }
+
+    .featured-body .post-title {
+      font-size: 1.25rem;
+    }
+
+    .post-excerpt {
+      font-size: 0.8rem;
+      color: #64748b;
+      line-height: 1.7;
+    }
+
+    /* Author strip */
+    .author-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid #1e293b;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .author-left {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: #0f172a;
+      flex-shrink: 0;
+    }
+
+    .av-blue   { background: #38bdf8; }
+    .av-green  { background: #34d399; }
+    .av-purple { background: #a78bfa; }
+    .av-orange { background: #fb923c; }
+
+    .author-name {
+      font-size: 0.775rem;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+
+    .author-date {
+      font-size: 0.7rem;
+      color: #334155;
+    }
+
+    .read-time {
+      font-size: 0.68rem;
+      color: #334155;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      padding: 2px 9px;
+      border-radius: 6px;
+    }
+
+    /* ── Small cards grid ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .blog-card {
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .blog-card:hover {
+      border-color: #334155;
+      transform: translateY(-2px);
+    }
+
+    .card-thumb {
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .thumb-a { background: linear-gradient(135deg, #1e0a3c, #3b1a6e); }
+    .thumb-b { background: linear-gradient(135deg, #052e16, #166534); }
+    .thumb-c { background: linear-gradient(135deg, #2d1200, #7c2d12); }
+
+    .card-body {
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .card-body .post-title {
+      font-size: 0.875rem;
+    }
+
+    .card-body .post-excerpt {
+      font-size: 0.755rem;
+    }
+
+    .card-footer {
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    /* Load more */
+    .load-more {
+      display: flex;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .btn-load {
+      padding: 10px 28px;
+      background: transparent;
+      border: 1px solid #1e293b;
+      color: #64748b;
+      border-radius: 10px;
+      font-size: 0.825rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .btn-load:hover {
+      background: #1e293b;
+      color: #cbd5e1;
+      border-color: #334155;
+    }
+
+    @media (max-width: 768px) {
+      .featured-card { grid-template-columns: 1fr; }
+      .featured-thumb { min-height: 160px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .sec-title { font-size: 1.5rem; }
+    }
+
+    @media (min-width: 769px) and (max-width: 900px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <p class="sec-label">Blog</p>
+  <h1 class="sec-title">Thoughts & tutorials</h1>
+  <p class="sec-sub">Writing about frontend development, freelancing, and building things that actually ship.</p>
+
+  <div class="blog-wrap">
+
+    <!-- Featured -->
+    <div class="featured-card">
+      <div class="featured-thumb">🚀</div>
+      <div class="featured-body">
+        <div class="featured-top">
+          <span class="cat-badge cat-blue">Freelancing</span>
+          <a href="#" class="post-title">How I built 300 UI components in 300 days and what it taught me about shipping</a>
+          <p class="post-excerpt">Starting from zero, I committed to shipping one production-ready HTML and CSS component every single day. Here is what consistency actually looks like from the inside — the hard days, the breakthroughs, and what I would do differently.</p>
+        </div>
+        <div class="author-strip">
+          <div class="author-left">
+            <div class="avatar av-blue">SK</div>
+            <div>
+              <p class="author-name">Subham Kumar</p>
+              <p class="author-date">April 15, 2026</p>
+            </div>
+          </div>
+          <span class="read-time">⏱ 8 min read</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Small cards -->
+    <div class="cards-grid">
+
+      <div class="blog-card">
+        <div class="card-thumb thumb-a">🎨</div>
+        <div class="card-body">
+          <span class="cat-badge cat-purple">CSS</span>
+          <a href="#" class="post-title">5 CSS layout patterns every freelancer should know cold</a>
+          <p class="post-excerpt">Grid, Flexbox, and the combinations that make up 90% of real client work.</p>
+          <div class="card-footer">
+            <div class="author-left">
+              <div class="avatar av-blue">SK</div>
+              <div>
+                <p class="author-name">Subham Kumar</p>
+                <p class="author-date">Apr 10, 2026</p>
+              </div>
+            </div>
+            <span class="read-time">5 min</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="card-thumb thumb-b">💼</div>
+        <div class="card-body">
+          <span class="cat-badge cat-green">Career</span>
+          <a href="#" class="post-title">Getting your first freelance client with zero experience</a>
+          <p class="post-excerpt">The exact approach I used to land my first project — no network, no degree, no agency.</p>
+          <div class="card-footer">
+            <div class="author-left">
+              <div class="avatar av-blue">SK</div>
+              <div>
+                <p class="author-name">Subham Kumar</p>
+                <p class="author-date">Apr 5, 2026</p>
+              </div>
+            </div>
+            <span class="read-time">6 min</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="card-thumb thumb-c">⚡</div>
+        <div class="card-body">
+          <span class="cat-badge cat-orange">Performance</span>
+          <a href="#" class="post-title">Why pure HTML and CSS still wins for client landing pages</a>
+          <p class="post-excerpt">No framework overhead, instant loads, zero dependencies. Here is the case for keeping it simple.</p>
+          <div class="card-footer">
+            <div class="author-left">
+              <div class="avatar av-blue">SK</div>
+              <div>
+                <p class="author-name">Subham Kumar</p>
+                <p class="author-date">Mar 28, 2026</p>
+              </div>
+            </div>
+            <span class="read-time">4 min</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="load-more">
+      <button class="btn-load">Load more articles</button>
+    </div>
+
+  </div>
+
+</body>
+</html>
