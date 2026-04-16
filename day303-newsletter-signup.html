@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 303 - Newsletter Signup</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 56px 20px;
+    }
+
+    /* Wrapper */
+    .signup-wrap {
+      width: 100%;
+      max-width: 860px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    /* ── Left panel ── */
+    .left-panel {
+      padding: 44px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      border-right: 1px solid #1e293b;
+      background: #020617;
+    }
+
+    .panel-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #38bdf8;
+    }
+
+    .panel-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #f8fafc;
+      line-height: 1.25;
+    }
+
+    .panel-title span {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .panel-desc {
+      font-size: 0.825rem;
+      color: #64748b;
+      line-height: 1.7;
+    }
+
+    /* Benefits list */
+    .benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .benefit {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .benefit-icon {
+      width: 22px; height: 22px;
+      min-width: 22px;
+      background: #0c2340;
+      border: 1px solid #1e3a5f;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      margin-top: 1px;
+    }
+
+    .benefit-text {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    .benefit-text strong {
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+
+    /* Social proof */
+    .social-proof {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      margin-top: auto;
+    }
+
+    .avatars {
+      display: flex;
+    }
+
+    .avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 2px solid #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.58rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-left: -7px;
+    }
+
+    .avatars .avatar:first-child { margin-left: 0; }
+
+    .av-blue   { background: #38bdf8; }
+    .av-green  { background: #34d399; }
+    .av-purple { background: #a78bfa; }
+    .av-orange { background: #fb923c; }
+    .av-pink   { background: #f472b6; }
+
+    .proof-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .proof-count {
+      font-size: 0.825rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+
+    .proof-sub {
+      font-size: 0.68rem;
+      color: #475569;
+    }
+
+    /* ── Right panel ── */
+    .right-panel {
+      padding: 44px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .form-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 2px;
+    }
+
+    .form-sub {
+      font-size: 0.775rem;
+      color: #475569;
+    }
+
+    /* Form groups */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #475569;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 9px;
+      padding: 11px 14px;
+      font-size: 0.825rem;
+      color: #e2e8f0;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+
+    input::placeholder { color: #334155; }
+
+    input:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56,189,248,0.08);
+    }
+
+    /* Frequency toggle */
+    .freq-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #475569;
+      margin-bottom: 8px;
+    }
+
+    .freq-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .freq-option {
+      position: relative;
+    }
+
+    .freq-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+
+    .freq-option label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 8px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 0.775rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .freq-option label .freq-icon { font-size: 1.1rem; }
+
+    .freq-option input[type="radio"]:checked + label {
+      border-color: #38bdf8;
+      background: #0c2340;
+      color: #38bdf8;
+    }
+
+    .freq-option label:hover {
+      border-color: #334155;
+      color: #94a3b8;
+    }
+
+    /* Topics */
+    .topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .topic {
+      position: relative;
+    }
+
+    .topic input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+
+    .topic label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 12px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      text-transform: none;
+      letter-spacing: 0;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+
+    .topic input[type="checkbox"]:checked + label {
+      border-color: #38bdf8;
+      background: #0c2340;
+      color: #38bdf8;
+    }
+
+    .topic label:hover {
+      border-color: #334155;
+      color: #94a3b8;
+    }
+
+    /* Privacy note */
+    .privacy-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.72rem;
+      color: #334155;
+      line-height: 1.5;
+    }
+
+    .privacy-note span { font-size: 0.85rem; }
+
+    /* Submit */
+    .btn-submit {
+      width: 100%;
+      padding: 13px;
+      background: #38bdf8;
+      color: #0f172a;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-submit:hover {
+      background: #0ea5e9;
+      transform: translateY(-1px);
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: #1e293b;
+    }
+
+    @media (max-width: 680px) {
+      .signup-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .left-panel {
+        border-right: none;
+        border-bottom: 1px solid #1e293b;
+        padding: 32px 24px;
+      }
+
+      .right-panel { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="signup-wrap">
+
+    <!-- Left panel -->
+    <div class="left-panel">
+
+      <div>
+        <p class="panel-label">Newsletter</p>
+        <h2 class="panel-title">Level up your <span>frontend skills</span> every week</h2>
+      </div>
+
+      <p class="panel-desc">
+        One email a week. No fluff, no filler. Real components, real techniques, and honest lessons from building in public every single day.
+      </p>
+
+      <div class="benefits">
+        <div class="benefit">
+          <div class="benefit-icon">✦</div>
+          <p class="benefit-text"><strong>Weekly component breakdowns</strong> — how each piece was built and why it was structured that way.</p>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">✦</div>
+          <p class="benefit-text"><strong>Freelancing tips</strong> — real lessons on finding clients, pricing work, and delivering on time.</p>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">✦</div>
+          <p class="benefit-text"><strong>CSS and HTML deep dives</strong> — patterns that show up in every production codebase.</p>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">✦</div>
+          <p class="benefit-text"><strong>No spam, ever.</strong> Unsubscribe any time with a single click.</p>
+        </div>
+      </div>
+
+      <div class="social-proof">
+        <div class="avatars">
+          <div class="avatar av-blue">AK</div>
+          <div class="avatar av-green">SR</div>
+          <div class="avatar av-purple">TN</div>
+          <div class="avatar av-orange">ML</div>
+          <div class="avatar av-pink">PR</div>
+        </div>
+        <div class="proof-text">
+          <span class="proof-count">2,400+ subscribers</span>
+          <span class="proof-sub">Join developers shipping daily</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right panel -->
+    <div class="right-panel">
+
+      <div>
+        <p class="form-heading">Subscribe for free</p>
+        <p class="form-sub">Takes less than 30 seconds. No credit card needed.</p>
+      </div>
+
+      <div class="form-group">
+        <label>First name</label>
+        <input type="text" placeholder="Subham" />
+      </div>
+
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" placeholder="you@example.com" />
+      </div>
+
+      <div class="divider"></div>
+
+      <div>
+        <p class="freq-label">How often do you want emails?</p>
+        <div class="freq-options">
+          <div class="freq-option">
+            <input type="radio" name="freq" id="weekly" checked />
+            <label for="weekly">
+              <span class="freq-icon">📅</span>
+              Weekly
+            </label>
+          </div>
+          <div class="freq-option">
+            <input type="radio" name="freq" id="biweekly" />
+            <label for="biweekly">
+              <span class="freq-icon">🗓️</span>
+              Biweekly
+            </label>
+          </div>
+          <div class="freq-option">
+            <input type="radio" name="freq" id="monthly" />
+            <label for="monthly">
+              <span class="freq-icon">📆</span>
+              Monthly
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="freq-label" style="margin-bottom:8px;">Topics you care about</p>
+        <div class="topics">
+          <div class="topic">
+            <input type="checkbox" id="t1" checked />
+            <label for="t1">HTML & CSS</label>
+          </div>
+          <div class="topic">
+            <input type="checkbox" id="t2" checked />
+            <label for="t2">Freelancing</label>
+          </div>
+          <div class="topic">
+            <input type="checkbox" id="t3" />
+            <label for="t3">JavaScript</label>
+          </div>
+          <div class="topic">
+            <input type="checkbox" id="t4" />
+            <label for="t4">DSA</label>
+          </div>
+          <div class="topic">
+            <input type="checkbox" id="t5" />
+            <label for="t5">Career</label>
+          </div>
+          <div class="topic">
+            <input type="checkbox" id="t6" />
+            <label for="t6">UI Design</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="privacy-note">
+        <span>🔒</span>
+        Your email is safe. No spam, no sharing with third parties, no dark patterns. Just good content, consistently.
+      </div>
+
+      <button class="btn-submit">Subscribe free →</button>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
