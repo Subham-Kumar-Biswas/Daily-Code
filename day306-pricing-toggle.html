@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 306 - Pricing Toggle</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 64px 16px;
+    }
+
+    /* Header */
+    .sec-label {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #38bdf8; text-align: center; margin-bottom: 10px;
+    }
+
+    .sec-title {
+      font-size: 2rem; font-weight: 800;
+      color: #f8fafc; text-align: center; margin-bottom: 8px;
+    }
+
+    .sec-sub {
+      font-size: 0.875rem; color: #475569;
+      text-align: center; margin-bottom: 36px;
+    }
+
+    /* ── Toggle ── */
+    #billing-toggle { display: none; }
+
+    .toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 48px;
+    }
+
+    .toggle-label {
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      transition: color 0.2s;
+      user-select: none;
+    }
+
+    /* Track */
+    .toggle-track {
+      width: 48px; height: 26px;
+      background: #1e293b;
+      border-radius: 999px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .toggle-track::before {
+      content: '';
+      position: absolute;
+      width: 20px; height: 20px;
+      background: #475569;
+      border-radius: 50%;
+      top: 3px; left: 3px;
+      transition: transform 0.25s, background 0.2s;
+    }
+
+    /* Checked state */
+    #billing-toggle:checked ~ .toggle-wrap .toggle-track {
+      background: #0c2340;
+    }
+
+    #billing-toggle:checked ~ .toggle-wrap .toggle-track::before {
+      transform: translateX(22px);
+      background: #38bdf8;
+    }
+
+    #billing-toggle:checked ~ .toggle-wrap .label-monthly { color: #334155; }
+    #billing-toggle:checked ~ .toggle-wrap .label-yearly  { color: #f1f5f9; }
+
+    #billing-toggle:not(:checked) ~ .toggle-wrap .label-monthly { color: #f1f5f9; }
+    #billing-toggle:not(:checked) ~ .toggle-wrap .label-yearly  { color: #334155; }
+
+    .save-badge {
+      padding: 2px 10px;
+      background: #052e16;
+      border: 1px solid #166534;
+      border-radius: 999px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #34d399;
+    }
+
+    /* ── Prices: show/hide via toggle ── */
+    .price-monthly { display: block; }
+    .price-yearly  { display: none;  }
+
+    #billing-toggle:checked ~ .grid .price-monthly { display: none;  }
+    #billing-toggle:checked ~ .grid .price-yearly  { display: block; }
+
+    /* ── Grid ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+      max-width: 880px;
+      align-items: start;
+    }
+
+    .plan {
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+
+    .plan:hover { border-color: #334155; }
+
+    .plan.featured {
+      border-color: #38bdf8;
+      background: #060f1e;
+      transform: translateY(-8px);
+    }
+
+    .badge-top {
+      position: absolute;
+      top: -13px; left: 50%;
+      transform: translateX(-50%);
+      background: #38bdf8;
+      color: #0f172a;
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 3px 14px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .plan-name {
+      font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: #64748b;
+    }
+
+    .plan.featured .plan-name { color: #38bdf8; }
+
+    .plan-price {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      line-height: 1;
+    }
+
+    .currency { font-size: 1rem; color: #64748b; padding-bottom: 5px; }
+    .amount   { font-size: 2.6rem; font-weight: 800; color: #f8fafc; }
+    .period   { font-size: 0.8rem; color: #475569; padding-bottom: 6px; }
+
+    .plan-desc { font-size: 0.78rem; color: #475569; line-height: 1.55; }
+
+    .divider { height: 1px; background: #1e293b; }
+
+    /* Features */
+    .features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    .features li {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; color: #94a3b8;
+    }
+
+    .features li::before {
+      content: '';
+      width: 16px; height: 16px; min-width: 16px;
+      border-radius: 50%;
+      background: #1e293b url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2338bdf8'%3E%3Cpath d='M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0z'/%3E%3C/svg%3E") no-repeat center / 10px;
+    }
+
+    .features li.off { color: #334155; }
+
+    .features li.off::before {
+      background: #1e293b url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23334155'%3E%3Cpath d='M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06z'/%3E%3C/svg%3E") no-repeat center / 10px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: block; width: 100%; padding: 11px;
+      border-radius: 9px; font-size: 0.85rem; font-weight: 600;
+      text-align: center; cursor: pointer; border: none;
+      transition: background 0.2s;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #1e293b;
+      color: #64748b;
+    }
+
+    .btn-outline:hover { background: #1e293b; color: #e2e8f0; }
+
+    .btn-primary { background: #38bdf8; color: #0f172a; }
+    .btn-primary:hover { background: #0ea5e9; }
+
+    @media (max-width: 720px) {
+      .grid { grid-template-columns: 1fr; max-width: 360px; }
+      .plan.featured { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Toggle checkbox — must be before everything it controls -->
+  <input type="checkbox" id="billing-toggle" />
+
+  <p class="sec-label">Pricing</p>
+  <h1 class="sec-title">Simple, honest pricing</h1>
+  <p class="sec-sub">No hidden fees. Switch plans anytime.</p>
+
+  <div class="toggle-wrap">
+    <label class="toggle-label label-monthly" for="billing-toggle">Monthly</label>
+    <label class="toggle-track" for="billing-toggle"></label>
+    <label class="toggle-label label-yearly" for="billing-toggle">
+      Yearly <span class="save-badge">Save 25%</span>
+    </label>
+  </div>
+
+  <div class="grid">
+
+    <!-- Starter -->
+    <div class="plan">
+      <div>
+        <p class="plan-name">Starter</p>
+        <div class="plan-price">
+          <span class="currency">$</span>
+          <span class="amount price-monthly">0</span>
+          <span class="amount price-yearly">0</span>
+          <span class="period">/ mo</span>
+        </div>
+        <p class="plan-desc">For individuals and side projects just getting started.</p>
+      </div>
+      <div class="divider"></div>
+      <ul class="features">
+        <li>3 active projects</li>
+        <li>5 GB storage</li>
+        <li>Basic analytics</li>
+        <li class="off">Custom domain</li>
+        <li class="off">Priority support</li>
+      </ul>
+      <button class="btn btn-outline">Get started free</button>
+    </div>
+
+    <!-- Pro -->
+    <div class="plan featured">
+      <span class="badge-top">Most Popular</span>
+      <div>
+        <p class="plan-name">Pro</p>
+        <div class="plan-price">
+          <span class="currency">$</span>
+          <span class="amount price-monthly">29</span>
+          <span class="amount price-yearly">22</span>
+          <span class="period">/ mo</span>
+        </div>
+        <p class="plan-desc">For growing teams that need power and flexibility.</p>
+      </div>
+      <div class="divider"></div>
+      <ul class="features">
+        <li>Unlimited projects</li>
+        <li>50 GB storage</li>
+        <li>Advanced analytics</li>
+        <li>Custom domain</li>
+        <li class="off">Dedicated manager</li>
+      </ul>
+      <button class="btn btn-primary">Start free trial</button>
+    </div>
+
+    <!-- Enterprise -->
+    <div class="plan">
+      <div>
+        <p class="plan-name">Enterprise</p>
+        <div class="plan-price">
+          <span class="currency">$</span>
+          <span class="amount price-monthly">99</span>
+          <span class="amount price-yearly">74</span>
+          <span class="period">/ mo</span>
+        </div>
+        <p class="plan-desc">For large teams with compliance and scale needs.</p>
+      </div>
+      <div class="divider"></div>
+      <ul class="features">
+        <li>Unlimited projects</li>
+        <li>500 GB storage</li>
+        <li>Full analytics suite</li>
+        <li>Custom domain</li>
+        <li>Dedicated manager</li>
+      </ul>
+      <button class="btn btn-outline">Contact sales</button>
+    </div>
+
+  </div>
+
+</body>
+</html>
