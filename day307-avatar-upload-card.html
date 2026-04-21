@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 307 - Avatar Upload Card</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 16px;
+      gap: 40px;
+    }
+
+    .sec-label {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #38bdf8; text-align: center;
+    }
+
+    .sec-title {
+      font-size: 1.6rem; font-weight: 800;
+      color: #f8fafc; text-align: center; margin-top: 8px;
+    }
+
+    .sec-sub {
+      font-size: 0.825rem; color: #475569;
+      text-align: center; margin-top: 6px;
+    }
+
+    /* States grid */
+    .states-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      width: 100%;
+      max-width: 740px;
+    }
+
+    /* Card wrapper */
+    .upload-card {
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .state-label {
+      font-size: 0.65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: #334155;
+    }
+
+    /* ── Drop zone ── */
+    .drop-zone {
+      border: 1.5px dashed #1e293b;
+      border-radius: 12px;
+      padding: 32px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+
+    /* Hidden real input */
+    .drop-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .drop-zone:hover {
+      border-color: #38bdf8;
+      background: rgba(56,189,248,0.03);
+    }
+
+    /* Icon circle */
+    .upload-icon {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .upload-text {
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    .upload-text span { color: #38bdf8; }
+
+    .upload-hint {
+      font-size: 0.7rem;
+      color: #334155;
+    }
+
+    /* ── Hover state ── */
+    .drop-zone.state-hover {
+      border-color: #38bdf8;
+      background: rgba(56,189,248,0.04);
+    }
+
+    .drop-zone.state-hover .upload-icon {
+      background: #0c2340;
+      border-color: #1e3a5f;
+    }
+
+    .drop-zone.state-hover .upload-text { color: #38bdf8; }
+
+    /* ── Uploaded state ── */
+    .drop-zone.state-uploaded {
+      border-style: solid;
+      border-color: #166534;
+      background: #052e16;
+      padding: 20px;
+    }
+
+    .avatar-preview {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #0f172a;
+      border: 3px solid #166534;
+      position: relative;
+    }
+
+    .avatar-check {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 20px; height: 20px;
+      background: #22c55e;
+      border-radius: 50%;
+      border: 2px solid #052e16;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      color: #0f172a;
+      font-weight: 800;
+    }
+
+    .uploaded-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      align-items: center;
+    }
+
+    .uploaded-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #34d399;
+    }
+
+    .uploaded-size {
+      font-size: 0.68rem;
+      color: #166534;
+    }
+
+    /* ── Error state ── */
+    .drop-zone.state-error {
+      border-style: solid;
+      border-color: #7f1d1d;
+      background: #2d0a0a;
+    }
+
+    .drop-zone.state-error .upload-icon {
+      background: #450a0a;
+      border-color: #7f1d1d;
+    }
+
+    .error-text {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #fca5a5;
+    }
+
+    .error-hint {
+      font-size: 0.7rem;
+      color: #7f1d1d;
+    }
+
+    /* ── Action buttons ── */
+    .upload-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.775rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, color 0.2s;
+      text-align: center;
+    }
+
+    .btn-primary { background: #38bdf8; color: #0f172a; }
+    .btn-primary:hover { background: #0ea5e9; }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #1e293b;
+      color: #64748b;
+    }
+
+    .btn-outline:hover { background: #1e293b; color: #cbd5e1; }
+
+    .btn-danger {
+      background: transparent;
+      border: 1px solid #7f1d1d;
+      color: #ef4444;
+    }
+
+    .btn-danger:hover { background: #2d0a0a; }
+
+    /* Profile preview strip */
+    .profile-strip {
+      width: 100%;
+      max-width: 740px;
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .strip-avatar {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #0f172a;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .strip-dot {
+      width: 11px; height: 11px;
+      background: #22c55e;
+      border: 2px solid #0a1628;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 1px; right: 1px;
+    }
+
+    .strip-info { flex: 1; }
+
+    .strip-name {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+
+    .strip-role {
+      font-size: 0.72rem;
+      color: #475569;
+      margin-top: 2px;
+    }
+
+    .strip-actions { display: flex; gap: 8px; }
+
+    .strip-btn {
+      padding: 6px 14px;
+      border-radius: 7px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+
+    .strip-btn.primary { background: #38bdf8; color: #0f172a; }
+    .strip-btn.primary:hover { background: #0ea5e9; }
+
+    .strip-btn.ghost {
+      background: transparent;
+      border: 1px solid #1e293b;
+      color: #64748b;
+    }
+
+    .strip-btn.ghost:hover { background: #1e293b; color: #cbd5e1; }
+
+    @media (max-width: 560px) {
+      .states-grid { grid-template-columns: 1fr; }
+      .profile-strip { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <p class="sec-label">UI Component</p>
+    <h1 class="sec-title">Avatar upload states</h1>
+    <p class="sec-sub">Four states every file upload UI must handle — default, hover, uploaded, and error.</p>
+  </div>
+
+  <div class="states-grid">
+
+    <!-- Default -->
+    <div class="upload-card">
+      <p class="state-label">Default</p>
+      <div class="drop-zone">
+        <input type="file" accept="image/*" />
+        <div class="upload-icon">📷</div>
+        <p class="upload-text"><span>Click to upload</span> or drag and drop</p>
+        <p class="upload-hint">PNG, JPG, GIF · Max 2 MB</p>
+      </div>
+      <div class="upload-actions">
+        <button class="btn btn-primary">Upload photo</button>
+        <button class="btn btn-outline">Skip</button>
+      </div>
+    </div>
+
+    <!-- Hover -->
+    <div class="upload-card">
+      <p class="state-label">Hover / drag over</p>
+      <div class="drop-zone state-hover">
+        <input type="file" accept="image/*" />
+        <div class="upload-icon">⬆️</div>
+        <p class="upload-text">Drop your image here</p>
+        <p class="upload-hint">Release to upload</p>
+      </div>
+      <div class="upload-actions">
+        <button class="btn btn-primary">Upload photo</button>
+        <button class="btn btn-outline">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Uploaded -->
+    <div class="upload-card">
+      <p class="state-label">Uploaded</p>
+      <div class="drop-zone state-uploaded">
+        <div class="avatar-preview">
+          SK
+          <div class="avatar-check">✓</div>
+        </div>
+        <div class="uploaded-info">
+          <span class="uploaded-name">profile-photo.jpg</span>
+          <span class="uploaded-size">1.2 MB · Uploaded successfully</span>
+        </div>
+      </div>
+      <div class="upload-actions">
+        <button class="btn btn-outline">Change photo</button>
+        <button class="btn btn-danger">Remove</button>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div class="upload-card">
+      <p class="state-label">Error</p>
+      <div class="drop-zone state-error">
+        <input type="file" accept="image/*" />
+        <div class="upload-icon">⚠️</div>
+        <p class="error-text">File too large</p>
+        <p class="error-hint">Max file size is 2 MB · Your file was 5.4 MB</p>
+      </div>
+      <div class="upload-actions">
+        <button class="btn btn-primary">Try again</button>
+        <button class="btn btn-outline">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Profile strip preview -->
+  <div class="profile-strip">
+    <div class="strip-avatar">
+      SK
+      <div class="strip-dot"></div>
+    </div>
+    <div class="strip-info">
+      <p class="strip-name">Subham Kumar</p>
+      <p class="strip-role">Frontend Developer · Rayagada, Odisha</p>
+    </div>
+    <div class="strip-actions">
+      <button class="strip-btn primary">Edit profile</button>
+      <button class="strip-btn ghost">Preview</button>
+    </div>
+  </div>
+
+</body>
+</html>
