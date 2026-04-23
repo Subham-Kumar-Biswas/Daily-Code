@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 309 - Cookie Banner</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 16px;
+      gap: 32px;
+    }
+
+    .sec-label {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #38bdf8; text-align: center;
+    }
+
+    .sec-title {
+      font-size: 1.6rem; font-weight: 800;
+      color: #f8fafc; text-align: center; margin-top: 6px;
+    }
+
+    .sec-sub {
+      font-size: 0.825rem; color: #475569;
+      text-align: center; margin-top: 6px;
+      max-width: 440px;
+    }
+
+    /* Shared */
+    .btn {
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-primary { background: #38bdf8; color: #0f172a; }
+    .btn-primary:hover { background: #0ea5e9; }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #1e293b;
+      color: #64748b;
+    }
+
+    .btn-outline:hover { background: #1e293b; color: #cbd5e1; }
+
+    .btn-ghost {
+      background: transparent;
+      color: #475569;
+      font-size: 0.72rem;
+      padding: 6px 10px;
+    }
+
+    .btn-ghost:hover { color: #94a3b8; }
+
+    /* ── Variant 1: Bottom bar ── */
+    .banner-bar {
+      width: 100%;
+      max-width: 860px;
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .banner-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .cookie-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .banner-text { display: flex; flex-direction: column; gap: 3px; }
+
+    .banner-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+
+    .banner-desc {
+      font-size: 0.75rem;
+      color: #475569;
+      line-height: 1.55;
+    }
+
+    .banner-desc a { color: #38bdf8; text-decoration: none; }
+    .banner-desc a:hover { text-decoration: underline; }
+
+    .banner-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+    /* ── Variant 2: Detailed modal ── */
+    .banner-modal {
+      width: 100%;
+      max-width: 540px;
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .modal-desc {
+      font-size: 0.775rem;
+      color: #475569;
+      line-height: 1.6;
+      padding: 16px 24px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .modal-desc a { color: #38bdf8; text-decoration: none; }
+
+    /* Cookie categories */
+    .cookie-cats { padding: 8px 24px; }
+
+    .cookie-cat {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid #0f1f35;
+    }
+
+    .cookie-cat:last-child { border-bottom: none; }
+
+    .cat-info { display: flex; flex-direction: column; gap: 3px; }
+
+    .cat-name {
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cat-required {
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: #1e293b;
+      color: #475569;
+      padding: 1px 7px;
+      border-radius: 999px;
+    }
+
+    .cat-desc {
+      font-size: 0.72rem;
+      color: #475569;
+      line-height: 1.5;
+      max-width: 340px;
+    }
+
+    /* Toggle switch */
+    .switch { position: relative; display: inline-block; width: 38px; height: 21px; flex-shrink: 0; margin-top: 2px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute; inset: 0;
+      background: #1e293b;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .slider::before {
+      content: '';
+      position: absolute;
+      width: 15px; height: 15px;
+      border-radius: 50%;
+      background: #475569;
+      left: 3px; top: 3px;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .switch input:checked + .slider { background: #0c2340; }
+    .switch input:checked + .slider::before { transform: translateX(17px); background: #38bdf8; }
+
+    .switch input:disabled + .slider { opacity: 0.5; cursor: not-allowed; }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #1e293b;
+      background: #060f1e;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .modal-footer-left { display: flex; gap: 8px; }
+
+    /* ── Variant 3: Corner popup ── */
+    .banner-corner {
+      width: 100%;
+      max-width: 300px;
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .corner-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .corner-title {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+
+    .corner-close {
+      font-size: 0.9rem;
+      color: #334155;
+      cursor: pointer;
+      transition: color 0.15s;
+      line-height: 1;
+    }
+
+    .corner-close:hover { color: #64748b; }
+
+    .corner-desc {
+      font-size: 0.75rem;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    .corner-desc a { color: #38bdf8; text-decoration: none; }
+
+    .corner-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .corner-actions .btn { text-align: center; }
+
+    /* Variant labels */
+    .variant-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #334155;
+      text-align: center;
+      margin-bottom: -16px;
+    }
+
+    @media (max-width: 540px) {
+      .banner-bar { flex-direction: column; align-items: flex-start; }
+      .modal-footer { flex-direction: column; align-items: stretch; }
+      .modal-footer-left { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <p class="sec-label">UI Pattern</p>
+    <h1 class="sec-title">Cookie consent banners</h1>
+    <p class="sec-sub">Three variants — bar, modal, and corner popup. GDPR-ready for every client site.</p>
+  </div>
+
+  <!-- Variant 1 -->
+  <p class="variant-label">Variant 1 — Bottom bar</p>
+  <div class="banner-bar">
+    <div class="banner-left">
+      <span class="cookie-icon">🍪</span>
+      <div class="banner-text">
+        <p class="banner-title">We use cookies</p>
+        <p class="banner-desc">We use cookies to improve your experience and analyse site traffic. By clicking Accept, you agree to our <a href="#">Cookie Policy</a> and <a href="#">Privacy Policy</a>.</p>
+      </div>
+    </div>
+    <div class="banner-actions">
+      <button class="btn btn-ghost">Manage preferences</button>
+      <button class="btn btn-outline">Decline</button>
+      <button class="btn btn-primary">Accept all</button>
+    </div>
+  </div>
+
+  <!-- Variant 2 -->
+  <p class="variant-label">Variant 2 — Detailed modal</p>
+  <div class="banner-modal">
+    <div class="modal-header">
+      <span style="font-size:1.2rem;">🍪</span>
+      <p class="modal-title">Cookie preferences</p>
+    </div>
+    <p class="modal-desc">
+      We use cookies to enhance your browsing experience and analyse our traffic. You can choose which categories to accept below. Read our <a href="#">Cookie Policy</a> for more details.
+    </p>
+    <div class="cookie-cats">
+      <div class="cookie-cat">
+        <div class="cat-info">
+          <p class="cat-name">
+            Necessary
+            <span class="cat-required">Always on</span>
+          </p>
+          <p class="cat-desc">Essential for the site to function. Cannot be disabled.</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" checked disabled />
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="cookie-cat">
+        <div class="cat-info">
+          <p class="cat-name">Analytics</p>
+          <p class="cat-desc">Help us understand how visitors interact with our site using aggregated data.</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" checked />
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="cookie-cat">
+        <div class="cat-info">
+          <p class="cat-name">Marketing</p>
+          <p class="cat-desc">Used to deliver personalised ads and track campaign performance.</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="modal-footer-left">
+        <button class="btn btn-outline">Reject all</button>
+        <button class="btn btn-outline">Save preferences</button>
+      </div>
+      <button class="btn btn-primary">Accept all</button>
+    </div>
+  </div>
+
+  <!-- Variant 3 -->
+  <p class="variant-label">Variant 3 — Corner popup</p>
+  <div class="banner-corner">
+    <div class="corner-top">
+      <p class="corner-title">🍪 Cookie notice</p>
+      <span class="corner-close">✕</span>
+    </div>
+    <p class="corner-desc">
+      We use cookies to improve your experience. See our <a href="#">Privacy Policy</a> for details.
+    </p>
+    <div class="corner-actions">
+      <button class="btn btn-outline">Decline</button>
+      <button class="btn btn-primary">Accept</button>
+    </div>
+  </div>
+
+</body>
+</html>
