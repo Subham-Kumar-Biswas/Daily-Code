@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 310 - Timeline</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 16px;
+      gap: 48px;
+    }
+
+    /* Header */
+    .sec-label {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #38bdf8; text-align: center;
+    }
+
+    .sec-title {
+      font-size: 1.7rem; font-weight: 800;
+      color: #f8fafc; text-align: center; margin-top: 8px;
+    }
+
+    .sec-sub {
+      font-size: 0.85rem; color: #475569;
+      text-align: center; margin-top: 6px;
+      max-width: 420px;
+    }
+
+    /* ── Two column layout ── */
+    .timelines {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      width: 100%;
+      max-width: 860px;
+      align-items: start;
+    }
+
+    .timeline-wrap {
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .timeline-heading {
+      font-size: 0.775rem;
+      font-weight: 700;
+      color: #94a3b8;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tl-badge {
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .tl-badge.green  { background: #052e16; color: #34d399; border: 1px solid #166534; }
+    .tl-badge.blue   { background: #0c2340; color: #38bdf8; border: 1px solid #1e3a5f; }
+
+    /* ── Timeline item ── */
+    .tl-item {
+      display: flex;
+      gap: 14px;
+      position: relative;
+    }
+
+    /* Vertical line */
+    .tl-item:not(:last-child) .tl-left::after {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 32px;
+      bottom: -16px;
+      width: 1px;
+      background: #1e293b;
+    }
+
+    .tl-item.done:not(:last-child) .tl-left::after { background: #1e3a5f; }
+    .tl-item.active:not(:last-child) .tl-left::after {
+      background: linear-gradient(to bottom, #38bdf8, #1e293b);
+    }
+
+    .tl-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    /* Icon circle */
+    .tl-icon {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      border: 1.5px solid #1e293b;
+      background: #0a1628;
+      color: #334155;
+      flex-shrink: 0;
+      z-index: 1;
+      transition: all 0.2s;
+    }
+
+    /* Done */
+    .tl-item.done .tl-icon {
+      background: #0c2340;
+      border-color: #38bdf8;
+      color: #38bdf8;
+    }
+
+    /* Active */
+    .tl-item.active .tl-icon {
+      background: #38bdf8;
+      border-color: #38bdf8;
+      color: #0f172a;
+      box-shadow: 0 0 0 4px rgba(56,189,248,0.12);
+    }
+
+    /* Upcoming */
+    .tl-item.upcoming .tl-icon {
+      background: #0a1628;
+      border-color: #1e293b;
+      color: #334155;
+    }
+
+    .tl-right {
+      padding-bottom: 24px;
+      flex: 1;
+    }
+
+    .tl-item:last-child .tl-right { padding-bottom: 0; }
+
+    .tl-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .tl-date {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #334155;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .tl-status {
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 1px 7px;
+      border-radius: 999px;
+    }
+
+    .status-done     { background: #0c2340; color: #38bdf8; border: 1px solid #1e3a5f; }
+    .status-active   { background: #052e16; color: #34d399; border: 1px solid #166534; }
+    .status-upcoming { background: #1e293b; color: #475569; border: 1px solid #334155; }
+
+    .tl-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-bottom: 4px;
+      line-height: 1.35;
+    }
+
+    .tl-item.upcoming .tl-title { color: #475569; }
+
+    .tl-desc {
+      font-size: 0.755rem;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    /* Tags */
+    .tl-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 8px;
+    }
+
+    .tl-tag {
+      font-size: 0.62rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      color: #475569;
+    }
+
+    .tl-tag.blue   { background: #0c2340; color: #38bdf8; border-color: #1e3a5f; }
+    .tl-tag.green  { background: #052e16; color: #34d399; border-color: #166534; }
+    .tl-tag.purple { background: #1e0a3c; color: #a78bfa; border-color: #3b1a6e; }
+    .tl-tag.orange { background: #2d1200; color: #fb923c; border-color: #7c2d12; }
+
+    @media (max-width: 640px) {
+      .timelines { grid-template-columns: 1fr; }
+      .sec-title { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <p class="sec-label">Component</p>
+    <h1 class="sec-title">Vertical timeline</h1>
+    <p class="sec-sub">Project tracker and personal roadmap — two real-world timeline variants.</p>
+  </div>
+
+  <div class="timelines">
+
+    <!-- Timeline 1: Project tracker -->
+    <div class="timeline-wrap">
+      <p class="timeline-heading">
+        Project delivery <span class="tl-badge green">In progress</span>
+      </p>
+
+      <div class="tl-item done">
+        <div class="tl-left">
+          <div class="tl-icon">✓</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-meta">
+            <span class="tl-date">Mar 18</span>
+            <span class="tl-status status-done">Done</span>
+          </div>
+          <p class="tl-title">Project kickoff & scope</p>
+          <p class="tl-desc">Signed contract, agreed on deliverables, timeline, and payment milestones.</p>
+          <div class="tl-tags">
+            <span class="tl-tag blue">Contract</span>
+            <span class="tl-tag">Scope</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item done">
+        <div class="tl-left">
+          <div class="tl-icon">✓</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-meta">
+            <span class="tl-date">Mar 25</span>
+            <span class="tl-status status-done">Done</span>
+          </div>
+          <p class="tl-title">Wireframes approved</p>
+          <p class="tl-desc">Client reviewed and approved all page layouts and component structure.</p>
+          <div class="tl-tags">
+            <span class="tl-tag purple">Design</span>
+            <span class="tl-tag">Approved</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item active">
+        <div class="tl-left">
+          <div class="tl-icon">⚡</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-meta">
+            <span class="tl-date">Apr 10</span>
+            <span class="tl-status status-active">Active</span>
+          </div>
+          <p class="tl-title">Development in progress</p>
+          <p class="tl-desc">Building hero, pricing, FAQ, and contact sections. On track for delivery.</p>
+          <div class="tl-tags">
+            <span class="tl-tag blue">HTML</span>
+            <span class="tl-tag green">CSS</span>
+            <span class="tl-tag orange">In progress</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item upcoming">
+        <div class="tl-left">
+          <div class="tl-icon">○</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-meta">
+            <span class="tl-date">Apr 24</span>
+            <span class="tl-status status-upcoming">Upcoming</span>
+          </div>
+          <p class="tl-title">Client review & revisions</p>
+          <p class="tl-desc">Hand off staging link, collect feedback, apply revision rounds.</p>
+        </div>
+      </div>
+
+      <div class="tl-item upcoming">
+        <div class="tl-left">
+          <div class="tl-icon">○</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-meta">
+            <span class="tl-date">May 2</span>
+            <span class="tl-status status-upcoming">Upcoming</span>
+          </div>
+          <p class="tl-title">Final delivery & payment</p>
+          <p class="tl-desc">Deploy to production, transfer assets, collect final invoice payment.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Timeline 2: Personal roadmap -->
+    <div class="timeline-wrap">
+      <p class="timeline-heading">
+        My roadmap <span class="tl-badge blue">2026 – 2032</span>
+      </p>
+
+      <div class="tl-item done">
+        <div class="tl-left">
+          <div class="tl-icon">✓</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-meta">
+            <span class="tl-date">Mar 2026</span>
+            <span class="tl-status status-done">Done</span>
+          </div>
+          <p class="tl-title">Java + DSA foundation</p>
+          <p class="tl-desc">Started Kunal Kushwaha playlist, GitHub streak, LeetCode daily.</p>
+          <div class="tl-tags">
+            <span class="tl-tag green">Java</span>
+            <span class="tl-tag blue">DSA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item done">
+        <div class="tl-left">
+          <div class="tl-icon">✓</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-meta">
+            <span class="tl-date">Apr 2026</span>
+            <span class="tl-status status-done">Done</span>
+          </div>
+          <p class="tl-title">310 days of HTML & CSS</p>
+          <p class="tl-desc">Built 310 production-ready components. Portfolio and projects deployed.</p>
+          <div class="tl-tags">
+            <span class="tl-tag blue">HTML</span>
+            <span class="tl-tag green">CSS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item active">
+        <div class="tl-left">
+          <div class="tl-icon">⚡</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-meta">
+            <span class="tl-date">Jun 2026</span>
+            <span class="tl-status status-active">Next</span>
+          </div>
+          <p class="tl-title">Freelancing launch</p>
+          <p class="tl-desc">First paying clients, testimonials, LinkedIn presence, real income.</p>
+          <div class="tl-tags">
+            <span class="tl-tag orange">Freelance</span>
+            <span class="tl-tag purple">Income</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item upcoming">
+        <div class="tl-left">
+          <div class="tl-icon">○</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-meta">
+            <span class="tl-date">Jan 2027</span>
+            <span class="tl-status status-upcoming">Upcoming</span>
+          </div>
+          <p class="tl-title">Startup internship</p>
+          <p class="tl-desc">Apply to startup internships with full portfolio and client work behind me.</p>
+        </div>
+      </div>
+
+      <div class="tl-item upcoming">
+        <div class="tl-left">
+          <div class="tl-icon">○</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-meta">
+            <span class="tl-date">2032</span>
+            <span class="tl-status status-upcoming">Future</span>
+          </div>
+          <p class="tl-title">Germany expansion</p>
+          <p class="tl-desc">Software agency established in India, expanding operations to Germany.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
