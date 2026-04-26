@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 311 - Dropdown Menus</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 16px;
+      gap: 48px;
+    }
+
+    .sec-label {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #38bdf8; text-align: center;
+    }
+
+    .sec-title {
+      font-size: 1.7rem; font-weight: 800;
+      color: #f8fafc; text-align: center; margin-top: 8px;
+    }
+
+    .sec-sub {
+      font-size: 0.85rem; color: #475569;
+      text-align: center; margin-top: 6px; max-width: 420px;
+    }
+
+    /* Grid of variants */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      width: 100%;
+      max-width: 760px;
+    }
+
+    .variant {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .variant-label {
+      font-size: 0.65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: #334155;
+    }
+
+    /* ── Shared dropdown styles ── */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Trigger button */
+    .trigger {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 16px;
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 9px;
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .trigger:hover,
+    .dropdown:focus-within .trigger {
+      background: #0f1f35;
+      border-color: #334155;
+    }
+
+    .chevron {
+      font-size: 0.6rem;
+      color: #475569;
+      transition: transform 0.2s;
+    }
+
+    .dropdown:focus-within .chevron,
+    .dropdown:hover .chevron { transform: rotate(180deg); }
+
+    /* Menu panel */
+    .menu {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      min-width: 200px;
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: opacity 0.15s, transform 0.15s;
+      z-index: 50;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    }
+
+    .dropdown:hover .menu,
+    .dropdown:focus-within .menu {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    /* Menu item */
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 7px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: background 0.12s, color 0.12s;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .menu-item:hover { background: #0f1f35; color: #e2e8f0; }
+
+    .menu-item.danger:hover { background: #2d0a0a; color: #ef4444; }
+
+    .menu-item.active {
+      background: #0c2340;
+      color: #38bdf8;
+    }
+
+    .item-icon {
+      width: 18px;
+      text-align: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .item-label { flex: 1; }
+
+    .item-shortcut {
+      font-size: 0.65rem;
+      color: #334155;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    .item-badge {
+      font-size: 0.6rem;
+      font-weight: 700;
+      background: #38bdf8;
+      color: #0f172a;
+      padding: 1px 6px;
+      border-radius: 999px;
+    }
+
+    /* Menu divider */
+    .menu-divider {
+      height: 1px;
+      background: #1e293b;
+      margin: 5px 6px;
+    }
+
+    /* Section label */
+    .menu-section {
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #334155;
+      padding: 6px 12px 3px;
+    }
+
+    /* ── User menu trigger ── */
+    .user-trigger {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 6px 12px 6px 6px;
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .user-trigger:hover,
+    .dropdown:focus-within .user-trigger {
+      background: #0f1f35;
+      border-color: #334155;
+    }
+
+    .user-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .user-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+
+    /* ── Context menu ── */
+    .context-trigger {
+      padding: 10px 16px;
+      background: #020617;
+      border: 1px dashed #1e293b;
+      border-radius: 9px;
+      font-size: 0.775rem;
+      color: #334155;
+      cursor: context-menu;
+      width: 100%;
+      text-align: center;
+      transition: border-color 0.15s;
+    }
+
+    .dropdown:hover .context-trigger,
+    .dropdown:focus-within .context-trigger {
+      border-color: #334155;
+      color: #475569;
+    }
+
+    /* ── Command palette ── */
+    .palette-trigger {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 9px;
+      font-size: 0.8rem;
+      color: #334155;
+      cursor: pointer;
+      transition: border-color 0.15s;
+      width: 200px;
+    }
+
+    .dropdown:hover .palette-trigger,
+    .dropdown:focus-within .palette-trigger {
+      border-color: #334155;
+    }
+
+    .palette-shortcut {
+      margin-left: auto;
+      font-size: 0.65rem;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      color: #334155;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    .palette-menu {
+      min-width: 260px;
+    }
+
+    .palette-group-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #334155;
+      padding: 8px 12px 3px;
+    }
+
+    @media (max-width: 560px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <p class="sec-label">Component</p>
+    <h1 class="sec-title">Dropdown menus</h1>
+    <p class="sec-sub">Four variants — all pure CSS hover and focus-within, zero JavaScript.</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- Variant 1: Nav dropdown -->
+    <div class="variant">
+      <p class="variant-label">Nav dropdown</p>
+      <div class="dropdown" tabindex="0">
+        <div class="trigger">
+          Products <span class="chevron">▼</span>
+        </div>
+        <div class="menu">
+          <p class="menu-section">Tools</p>
+          <a href="#" class="menu-item active">
+            <span class="item-icon">⊞</span>
+            <span class="item-label">Dashboard</span>
+            <span class="item-badge">New</span>
+          </a>
+          <a href="#" class="menu-item">
+            <span class="item-icon">📊</span>
+            <span class="item-label">Analytics</span>
+          </a>
+          <a href="#" class="menu-item">
+            <span class="item-icon">📁</span>
+            <span class="item-label">Projects</span>
+          </a>
+          <div class="menu-divider"></div>
+          <p class="menu-section">Resources</p>
+          <a href="#" class="menu-item">
+            <span class="item-icon">📖</span>
+            <span class="item-label">Documentation</span>
+          </a>
+          <a href="#" class="menu-item">
+            <span class="item-icon">❓</span>
+            <span class="item-label">Help center</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variant 2: User account menu -->
+    <div class="variant">
+      <p class="variant-label">User menu</p>
+      <div class="dropdown" tabindex="0">
+        <div class="user-trigger">
+          <div class="user-avatar">SK</div>
+          <span class="user-name">Subham</span>
+          <span class="chevron" style="font-size:0.55rem; color:#334155;">▼</span>
+        </div>
+        <div class="menu">
+          <div class="menu-item" style="gap:10px; padding-bottom:10px; border-bottom:1px solid #1e293b; margin-bottom:5px; cursor:default;">
+            <div class="user-avatar" style="width:32px;height:32px;font-size:0.7rem;">SK</div>
+            <div>
+              <p style="font-size:0.8rem;font-weight:700;color:#f1f5f9;">Subham Kumar</p>
+              <p style="font-size:0.68rem;color:#475569;">subham@subham.dev</p>
+            </div>
+          </div>
+          <a href="#" class="menu-item">
+            <span class="item-icon">👤</span>
+            <span class="item-label">Profile</span>
+          </a>
+          <a href="#" class="menu-item">
+            <span class="item-icon">⚙</span>
+            <span class="item-label">Settings</span>
+          </a>
+          <a href="#" class="menu-item">
+            <span class="item-icon">🔔</span>
+            <span class="item-label">Notifications</span>
+            <span class="item-badge">2</span>
+          </a>
+          <div class="menu-divider"></div>
+          <a href="#" class="menu-item danger">
+            <span class="item-icon">→</span>
+            <span class="item-label">Sign out</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variant 3: Context menu -->
+    <div class="variant">
+      <p class="variant-label">Context menu</p>
+      <div class="dropdown" tabindex="0">
+        <div class="context-trigger">Hover to open context menu</div>
+        <div class="menu">
+          <a href="#" class="menu-item">
+            <span class="item-icon">✎</span>
+            <span class="item-label">Edit</span>
+            <span class="item-shortcut">⌘E</span>
+          </a>
+          <a href="#" class="menu-item">
+            <span class="item-icon">⎘</span>
+            <span class="item-label">Duplicate</span>
+            <span class="item-shortcut">⌘D</span>
+          </a>
+          <a href="#" class="menu-item">
+            <span class="item-icon">⬡</span>
+            <span class="item-label">Move to</span>
+          </a>
+          <div class="menu-divider"></div>
+          <a href="#" class="menu-item">
+            <span class="item-icon">🔗</span>
+            <span class="item-label">Copy link</span>
+            <span class="item-shortcut">⌘L</span>
+          </a>
+          <a href="#" class="menu-item">
+            <span class="item-icon">⬇</span>
+            <span class="item-label">Download</span>
+          </a>
+          <div class="menu-divider"></div>
+          <a href="#" class="menu-item danger">
+            <span class="item-icon">🗑</span>
+            <span class="item-label">Delete</span>
+            <span class="item-shortcut">⌫</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variant 4: Command palette -->
+    <div class="variant">
+      <p class="variant-label">Quick actions</p>
+      <div class="dropdown" tabindex="0">
+        <div class="palette-trigger">
+          🔍 Search or jump to...
+          <span class="palette-shortcut">⌘K</span>
+        </div>
+        <div class="menu palette-menu">
+          <p class="palette-group-label">Recent</p>
+          <a href="#" class="menu-item">
+            <span class="item-icon">🕐</span>
+            <span class="item-label">Landing page project</span>
+          </a>
+          <a href="#" class="menu-item">
+            <span class="item-icon">🕐</span>
+            <span class="item-label">Invoice INV-2026-299</span>
+          </a>
+          <div class="menu-divider"></div>
+          <p class="palette-group-label">Actions</p>
+          <a href="#" class="menu-item">
+            <span class="item-icon">+</span>
+            <span class="item-label">New project</span>
+            <span class="item-shortcut">⌘N</span>
+          </a>
+          <a href="#" class="menu-item">
+            <span class="item-icon">📤</span>
+            <span class="item-label">Send invoice</span>
+          </a>
+          <a href="#" class="menu-item">
+            <span class="item-icon">⚙</span>
+            <span class="item-label">Open settings</span>
+            <span class="item-shortcut">⌘,</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
