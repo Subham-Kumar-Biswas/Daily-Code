@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 312 - Notification Center</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 16px;
+    }
+
+    /* Panel */
+    .panel {
+      width: 100%;
+      max-width: 420px;
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    /* Header */
+    .panel-header {
+      padding: 18px 20px 0;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .unread-count {
+      font-size: 0.62rem;
+      font-weight: 700;
+      background: #38bdf8;
+      color: #0f172a;
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+
+    .mark-read {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #38bdf8;
+      cursor: pointer;
+      transition: color 0.15s;
+      border: none;
+      background: none;
+    }
+
+    .mark-read:hover { color: #0ea5e9; }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 0;
+    }
+
+    .tab {
+      padding: 8px 16px;
+      font-size: 0.775rem;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      user-select: none;
+    }
+
+    .tab:hover { color: #94a3b8; }
+
+    .tab.active {
+      color: #38bdf8;
+      border-bottom-color: #38bdf8;
+    }
+
+    .tab-count {
+      font-size: 0.6rem;
+      font-weight: 700;
+      background: #1e293b;
+      color: #64748b;
+      padding: 1px 6px;
+      border-radius: 999px;
+    }
+
+    .tab.active .tab-count {
+      background: #0c2340;
+      color: #38bdf8;
+    }
+
+    /* Notification list */
+    .notif-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Single notification */
+    .notif {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 20px;
+      border-bottom: 1px solid #0f1f35;
+      transition: background 0.15s;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .notif:last-child { border-bottom: none; }
+
+    .notif:hover { background: #0c1e30; }
+
+    /* Unread indicator */
+    .notif.unread::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #38bdf8;
+    }
+
+    /* Avatar */
+    .notif-avatar {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .av-blue   { background: #38bdf8; }
+    .av-green  { background: #34d399; }
+    .av-purple { background: #a78bfa; }
+    .av-orange { background: #fb923c; }
+    .av-pink   { background: #f472b6; }
+    .av-teal   { background: #2dd4bf; }
+
+    /* Type badge on avatar */
+    .avatar-badge {
+      position: absolute;
+      bottom: -2px; right: -2px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      border: 2px solid #0a1628;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.5rem;
+    }
+
+    .badge-comment  { background: #38bdf8; }
+    .badge-mention  { background: #a78bfa; }
+    .badge-success  { background: #22c55e; }
+    .badge-warning  { background: #f59e0b; }
+    .badge-system   { background: #64748b; }
+
+    /* Content */
+    .notif-content { flex: 1; min-width: 0; }
+
+    .notif-text {
+      font-size: 0.795rem;
+      color: #94a3b8;
+      line-height: 1.5;
+      margin-bottom: 4px;
+    }
+
+    .notif.unread .notif-text { color: #cbd5e1; }
+
+    .notif-text strong { color: #f1f5f9; font-weight: 600; }
+
+    .notif-time {
+      font-size: 0.68rem;
+      color: #334155;
+    }
+
+    .notif.unread .notif-time { color: #38bdf8; }
+
+    /* Notif preview (message quote) */
+    .notif-preview {
+      margin-top: 7px;
+      padding: 8px 12px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    /* Action buttons */
+    .notif-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .notif-btn {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .notif-btn.primary {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+
+    .notif-btn.primary:hover { background: #0ea5e9; }
+
+    .notif-btn.ghost {
+      background: transparent;
+      border: 1px solid #1e293b;
+      color: #64748b;
+    }
+
+    .notif-btn.ghost:hover { background: #1e293b; color: #cbd5e1; }
+
+    /* Right side */
+    .notif-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .dismiss {
+      font-size: 0.75rem;
+      color: #1e293b;
+      cursor: pointer;
+      transition: color 0.15s;
+      line-height: 1;
+    }
+
+    .notif:hover .dismiss { color: #475569; }
+
+    /* Footer */
+    .panel-footer {
+      padding: 12px 20px;
+      border-top: 1px solid #1e293b;
+      background: #060f1e;
+      text-align: center;
+    }
+
+    .footer-link {
+      font-size: 0.775rem;
+      font-weight: 600;
+      color: #38bdf8;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-link:hover { color: #0ea5e9; }
+  </style>
+</head>
+<body>
+
+  <div class="panel">
+
+    <!-- Header -->
+    <div class="panel-header">
+      <div class="header-top">
+        <p class="header-title">
+          🔔 Notifications
+          <span class="unread-count">4</span>
+        </p>
+        <button class="mark-read">Mark all read</button>
+      </div>
+      <div class="tabs">
+        <div class="tab active">
+          All <span class="tab-count">7</span>
+        </div>
+        <div class="tab">
+          Unread <span class="tab-count">4</span>
+        </div>
+        <div class="tab">
+          Mentions <span class="tab-count">2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notifications -->
+    <div class="notif-list">
+
+      <!-- Unread: comment -->
+      <div class="notif unread">
+        <div class="notif-avatar">
+          <div class="avatar av-pink">PR</div>
+          <div class="avatar-badge badge-comment">💬</div>
+        </div>
+        <div class="notif-content">
+          <p class="notif-text"><strong>Priya Rao</strong> commented on your landing page design.</p>
+          <div class="notif-preview">"The hero section looks great — can we try a slightly larger CTA button?"</div>
+          <div class="notif-actions">
+            <button class="notif-btn primary">Reply</button>
+            <button class="notif-btn ghost">View</button>
+          </div>
+          <p class="notif-time">2 min ago</p>
+        </div>
+        <div class="notif-right">
+          <span class="dismiss">✕</span>
+        </div>
+      </div>
+
+      <!-- Unread: mention -->
+      <div class="notif unread">
+        <div class="notif-avatar">
+          <div class="avatar av-green">SR</div>
+          <div class="avatar-badge badge-mention">@</div>
+        </div>
+        <div class="notif-content">
+          <p class="notif-text"><strong>Sara Reeves</strong> mentioned you in <strong>Project Orbitly</strong>.</p>
+          <p class="notif-time">18 min ago</p>
+        </div>
+        <div class="notif-right">
+          <span class="dismiss">✕</span>
+        </div>
+      </div>
+
+      <!-- Unread: success -->
+      <div class="notif unread">
+        <div class="notif-avatar">
+          <div class="avatar av-teal" style="font-size:1rem;">✓</div>
+          <div class="avatar-badge badge-success">✓</div>
+        </div>
+        <div class="notif-content">
+          <p class="notif-text"><strong>Invoice INV-2026-299</strong> was paid successfully.</p>
+          <div class="notif-actions">
+            <button class="notif-btn primary">View invoice</button>
+          </div>
+          <p class="notif-time">1 hr ago</p>
+        </div>
+        <div class="notif-right">
+          <span class="dismiss">✕</span>
+        </div>
+      </div>
+
+      <!-- Unread: warning -->
+      <div class="notif unread">
+        <div class="notif-avatar">
+          <div class="avatar av-orange" style="font-size:1rem;">⚠</div>
+          <div class="avatar-badge badge-warning">!</div>
+        </div>
+        <div class="notif-content">
+          <p class="notif-text">Your storage is at <strong>90%</strong> capacity. Upgrade to avoid interruptions.</p>
+          <div class="notif-actions">
+            <button class="notif-btn primary">Upgrade plan</button>
+            <button class="notif-btn ghost">Dismiss</button>
+          </div>
+          <p class="notif-time">3 hr ago</p>
+        </div>
+        <div class="notif-right">
+          <span class="dismiss">✕</span>
+        </div>
+      </div>
+
+      <!-- Read: comment -->
+      <div class="notif">
+        <div class="notif-avatar">
+          <div class="avatar av-blue">AK</div>
+          <div class="avatar-badge badge-comment">💬</div>
+        </div>
+        <div class="notif-content">
+          <p class="notif-text"><strong>Arjun Kapoor</strong> approved the revised homepage layout.</p>
+          <p class="notif-time">Yesterday</p>
+        </div>
+        <div class="notif-right">
+          <span class="dismiss">✕</span>
+        </div>
+      </div>
+
+      <!-- Read: system -->
+      <div class="notif">
+        <div class="notif-avatar">
+          <div class="avatar" style="background:#1e293b;font-size:1rem;">⚙</div>
+          <div class="avatar-badge badge-system">i</div>
+        </div>
+        <div class="notif-content">
+          <p class="notif-text">System update <strong>v3.2.0</strong> deployed successfully.</p>
+          <p class="notif-time">2 days ago</p>
+        </div>
+        <div class="notif-right">
+          <span class="dismiss">✕</span>
+        </div>
+      </div>
+
+      <!-- Read: mention -->
+      <div class="notif">
+        <div class="notif-avatar">
+          <div class="avatar av-purple">TN</div>
+          <div class="avatar-badge badge-mention">@</div>
+        </div>
+        <div class="notif-content">
+          <p class="notif-text"><strong>Takeshi Noda</strong> mentioned you in a review thread.</p>
+          <p class="notif-time">3 days ago</p>
+        </div>
+        <div class="notif-right">
+          <span class="dismiss">✕</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="panel-footer">
+      <a href="#" class="footer-link">View all notifications →</a>
+    </div>
+
+  </div>
+
+</body>
+</html>
