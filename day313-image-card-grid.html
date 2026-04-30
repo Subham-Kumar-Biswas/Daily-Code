@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 313 - Image Card Grid</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 20px;
+      gap: 40px;
+    }
+
+    .sec-label {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #38bdf8; text-align: center;
+    }
+
+    .sec-title {
+      font-size: 1.7rem; font-weight: 800;
+      color: #f8fafc; text-align: center; margin-top: 8px;
+    }
+
+    .sec-sub {
+      font-size: 0.85rem; color: #475569;
+      text-align: center; margin-top: 6px; max-width: 420px;
+    }
+
+    /* Filter tabs */
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .filter {
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.775rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #1e293b;
+      background: transparent;
+      color: #64748b;
+      transition: all 0.15s;
+    }
+
+    .filter:hover { border-color: #334155; color: #94a3b8; }
+
+    .filter.active {
+      background: #38bdf8;
+      border-color: #38bdf8;
+      color: #0f172a;
+    }
+
+    /* ── Grid ── */
+    .grid {
+      width: 100%;
+      max-width: 900px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 14px;
+    }
+
+    /* Featured card spans 2 cols and 2 rows */
+    .card.featured {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    /* ── Card ── */
+    .card {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid #1e293b;
+      background: #0a1628;
+    }
+
+    /* Thumb */
+    .thumb {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      transition: transform 0.4s ease;
+    }
+
+    .card.featured .thumb {
+      aspect-ratio: unset;
+      height: 100%;
+      min-height: 300px;
+    }
+
+    .card:hover .thumb { transform: scale(1.04); }
+
+    /* Gradient overlay */
+    .thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 30%,
+        rgba(2,6,23,0.85) 100%
+      );
+      transition: opacity 0.3s;
+    }
+
+    /* Thumb backgrounds */
+    .bg-1  { background: linear-gradient(135deg, #0c2340, #1a4a7a); }
+    .bg-2  { background: linear-gradient(135deg, #1e0a3c, #3b1a6e); }
+    .bg-3  { background: linear-gradient(135deg, #052e16, #166534); }
+    .bg-4  { background: linear-gradient(135deg, #2d1200, #7c2d12); }
+    .bg-5  { background: linear-gradient(135deg, #2d0a1e, #831843); }
+    .bg-6  { background: linear-gradient(135deg, #0a2a2a, #134e4a); }
+    .bg-7  { background: linear-gradient(135deg, #1c1400, #713f12); }
+
+    /* Content overlay */
+    .card-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 16px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* Category badge */
+    .cat {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      width: fit-content;
+      border: 1px solid transparent;
+    }
+
+    .cat-blue   { background: rgba(12,35,64,0.9); color: #38bdf8; border-color: #1e3a5f; }
+    .cat-green  { background: rgba(5,46,22,0.9);  color: #34d399; border-color: #166534; }
+    .cat-purple { background: rgba(30,10,60,0.9); color: #a78bfa; border-color: #3b1a6e; }
+    .cat-orange { background: rgba(45,18,0,0.9);  color: #fb923c; border-color: #7c2d12; }
+    .cat-pink   { background: rgba(45,10,30,0.9); color: #f472b6; border-color: #831843; }
+    .cat-teal   { background: rgba(10,42,42,0.9); color: #2dd4bf; border-color: #134e4a; }
+
+    .card-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #f8fafc;
+      line-height: 1.35;
+    }
+
+    .card.featured .card-title { font-size: 1.1rem; }
+
+    .card-desc {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.25s, transform 0.25s;
+      max-width: 340px;
+    }
+
+    .card:hover .card-desc {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Meta row */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 2px;
+    }
+
+    .meta-author {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.68rem;
+      color: #64748b;
+    }
+
+    .meta-dot {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.5rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .meta-views {
+      font-size: 0.65rem;
+      color: #334155;
+    }
+
+    /* Top-right action */
+    .card-action {
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 30px; height: 30px;
+      background: rgba(2,6,23,0.7);
+      border: 1px solid #1e293b;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.2s;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+
+    .card:hover .card-action { opacity: 1; }
+
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+      .card.featured { grid-column: span 2; grid-row: span 1; }
+      .card.featured .thumb { min-height: 200px; }
+    }
+
+    @media (max-width: 400px) {
+      .grid { grid-template-columns: 1fr; }
+      .card.featured { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <p class="sec-label">Portfolio</p>
+    <h1 class="sec-title">Project showcase</h1>
+    <p class="sec-sub">Hover each card to reveal details. Featured project spans the full left column.</p>
+  </div>
+
+  <div class="filters">
+    <button class="filter active">All</button>
+    <button class="filter">Landing Pages</button>
+    <button class="filter">Dashboards</button>
+    <button class="filter">Components</button>
+    <button class="filter">Branding</button>
+  </div>
+
+  <div class="grid">
+
+    <!-- Featured -->
+    <div class="card featured">
+      <div class="thumb bg-1">🚀</div>
+      <div class="card-action">♡</div>
+      <div class="card-content">
+        <span class="cat cat-blue">Landing Page</span>
+        <p class="card-title">SaaS product homepage with pricing and FAQ</p>
+        <p class="card-desc">Full landing page built for a B2B SaaS client — hero, features, pricing toggle, FAQ accordion, and contact form. Deployed on Netlify.</p>
+        <div class="card-meta">
+          <div class="meta-author">
+            <div class="meta-dot">SK</div>
+            Subham Kumar
+          </div>
+          <span class="meta-views">👁 1.2k views</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="thumb bg-2">📊</div>
+      <div class="card-action">♡</div>
+      <div class="card-content">
+        <span class="cat cat-purple">Dashboard</span>
+        <p class="card-title">Analytics admin panel</p>
+        <p class="card-desc">Sidebar nav, data table, stat cards, and Kanban board in one shell.</p>
+        <div class="card-meta">
+          <div class="meta-author">
+            <div class="meta-dot">SK</div>
+            Subham Kumar
+          </div>
+          <span class="meta-views">👁 840</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="thumb bg-3">🍽️</div>
+      <div class="card-action">♡</div>
+      <div class="card-content">
+        <span class="cat cat-green">Branding</span>
+        <p class="card-title">BellaVista restaurant site</p>
+        <p class="card-desc">Responsive restaurant landing page with menu and reservation CTA.</p>
+        <div class="card-meta">
+          <div class="meta-author">
+            <div class="meta-dot">SK</div>
+            Subham Kumar
+          </div>
+          <span class="meta-views">👁 620</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card">
+      <div class="thumb bg-4">🧾</div>
+      <div class="card-action">♡</div>
+      <div class="card-content">
+        <span class="cat cat-orange">Component</span>
+        <p class="card-title">Invoice & billing UI</p>
+        <p class="card-desc">Freelance invoice card with GST breakdown and payment status.</p>
+        <div class="card-meta">
+          <div class="meta-author">
+            <div class="meta-dot">SK</div>
+            Subham Kumar
+          </div>
+          <span class="meta-views">👁 510</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card">
+      <div class="thumb bg-5">👕</div>
+      <div class="card-action">♡</div>
+      <div class="card-content">
+        <span class="cat cat-pink">Branding</span>
+        <p class="card-title">Laundry Wallah service site</p>
+        <p class="card-desc">Static landing page with pricing tiers and contact section.</p>
+        <div class="card-meta">
+          <div class="meta-author">
+            <div class="meta-dot">SK</div>
+            Subham Kumar
+          </div>
+          <span class="meta-views">👁 390</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="card">
+      <div class="thumb bg-6">⚡</div>
+      <div class="card-action">♡</div>
+      <div class="card-content">
+        <span class="cat cat-teal">Component</span>
+        <p class="card-title">300+ component library</p>
+        <p class="card-desc">Pure HTML & CSS production components — 313 days and counting.</p>
+        <div class="card-meta">
+          <div class="meta-author">
+            <div class="meta-dot">SK</div>
+            Subham Kumar
+          </div>
+          <span class="meta-views">👁 2.1k</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 7 -->
+    <div class="card">
+      <div class="thumb bg-7">📅</div>
+      <div class="card-action">♡</div>
+      <div class="card-content">
+        <span class="cat cat-orange">Component</span>
+        <p class="card-title">Kanban project board</p>
+        <p class="card-desc">Four-column board with priority badges and drag-ready card layout.</p>
+        <div class="card-meta">
+          <div class="meta-author">
+            <div class="meta-dot">SK</div>
+            Subham Kumar
+          </div>
+          <span class="meta-views">👁 730</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
