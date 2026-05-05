@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day 314 - Onboarding Flow</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #0f172a;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 16px;
+    }
+
+    /* ── Screen radio hack ── */
+    #s1, #s2, #s3 { display: none; }
+
+    /* Default: show screen 1 */
+    #s1:not(:checked) ~ .wrap .screen-1,
+    #s2:checked       ~ .wrap .screen-2,
+    #s3:checked       ~ .wrap .screen-3 { display: flex; }
+
+    .screen-1, .screen-2, .screen-3 { display: none; }
+
+    /* Progress bar fill */
+    #s1:not(:checked) ~ .wrap .bar-fill { width: 33%; }
+    #s2:checked       ~ .wrap .bar-fill { width: 66%; }
+    #s3:checked       ~ .wrap .bar-fill { width: 100%; }
+
+    /* Step highlights */
+    #s2:checked ~ .wrap .step-dot:nth-child(1),
+    #s2:checked ~ .wrap .step-dot:nth-child(2),
+    #s3:checked ~ .wrap .step-dot:nth-child(1),
+    #s3:checked ~ .wrap .step-dot:nth-child(2),
+    #s3:checked ~ .wrap .step-dot:nth-child(3) { background: #38bdf8; border-color: #38bdf8; }
+
+    .wrap {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Progress header */
+    .progress-header {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .steps-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .step-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #1e293b;
+      border: 1.5px solid #1e293b;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .step-dot:nth-child(1) { background: #38bdf8; border-color: #38bdf8; }
+
+    .step-line {
+      flex: 1;
+      height: 1px;
+      background: #1e293b;
+      max-width: 60px;
+    }
+
+    .bar-wrap {
+      height: 3px;
+      background: #1e293b;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: #38bdf8;
+      border-radius: 999px;
+      transition: width 0.4s ease;
+      width: 33%;
+    }
+
+    /* Card */
+    .card {
+      background: #0a1628;
+      border: 1px solid #1e293b;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .card-body {
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card-footer {
+      padding: 14px 28px;
+      border-top: 1px solid #1e293b;
+      background: #060f1e;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    /* Emoji icon */
+    .screen-icon {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background: #0c2340;
+      border: 1px solid #1e3a5f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+    }
+
+    .screen-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #f8fafc;
+      line-height: 1.25;
+    }
+
+    .screen-desc {
+      font-size: 0.8rem;
+      color: #475569;
+      line-height: 1.65;
+    }
+
+    /* ── Role option cards ── */
+    .role-opts {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .role-opt { position: relative; }
+
+    .role-opt input[type="radio"] {
+      position: absolute;
+      opacity: 0; width: 0; height: 0;
+    }
+
+    .role-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: #0f172a;
+      border: 1.5px solid #1e293b;
+      border-radius: 11px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .role-label:hover { border-color: #334155; }
+
+    .role-opt input:checked + .role-label {
+      border-color: #38bdf8;
+      background: #0c2340;
+    }
+
+    .role-icon {
+      width: 38px; height: 38px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      background: #1e293b;
+      flex-shrink: 0;
+    }
+
+    .role-opt input:checked + .role-label .role-icon { background: #1e3a5f; }
+
+    .role-info { display: flex; flex-direction: column; gap: 2px; }
+
+    .role-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+
+    .role-hint {
+      font-size: 0.72rem;
+      color: #475569;
+    }
+
+    /* Radio indicator */
+    .role-radio {
+      margin-left: auto;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid #334155;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.15s;
+    }
+
+    .role-opt input:checked + .role-label .role-radio {
+      border-color: #38bdf8;
+    }
+
+    .role-opt input:checked + .role-label .role-radio::before {
+      content: '';
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: #38bdf8;
+    }
+
+    /* ── Goal checklist ── */
+    .goals {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .goal-opt { position: relative; }
+
+    .goal-opt input[type="checkbox"] {
+      position: absolute;
+      opacity: 0; width: 0; height: 0;
+    }
+
+    .goal-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: #0f172a;
+      border: 1.5px solid #1e293b;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .goal-label:hover { border-color: #334155; }
+
+    .goal-opt input:checked + .goal-label {
+      border-color: #38bdf8;
+      background: #0c2340;
+    }
+
+    .goal-check {
+      width: 20px; height: 20px;
+      border-radius: 6px;
+      border: 1.5px solid #334155;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      transition: background 0.15s, border-color 0.15s;
+      color: transparent;
+    }
+
+    .goal-opt input:checked + .goal-label .goal-check {
+      background: #38bdf8;
+      border-color: #38bdf8;
+      color: #0f172a;
+    }
+
+    .goal-text {
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+
+    .goal-opt input:checked + .goal-label .goal-text { color: #e2e8f0; }
+
+    /* Buttons */
+    .btn {
+      padding: 9px 22px;
+      border-radius: 9px;
+      font-size: 0.825rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, color 0.2s;
+      text-align: center;
+    }
+
+    .btn-primary { background: #38bdf8; color: #0f172a; }
+    .btn-primary:hover { background: #0ea5e9; }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid #1e293b;
+      color: #64748b;
+    }
+
+    .btn-ghost:hover { background: #1e293b; color: #cbd5e1; }
+
+    .btn-success { background: #22c55e; color: #0f172a; }
+    .btn-success:hover { background: #16a34a; }
+
+    .step-info {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    @media (max-width: 400px) {
+      .card-body { padding: 24px 18px; }
+      .card-footer { padding: 12px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Radio inputs control active screen -->
+  <input type="radio" name="screen" id="s1" />
+  <input type="radio" name="screen" id="s2" />
+  <input type="radio" name="screen" id="s3" />
+
+  <div class="wrap">
+
+    <!-- Progress -->
+    <div class="progress-header">
+      <div class="steps-row">
+        <div class="step-dot"></div>
+        <div class="step-line"></div>
+        <div class="step-dot"></div>
+        <div class="step-line"></div>
+        <div class="step-dot"></div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-fill"></div>
+      </div>
+    </div>
+
+    <!-- ── Screen 1: Welcome ── -->
+    <div class="screen-1 card">
+      <div class="card-body">
+        <div class="screen-icon">👋</div>
+        <div>
+          <p class="screen-title">Welcome, Subham.</p>
+          <p class="screen-desc" style="margin-top:6px;">
+            Let's get you set up in under two minutes. We will ask you two quick questions so we can personalise your experience from day one.
+          </p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:10px;font-size:0.8rem;color:#64748b;">
+            <span style="color:#38bdf8;">✓</span> No credit card required
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:0.8rem;color:#64748b;">
+            <span style="color:#38bdf8;">✓</span> Takes less than 2 minutes
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:0.8rem;color:#64748b;">
+            <span style="color:#38bdf8;">✓</span> Cancel or change anytime
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="step-info">Step 1 of 3</span>
+        <label for="s2" class="btn btn-primary">Get started →</label>
+      </div>
+    </div>
+
+    <!-- ── Screen 2: Role selector ── -->
+    <div class="screen-2 card">
+      <div class="card-body">
+        <div>
+          <p class="screen-title">What best describes you?</p>
+          <p class="screen-desc" style="margin-top:6px;">We will tailor your experience based on your role.</p>
+        </div>
+        <div class="role-opts">
+          <div class="role-opt">
+            <input type="radio" name="role" id="r1" />
+            <label class="role-label" for="r1">
+              <div class="role-icon">💻</div>
+              <div class="role-info">
+                <p class="role-name">Frontend Developer</p>
+                <p class="role-hint">Building interfaces and components</p>
+              </div>
+              <div class="role-radio"></div>
+            </label>
+          </div>
+          <div class="role-opt">
+            <input type="radio" name="role" id="r2" />
+            <label class="role-label" for="r2">
+              <div class="role-icon">🎨</div>
+              <div class="role-info">
+                <p class="role-name">UI / UX Designer</p>
+                <p class="role-hint">Designing user flows and visuals</p>
+              </div>
+              <div class="role-radio"></div>
+            </label>
+          </div>
+          <div class="role-opt">
+            <input type="radio" name="role" id="r3" />
+            <label class="role-label" for="r3">
+              <div class="role-icon">🚀</div>
+              <div class="role-info">
+                <p class="role-name">Freelancer</p>
+                <p class="role-hint">Working with clients on projects</p>
+              </div>
+              <div class="role-radio"></div>
+            </label>
+          </div>
+          <div class="role-opt">
+            <input type="radio" name="role" id="r4" />
+            <label class="role-label" for="r4">
+              <div class="role-icon">🏢</div>
+              <div class="role-info">
+                <p class="role-name">Product Manager</p>
+                <p class="role-hint">Overseeing product and team direction</p>
+              </div>
+              <div class="role-radio"></div>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <label for="s1" class="btn btn-ghost">← Back</label>
+        <span class="step-info">Step 2 of 3</span>
+        <label for="s3" class="btn btn-primary">Continue →</label>
+      </div>
+    </div>
+
+    <!-- ── Screen 3: Goals ── -->
+    <div class="screen-3 card">
+      <div class="card-body">
+        <div>
+          <p class="screen-title">What are your goals?</p>
+          <p class="screen-desc" style="margin-top:6px;">Pick everything that applies. You can update this later in settings.</p>
+        </div>
+        <div class="goals">
+          <div class="goal-opt">
+            <input type="checkbox" id="g1" checked />
+            <label class="goal-label" for="g1">
+              <div class="goal-check">✓</div>
+              <span class="goal-text">Land my first freelance client</span>
+            </label>
+          </div>
+          <div class="goal-opt">
+            <input type="checkbox" id="g2" checked />
+            <label class="goal-label" for="g2">
+              <div class="goal-check">✓</div>
+              <span class="goal-text">Build a strong portfolio</span>
+            </label>
+          </div>
+          <div class="goal-opt">
+            <input type="checkbox" id="g3" checked />
+            <label class="goal-label" for="g3">
+              <div class="goal-check">✓</div>
+              <span class="goal-text">Ship components daily</span>
+            </label>
+          </div>
+          <div class="goal-opt">
+            <input type="checkbox" id="g4" />
+            <label class="goal-label" for="g4">
+              <div class="goal-check">✓</div>
+              <span class="goal-text">Learn JavaScript deeply</span>
+            </label>
+          </div>
+          <div class="goal-opt">
+            <input type="checkbox" id="g5" />
+            <label class="goal-label" for="g5">
+              <div class="goal-check">✓</div>
+              <span class="goal-text">Join a startup or agency</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <label for="s2" class="btn btn-ghost">← Back</label>
+        <span class="step-info">Step 3 of 3</span>
+        <label for="s1" class="btn btn-success">Finish setup ✓</label>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
